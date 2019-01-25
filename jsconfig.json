@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+      "module": "esnext",
+      "target": "es5",
+      "checkJs": false,  /* Typecheck .js files. */
+      "lib": [
+          "es6",
+          "dom"
+      ],
+      "rootDir": "src"
+  },
+  "include": [
+    "ext-src"
+  ],
+  "exclude": [
+    "node_modules",
+    "src/App.test.js",
+    "build",
+    "scripts",
+    "acceptance-tests",
+    "webpack",
+    "jest",
+  ]
+}
