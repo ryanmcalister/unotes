@@ -25,11 +25,35 @@ class TuiEditor extends Component {
       usageStatistics: false
     });
 
+    editor.setMarkdown("Hello!!!");
+
+    window.addEventListener('message', this.handleMessage.bind(this));
+
     this.setState({ editor });
   }
 
+  componentWillUnmount() {
+    window.removeEventListener('message', this.handleMessage)
+  }
+
+  handleMessage(e) {
+    switch(e.data.command){
+      case 'setContent':
+        console.log("Setting markdown...");
+        this.state.editor.setMarkdown(e.data.content);
+        break;
+
+      default:
+    }
+    
+  }
+
   onChange = (event) => {
-    console.log(this.state.editor.getValue());
+    //console.log(this.state.editor.getValue());
+    window.vscode.postMessage({
+      command: 'applyChanges',
+      content: this.state.editor.getValue()
+    });
   }
 
   render() {

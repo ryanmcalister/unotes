@@ -8,7 +8,7 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:unotes.start"
+    "onView:noteFiles"
   ],
   "main": "./ext-src/extension.js",
   "contributes": {
@@ -17,10 +17,28 @@
         "command": "unotes.start",
         "title": "Unotes"
       }
-    ]
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "unotes",
+          "title": "UNotes",
+          "icon": "unotes.svg"
+        }
+      ]
+    },
+    "views": {
+      "unotes": [
+        {
+          "id": "noteFiles",
+          "name": "Note Files"
+        }
+      ]
+    }
   },
   "private": true,
   "dependencies": {
+    "fast-glob": "^2.2.6",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
     "react-scripts": "2.1.3",
