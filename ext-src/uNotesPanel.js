@@ -31,6 +31,7 @@ class UNotesPanel {
     
     this.panel = vscode.window.createWebviewPanel('unotes', "UNotes", column, {
       enableScripts: true,
+      retainContextWhenHidden: true,
       localResourceRoots: [
         vscode.Uri.file(path.join(this.extensionPath, 'build'))
       ]
@@ -48,7 +49,10 @@ class UNotesPanel {
 			switch (message.command) {
 				case 'applyChanges':
 					this.saveChanges(message.content)
-					return;
+          return;
+        default:
+          console.log("Unknown webview message received:")
+          console.log(message)
 			}
 		}, null, this.disposables);
 

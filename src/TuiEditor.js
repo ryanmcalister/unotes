@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-import Editor from 'tui-editor'
-import 'tui-editor/dist/tui-editor.css'
-import 'tui-editor/dist/tui-editor-contents.css'
-import 'codemirror/lib/codemirror.css'
-import 'highlight.js/styles/github.css'
+import Editor from 'tui-editor/dist/tui-editor-Editor-all';
+import 'tui-editor/dist/tui-editor.css';
+import 'tui-editor/dist/tui-editor-contents.css';
+import 'codemirror/lib/codemirror.css';
+import 'highlight.js/styles/github.css';
+import './override.css'
+import './override-contents.css'
 
 class TuiEditor extends Component {
 
@@ -22,7 +24,8 @@ class TuiEditor extends Component {
       events: {
         change: this.onChange
       },
-      usageStatistics: false
+      usageStatistics: false,
+      exts: ['scrollSync', 'colorSyntax', 'chart', 'uml']
     });
 
     editor.setMarkdown("Hello!!!");
@@ -39,7 +42,6 @@ class TuiEditor extends Component {
   handleMessage(e) {
     switch(e.data.command){
       case 'setContent':
-        console.log("Setting markdown...");
         this.state.editor.setMarkdown(e.data.content);
         break;
 
