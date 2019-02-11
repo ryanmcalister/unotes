@@ -6,6 +6,7 @@ import 'codemirror/lib/codemirror.css';
 import 'highlight.js/styles/github.css';
 import './override.css'
 import './override-contents.css'
+import './override-codemirror.css'
 
 class TuiEditor extends Component {
 

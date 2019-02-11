@@ -95,7 +95,7 @@ body.vscode-dark .tui-editor-defaultUI .te-switch-button {
 }
 
 body.vscode-dark .tui-editor-defaultUI .te-switch-button.active {
-    background-color: var(--vscode-dropdown-background);
+    background-color: var(--vscode-list-hoverBackground);
     color: var(--vscode-dropdown-foreground);
 }
 
@@ -116,13 +116,13 @@ body.vscode-dark .tui-editor-defaultUI .te-tab button {
 
 body.vscode-dark .te-markdown-tab-section .te-tab button.te-tab-active,
 body.vscode-dark .te-markdown-tab-section .te-tab button:hover.te-tab-active {
-    background-color: var(--vscode-dropdown-background);
-    color: var(--vscode-dropdown-foreground)
+    background-color: var(--vscode-list-hoverBackground);
+    color: var(--vscode-list-hoverForeground)
 }
 
 body.vscode-dark .te-markdown-tab-section .te-tab button:hover {
-    background-color: var(--vscode-dropdown-background);
-    color: var(--vscode-dropdown-foreground);
+    background-color: var(--vscode-list-hoverBackground);
+    color: var(--vscode-list-hoverForeground);
 }
 
 body.vscode-dark .tui-popup-modal-background {
@@ -198,7 +198,7 @@ body.vscode-dark .te-popup-table-utils button {
 }
 
 body.vscode-dark .te-popup-table-utils button:hover {
-    background-color: var(--vscode-dropdown-background);
+    background-color: var(--vscode-list-hoverBackground);
 }
 
 body.vscode-dark .te-popup-table-utils hr {
@@ -206,7 +206,7 @@ body.vscode-dark .te-popup-table-utils hr {
 }
 
 body.vscode-dark .te-heading-add ul li:hover {
-    background-color: var(--vscode-dropdown-background);
+    background-color: var(--vscode-list-hoverBackground);
 }
 
 body.vscode-dark .tui-popup-color .te-apply-button {
