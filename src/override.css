@@ -79,7 +79,7 @@ body.vscode-dark .tui-editor-defaultUI-toolbar button.tui-scrollsync {
 }
 
 body.vscode-dark .tui-editor-defaultUI button.tui-scrollsync.active {
-    color: #125de6;
+    color: #6c93db;
 }
 
 body.vscode-dark .tui-editor-defaultUI .te-mode-switch-section {
@@ -238,13 +238,13 @@ body.vscode-dark .tui-colorpicker-svg-huebar {
 }
 
 body.vscode-dark .te-ww-block-overlay.code-block-header span {
-    color: #333333;
+    color: var(--vscode-dropdown-foreground);
 }
 
 body.vscode-dark .te-ww-block-overlay.code-block-header button {
-    color: #333333;
-    background-color: #f9f9f9;
-    border: 1px solid #dddddd;
+    color: var(--vscode-dropdown-foreground);
+    background-color: var(--vscode-dropdown-background);
+    border: 1px solid var(--vscode-button-hoverBackground);
 }
 
 body.vscode-dark .te-popup-code-block-languages button {
@@ -259,6 +259,7 @@ body.vscode-dark .te-popup-code-block-languages button.active {
 body.vscode-dark .te-input-language input {
     border: 1px solid var(--vscode-dropdown-border);
     background-color: var(--vscode-breadcrumb-background);
+    color: var(--vscode-dropdown-foreground);
 }
 
 body.vscode-dark .te-input-language::after {

@@ -2,7 +2,7 @@
 
 .CodeMirror {
   /* Set height, width, borders, and global font properties here */
-  color: black;
+  color: var(--vscode-foreground);
 }
 
 .CodeMirror-scrollbar-filler, .CodeMirror-gutter-filler {
@@ -26,7 +26,7 @@
 /* CURSOR */
 
 .CodeMirror-cursor {
-  border-left: 1px solid black;
+  border-left: 1px solid var(--vscode-editorCursor-foreground);
 }
 /* Shown when moving in bi-directional text */
 .CodeMirror div.CodeMirror-secondarycursor {
@@ -77,8 +77,8 @@
 
 /* DEFAULT THEME */
 
-.cm-s-default .cm-header {color: blue;}
-.cm-s-default .cm-quote {color: #090;}
+.cm-s-default .cm-header {color: rgb(241, 219, 120);}
+.cm-s-default .cm-quote {color: rgb(153, 187, 153);}
 .cm-negative {color: #d44;}
 .cm-positive {color: #292;}
 .cm-header, .cm-strong {font-weight: bold;}
@@ -86,27 +86,27 @@
 .cm-link {text-decoration: underline;}
 .cm-strikethrough {text-decoration: line-through;}
 
-.cm-s-default .cm-keyword {color: #708;}
-.cm-s-default .cm-atom {color: #219;}
-.cm-s-default .cm-number {color: #164;}
-.cm-s-default .cm-def {color: #00f;}
+.cm-s-default .cm-keyword {color: rgb(187, 150, 192);}
+.cm-s-default .cm-atom {color: rgb(109, 95, 201);}
+.cm-s-default .cm-number {color: rgb(95, 138, 146);}
+.cm-s-default .cm-def {color: rgb(243, 241, 125);}
 .cm-s-default .cm-variable,
 .cm-s-default .cm-punctuation,
 .cm-s-default .cm-property,
 .cm-s-default .cm-operator {}
-.cm-s-default .cm-variable-2 {color: #05a;}
-.cm-s-default .cm-variable-3, .cm-s-default .cm-type {color: #085;}
-.cm-s-default .cm-comment {color: #a50;}
-.cm-s-default .cm-string {color: #a11;}
+.cm-s-default .cm-variable-2 {color: var(--vscode-textPreformat-foreground);}
+.cm-s-default .cm-variable-3, .cm-s-default .cm-type {color: var(--vscode-descriptionForeground);}
+.cm-s-default .cm-comment {color: rgb(224, 161, 97);}
+.cm-s-default .cm-string {color: var(--vscode-editorCodeLens-foreground);}
 .cm-s-default .cm-string-2 {color: #f50;}
 .cm-s-default .cm-meta {color: #555;}
 .cm-s-default .cm-qualifier {color: #555;}
-.cm-s-default .cm-builtin {color: #30a;}
+.cm-s-default .cm-builtin {color: var(--vscode-list-warningForeground);}
 .cm-s-default .cm-bracket {color: #997;}
-.cm-s-default .cm-tag {color: #170;}
-.cm-s-default .cm-attribute {color: #00c;}
-.cm-s-default .cm-hr {color: #999;}
-.cm-s-default .cm-link {color: #00c;}
+.cm-s-default .cm-tag {color: rgb(90, 126, 84);}
+.cm-s-default .cm-attribute {color: var(--vscode-list-highlightForeground);}
+.cm-s-default .cm-hr {color: var(--vscode-list-focusForeground);}
+.cm-s-default .cm-link {color: var(--vscode-textLink-foreground);}
 
 .cm-s-default .cm-error {color: #f00;}
 .cm-invalidchar {color: #f00;}
