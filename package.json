@@ -1,6 +1,7 @@
 {
-  "name": "unotes-react",
+  "name": "UNotes",
   "version": "0.1.0",
+  "publisher": "ryanmcalister",
   "engines": {
     "vscode": "^1.30.0"
   },
@@ -38,25 +39,16 @@
   },
   "private": true,
   "dependencies": {
-    "fast-glob": "^2.2.6",
-    "react": "^16.7.0",
-    "react-dom": "^16.7.0",
-    "react-scripts": "2.1.3",
-    "tui-editor": "^1.3.0"
+    "fast-glob": "^2.2.6"
   },
   "devDependencies": {
     "@types/node": "^10.12.18",
-    "rewire": "^4.0.1",
     "typescript": "^3.2.4",
     "vscode": "^1.1.25"
   },
   "scripts": {
-    "vscode:prepublish": "react-scripts build",
-    "postinstall": "node ./node_modules/vscode/bin/install",
-    "start": "react-scripts start",
-    "build": "node build-non-split.js",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "vscode:prepublish": "rmdir /s /q build && cd editor && node build-non-split.js && move build .. && cd ..",
+    "postinstall": "node ./node_modules/vscode/bin/install"
   },
   "eslintConfig": {
     "extends": "react-app"
