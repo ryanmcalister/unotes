@@ -26,49 +26,96 @@ class UNotesPanel {
   }
 
   constructor(extensionPath, column){
-    this.extensionPath = extensionPath;
-    this.disposables = [];
-    
-    this.panel = vscode.window.createWebviewPanel('unotes', "UNotes", column, {
-      enableScripts: true,
-      retainContextWhenHidden: true,
-      localResourceRoots: [
-        vscode.Uri.file(path.join(this.extensionPath, 'build'))
-      ]
-    });
+    try {
+      this.extensionPath = extensionPath;
+      this.disposables = [];
+      this.reloadContent = false;
+      this.currentNote = '';
+      
+      this.panel = vscode.window.createWebviewPanel('unotes', "UNotes", column, {
+        enableScripts: true,
+        retainContextWhenHidden: true,
+        localResourceRoots: [
+          vscode.Uri.file(path.join(this.extensionPath, 'build'))
+        ]
+      });
 
-    // Set the webview's initial html content
-    this.panel.webview.html = this.getWebviewContent();
+      // Set the webview's initial html content
+      this.panel.webview.html = this.getWebviewContent();
 
-    // Listen for when the panel is disposed
-		// This happens when the user closes the panel or when the panel is closed programatically
-    this.panel.onDidDispose(() => this.dispose(), null, this.disposables);
+      // Listen for when the panel is disposed
+      // This happens when the user closes the panel or when the panel is closed programatically
+      this.panel.onDidDispose(() => this.dispose(), null, this.disposables);
 
-    // Handle messages from the webview
-		this.panel.webview.onDidReceiveMessage(message => {
-			switch (message.command) {
-				case 'applyChanges':
-					this.saveChanges(message.content)
-          return;
-        default:
-          console.log("Unknown webview message received:")
-          console.log(message)
-			}
-		}, null, this.disposables);
+      // Handle messages from the webview
+      this.panel.webview.onDidReceiveMessage(message => {
+        switch (message.command) {
+          case 'applyChanges':
+            this.saveChanges(message.content)
+            return;
+          default:
+            console.log("Unknown webview message received:")
+            console.log(message)
+        }
+      }, null, this.disposables);
+
+      this.panel.onDidChangeViewState(e => {
+        if(e.webviewPanel._active){
+          if(this.reloadContent){
+            this.updateContents(this.currentNote);
+            this.reloadContent = false;
+          }
+        }
+      })
+    }
+    catch (e) {
+      console.log(e);
+    }
 
   }
 
   saveChanges(content){
     if(this.currentNote){
+      this.writingFile = this.currentNote;
       fs.writeFileSync(this.currentNote, content);
     }
   }
 
   showUNote(unote) {
-    const filePath = path.join(vscode.workspace.rootPath, unote.folderPath, unote.label);
-    this.currentNote = filePath;
-    const content = fs.readFileSync(filePath).toString('ascii');
-    this.panel.webview.postMessage({ command: 'setContent', content: content });
+    try {
+      const filePath = path.join(vscode.workspace.rootPath, unote.folderPath, unote.label);
+      this.currentNote = filePath;
+      this.updateContents(filePath);
+    }
+    catch (e) {
+      console.log(e);
+    }
+  }
+
+  updateContents(filePath){
+    try {
+      const content = fs.readFileSync(filePath).toString('ascii');
+      this.panel.webview.postMessage({ command: 'setContent', content });
+    }
+    catch (e){
+      console.log(e);
+    }
+  }
+
+  updateFileIfOpen(filePath) {
+    // update our view if an external change happens
+    if((this.currentNote == filePath) && (filePath != this.writingFile)){
+        // if the view is active then load now else flag to reload on showing
+      if(this.panel._active){
+        this.updateContents(filePath);
+      } else {
+        console.log("setting reload");
+        this.reloadContent = true;
+      }    
+      return true;
+    } 
+    this.writingFile = '';
+    return false;
   }
 
   doRefactor() {

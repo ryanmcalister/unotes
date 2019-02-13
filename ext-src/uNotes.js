@@ -72,7 +72,7 @@ class UNote extends vscode.TreeItem {
     return `${this.label}`;
   }
   get description() {
-    return 'UNote';
+    return '';
   }
 }
 exports.UNote = UNote;
@@ -89,15 +89,33 @@ class UNotes {
 		view.onDidChangeSelection((e) => {
 			if( e.selection.length > 0 ){
 				if(!e.selection[0].isFolder){
-          console.log("Open " + e.selection[0].label);
           uNotesPanel.UNotesPanel.createOrShow(context.extensionPath);
           const panel = uNotesPanel.UNotesPanel.instance();
           panel.showUNote(e.selection[0]);
 				}
 			}
     });
-    
-    
+
+    const fswatcher = vscode.workspace.createFileSystemWatcher("**/*.md", false, false, false);
+    fswatcher.onDidChange((e) => {
+      
+      if(uNotesPanel.UNotesPanel.instance()){
+        const panel = uNotesPanel.UNotesPanel.instance();
+        if(panel.updateFileIfOpen(e.fsPath)){
+          uNoteProvider.refresh();
+        }
+
+      } else {
+        uNoteProvider.refresh();
+      }
+    });
+    fswatcher.onDidCreate((e) => {
+      uNoteProvider.refresh();
+    });
+    fswatcher.onDidDelete((e) => {
+      uNoteProvider.refresh();
+    });
+
   }
 }
 exports.UNotes = UNotes;
