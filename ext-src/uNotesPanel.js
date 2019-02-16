@@ -66,12 +66,79 @@ class UNotesPanel {
             this.reloadContent = false;
           }
         }
-      })
+      });
+
+      // Register commands
+      vscode.commands.registerCommand("unotes.heading.1", () => {
+        this.hotkeyExec(['Heading', 1]);
+      });
+      vscode.commands.registerCommand("unotes.heading.2", () => {
+        this.hotkeyExec(['Heading', 2]);
+      });
+      vscode.commands.registerCommand("unotes.heading.3", () => {
+        this.hotkeyExec(['Heading', 3]);
+      });
+      vscode.commands.registerCommand("unotes.heading.4", () => {
+        this.hotkeyExec(['Heading', 4]);
+      });
+      vscode.commands.registerCommand("unotes.heading.5", () => {
+        this.hotkeyExec(['Heading', 5]);
+      });
+      vscode.commands.registerCommand("unotes.heading.6", () => {
+        this.hotkeyExec(['Heading', 6]);
+      });
+      vscode.commands.registerCommand("unotes.normal", () => {
+        this.hotkeyExec(['Paragraph']);
+      });
+      vscode.commands.registerCommand("unotes.bold", () => {
+        this.hotkeyExec(['Bold']);
+      });
+      vscode.commands.registerCommand("unotes.italic", () => {
+        this.hotkeyExec(['Italic']);
+      });
+      vscode.commands.registerCommand("unotes.strike", () => {
+        this.hotkeyExec(['Strike']);
+      });
+      vscode.commands.registerCommand("unotes.task", () => {
+        this.hotkeyExec(['Task']);
+      });
+      vscode.commands.registerCommand("unotes.ul", () => {
+        this.hotkeyExec(['UL']);
+      });
+      vscode.commands.registerCommand("unotes.ol", () => {
+        this.hotkeyExec(['OL']);
+      });
+      vscode.commands.registerCommand("unotes.blockquote", () => {
+        this.hotkeyExec(['Blockquote']);
+      });
+      vscode.commands.registerCommand("unotes.code", () => {
+        this.hotkeyExec(['Code']);
+      });
+      vscode.commands.registerCommand("unotes.codeblock", () => {
+        this.hotkeyExec(['CodeBlock']);
+      });
+      vscode.commands.registerCommand("unotes.indent", () => {
+        this.hotkeyExec(['Indent']);
+      });
+      vscode.commands.registerCommand("unotes.outdent", () => {
+        this.hotkeyExec(['Outdent']);
+      });
+      vscode.commands.registerCommand("unotes.hr", () => {
+        this.hotkeyExec(['HR']);
+      });
+
+
     }
     catch (e) {
       console.log(e);
     }
 
+  }
+
+  hotkeyExec(args){
+    if(this.panel._active){
+      this.panel.webview.postMessage({ command: 'exec', args });
+    }
   }
 
   saveChanges(content){

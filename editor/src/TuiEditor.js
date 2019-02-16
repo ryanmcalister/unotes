@@ -26,10 +26,11 @@ class TuiEditor extends Component {
         change: this.onChange
       },
       usageStatistics: false,
+      useCommandShortcut: false,
       exts: ['scrollSync', 'colorSyntax', 'chart', 'uml']
     });
 
-    editor.setMarkdown("Hello!!!");
+    editor.setMarkdown("");
 
     window.addEventListener('message', this.handleMessage.bind(this));
 
@@ -44,6 +45,10 @@ class TuiEditor extends Component {
     switch(e.data.command){
       case 'setContent':
         this.state.editor.setMarkdown(e.data.content);
+        this.state.editor.scrollTop(0);
+        break;
+      case 'exec':
+        this.state.editor.exec(...e.data.args);
         break;
 
       default:

@@ -17,6 +17,107 @@
       {
         "command": "unotes.start",
         "title": "Unotes"
+      },
+      {
+        "command": "unotes.heading1",
+        "title": "Unotes Heading 1"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "unotes.heading.1",
+        "key": "ctrl+1",
+        "mac": "cmd+1"
+      },
+      {
+        "command": "unotes.heading.2",
+        "key": "ctrl+2",
+        "mac": "cmd+2"
+      },
+      {
+        "command": "unotes.heading.3",
+        "key": "ctrl+3",
+        "mac": "cmd+3"
+      },
+      {
+        "command": "unotes.heading.4",
+        "key": "ctrl+4",
+        "mac": "cmd+4"
+      },
+      {
+        "command": "unotes.heading.5",
+        "key": "ctrl+5",
+        "mac": "cmd+5"
+      },
+      {
+        "command": "unotes.heading.6",
+        "key": "ctrl+6",
+        "mac": "cmd+6"
+      },
+      {
+        "command": "unotes.normal",
+        "key": "ctrl+shift+n",
+        "mac": "cmd+shift+n"
+      },
+      {
+        "command": "unotes.bold",
+        "key": "ctrl+b",
+        "mac": "cmd+b"
+      },
+      {
+        "command": "unotes.italic",
+        "key": "ctrl+i",
+        "mac": "cmd+i"
+      },
+      {
+        "command": "unotes.strike",
+        "key": "ctrl+s",
+        "mac": "cmd+s"
+      },
+      {
+        "command": "unotes.task",
+        "key": "ctrl+t",
+        "mac": "cmd+t"
+      },
+      {
+        "command": "unotes.ul",
+        "key": "ctrl+u",
+        "mac": "cmd+u"
+      },
+      {
+        "command": "unotes.ol",
+        "key": "ctrl+o",
+        "mac": "cmd+o"
+      },
+      {
+        "command": "unotes.blockquote",
+        "key": "ctrl+q",
+        "mac": "cmd+q"
+      },
+      {
+        "command": "unotes.code",
+        "key": "ctrl+shift+h",
+        "mac": "cmd+shift+h"
+      },
+      {
+        "command": "unotes.codeblock",
+        "key": "ctrl+shift+b",
+        "mac": "cmd+shift+b"
+      },
+      {
+        "command": "unotes.indent",
+        "key": "ctrl+[",
+        "mac": "cmd+["
+      },
+      {
+        "command": "unotes.outdent",
+        "key": "ctrl+]",
+        "mac": "cmd+]"
+      },
+      {
+        "command": "unotes.hr",
+        "key": "ctrl+l",
+        "mac": "cmd+l"
       }
     ],
     "viewsContainers": {
@@ -48,7 +149,8 @@
   },
   "scripts": {
     "vscode:prepublish": "rmdir /s /q build && cd editor && node build-non-split.js && move build .. && cd ..",
-    "postinstall": "node ./node_modules/vscode/bin/install"
+    "postinstall": "node ./node_modules/vscode/bin/install",
+    "build": "rmdir /s /q build && cd editor && node build-non-split.js && move build .. && cd .."
   },
   "eslintConfig": {
     "extends": "react-app"
