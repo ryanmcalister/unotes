@@ -1,6 +1,6 @@
 {
   "name": "UNotes",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "publisher": "ryanmcalister",
   "engines": {
     "vscode": "^1.30.0"
@@ -26,43 +26,43 @@
     "keybindings": [
       {
         "command": "unotes.heading.1",
-        "key": "ctrl+1",
-        "mac": "cmd+1"
+        "key": "ctrl+shift+1",
+        "mac": "cmd+shift+1"
       },
       {
         "command": "unotes.heading.2",
-        "key": "ctrl+2",
-        "mac": "cmd+2"
+        "key": "ctrl+shift+2",
+        "mac": "cmd+shift+2"
       },
       {
         "command": "unotes.heading.3",
-        "key": "ctrl+3",
-        "mac": "cmd+3"
+        "key": "ctrl+shift+3",
+        "mac": "cmd+shift+3"
       },
       {
         "command": "unotes.heading.4",
-        "key": "ctrl+4",
-        "mac": "cmd+4"
+        "key": "ctrl+shift+4",
+        "mac": "cmd+shift+4"
       },
       {
         "command": "unotes.heading.5",
-        "key": "ctrl+5",
-        "mac": "cmd+5"
+        "key": "ctrl+shift+5",
+        "mac": "cmd+shift+5"
       },
       {
         "command": "unotes.heading.6",
-        "key": "ctrl+6",
-        "mac": "cmd+6"
+        "key": "ctrl+shift+6",
+        "mac": "cmd+shift+6"
       },
       {
         "command": "unotes.normal",
-        "key": "ctrl+shift+n",
-        "mac": "cmd+shift+n"
+        "key": "ctrl+shift+0",
+        "mac": "cmd+shift+0"
       },
       {
         "command": "unotes.bold",
-        "key": "ctrl+b",
-        "mac": "cmd+b"
+        "key": "ctrl+alt+b",
+        "mac": "cmd+alt+b"
       },
       {
         "command": "unotes.italic",
@@ -71,8 +71,8 @@
       },
       {
         "command": "unotes.strike",
-        "key": "ctrl+s",
-        "mac": "cmd+s"
+        "key": "ctrl+alt+s",
+        "mac": "cmd+alt+s"
       },
       {
         "command": "unotes.task",
@@ -91,28 +91,28 @@
       },
       {
         "command": "unotes.blockquote",
-        "key": "ctrl+q",
-        "mac": "cmd+q"
+        "key": "ctrl+alt+q",
+        "mac": "cmd+alt+q"
       },
       {
         "command": "unotes.code",
-        "key": "ctrl+shift+h",
-        "mac": "cmd+shift+h"
+        "key": "ctrl+alt+h",
+        "mac": "cmd+alt+h"
       },
       {
         "command": "unotes.codeblock",
-        "key": "ctrl+shift+b",
-        "mac": "cmd+shift+b"
+        "key": "ctrl+alt+c",
+        "mac": "cmd+alt+c"
       },
       {
         "command": "unotes.indent",
-        "key": "ctrl+[",
-        "mac": "cmd+["
+        "key": "",
+        "mac": ""
       },
       {
         "command": "unotes.outdent",
-        "key": "ctrl+]",
-        "mac": "cmd+]"
+        "key": "",
+        "mac": ""
       },
       {
         "command": "unotes.hr",
