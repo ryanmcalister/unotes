@@ -7,7 +7,7 @@ const uNotes = require('./uNotes');
 
 function activate(context){
 	new uNotes.UNotes(context);
-	vscode.workspace.onDidOpenTextDocument(e => { console.log("HEELO!!!")});
+	//vscode.workspace.onDidOpenTextDocument(e => { console.log("HEELO!!!")});
 }
 exports.activate = activate;
 

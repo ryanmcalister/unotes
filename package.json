@@ -26,38 +26,38 @@
     "keybindings": [
       {
         "command": "unotes.heading.1",
-        "key": "ctrl+shift+1",
-        "mac": "cmd+shift+1"
+        "key": "ctrl+alt+1",
+        "mac": "cmd+alt+1"
       },
       {
         "command": "unotes.heading.2",
-        "key": "ctrl+shift+2",
-        "mac": "cmd+shift+2"
+        "key": "ctrl+alt+2",
+        "mac": "cmd+alt+2"
       },
       {
         "command": "unotes.heading.3",
-        "key": "ctrl+shift+3",
-        "mac": "cmd+shift+3"
+        "key": "ctrl+alt+3",
+        "mac": "cmd+alt+3"
       },
       {
         "command": "unotes.heading.4",
-        "key": "ctrl+shift+4",
-        "mac": "cmd+shift+4"
+        "key": "ctrl+alt+4",
+        "mac": "cmd+alt+4"
       },
       {
         "command": "unotes.heading.5",
-        "key": "ctrl+shift+5",
-        "mac": "cmd+shift+5"
+        "key": "ctrl+alt+5",
+        "mac": "cmd+alt+5"
       },
       {
         "command": "unotes.heading.6",
-        "key": "ctrl+shift+6",
-        "mac": "cmd+shift+6"
+        "key": "ctrl+alt+6",
+        "mac": "cmd+alt+6"
       },
       {
         "command": "unotes.normal",
-        "key": "ctrl+shift+0",
-        "mac": "cmd+shift+0"
+        "key": "ctrl+alt+0",
+        "mac": "cmd+alt+0"
       },
       {
         "command": "unotes.bold",
@@ -66,8 +66,8 @@
       },
       {
         "command": "unotes.italic",
-        "key": "ctrl+i",
-        "mac": "cmd+i"
+        "key": "ctrl+alt+i",
+        "mac": "cmd+alt+i"
       },
       {
         "command": "unotes.strike",
@@ -76,18 +76,18 @@
       },
       {
         "command": "unotes.task",
-        "key": "ctrl+t",
-        "mac": "cmd+t"
+        "key": "ctrl+alt+t",
+        "mac": "cmd+alt+t"
       },
       {
         "command": "unotes.ul",
-        "key": "ctrl+u",
-        "mac": "cmd+u"
+        "key": "ctrl+alt+u",
+        "mac": "cmd+alt+u"
       },
       {
         "command": "unotes.ol",
-        "key": "ctrl+o",
-        "mac": "cmd+o"
+        "key": "ctrl+alt+o",
+        "mac": "cmd+alt+o"
       },
       {
         "command": "unotes.blockquote",
@@ -116,8 +116,8 @@
       },
       {
         "command": "unotes.hr",
-        "key": "ctrl+l",
-        "mac": "cmd+l"
+        "key": "ctrl+alt+l",
+        "mac": "cmd+alt+l"
       }
     ],
     "viewsContainers": {

@@ -36,13 +36,14 @@ class UNotesPanel {
         enableScripts: true,
         retainContextWhenHidden: true,
         localResourceRoots: [
+          vscode.Uri.file(path.join(vscode.workspace.rootPath)),
           vscode.Uri.file(path.join(this.extensionPath, 'build'))
         ]
       });
 
       // Set the webview's initial html content
       this.panel.webview.html = this.getWebviewContent();
-
+      
       // Listen for when the panel is disposed
       // This happens when the user closes the panel or when the panel is closed programatically
       this.panel.onDidDispose(() => this.dispose(), null, this.disposables);
@@ -66,66 +67,66 @@ class UNotesPanel {
             this.reloadContent = false;
           }
         }
-      });
+      }, null, this.disposables);
 
       // Register commands
-      vscode.commands.registerCommand("unotes.heading.1", () => {
+      this.disposables.push(vscode.commands.registerCommand("unotes.heading.1", () => {
         this.hotkeyExec(['Heading', 1]);
-      });
-      vscode.commands.registerCommand("unotes.heading.2", () => {
+      }));
+      this.disposables.push(vscode.commands.registerCommand("unotes.heading.2", () => {
         this.hotkeyExec(['Heading', 2]);
-      });
-      vscode.commands.registerCommand("unotes.heading.3", () => {
+      }));
+      this.disposables.push(vscode.commands.registerCommand("unotes.heading.3", () => {
         this.hotkeyExec(['Heading', 3]);
-      });
-      vscode.commands.registerCommand("unotes.heading.4", () => {
+      }));
+      this.disposables.push(vscode.commands.registerCommand("unotes.heading.4", () => {
         this.hotkeyExec(['Heading', 4]);
-      });
-      vscode.commands.registerCommand("unotes.heading.5", () => {
+      }));
+      this.disposables.push(vscode.commands.registerCommand("unotes.heading.5", () => {
         this.hotkeyExec(['Heading', 5]);
-      });
-      vscode.commands.registerCommand("unotes.heading.6", () => {
+      }));
+      this.disposables.push(vscode.commands.registerCommand("unotes.heading.6", () => {
         this.hotkeyExec(['Heading', 6]);
-      });
-      vscode.commands.registerCommand("unotes.normal", () => {
+      }));
+      this.disposables.push(vscode.commands.registerCommand("unotes.normal", () => {
         this.hotkeyExec(['Paragraph']);
-      });
-      vscode.commands.registerCommand("unotes.bold", () => {
+      }));
+      this.disposables.push(vscode.commands.registerCommand("unotes.bold", () => {
         this.hotkeyExec(['Bold']);
-      });
-      vscode.commands.registerCommand("unotes.italic", () => {
+      }));
+      this.disposables.push(vscode.commands.registerCommand("unotes.italic", () => {
         this.hotkeyExec(['Italic']);
-      });
-      vscode.commands.registerCommand("unotes.strike", () => {
+      }));
+      this.disposables.push(vscode.commands.registerCommand("unotes.strike", () => {
         this.hotkeyExec(['Strike']);
-      });
-      vscode.commands.registerCommand("unotes.task", () => {
+      }));
+      this.disposables.push(vscode.commands.registerCommand("unotes.task", () => {
         this.hotkeyExec(['Task']);
-      });
-      vscode.commands.registerCommand("unotes.ul", () => {
+      }));
+      this.disposables.push(vscode.commands.registerCommand("unotes.ul", () => {
         this.hotkeyExec(['UL']);
-      });
-      vscode.commands.registerCommand("unotes.ol", () => {
+      }));
+      this.disposables.push(vscode.commands.registerCommand("unotes.ol", () => {
         this.hotkeyExec(['OL']);
-      });
-      vscode.commands.registerCommand("unotes.blockquote", () => {
+      }));
+      this.disposables.push(vscode.commands.registerCommand("unotes.blockquote", () => {
         this.hotkeyExec(['Blockquote']);
-      });
-      vscode.commands.registerCommand("unotes.code", () => {
+      }));
+      this.disposables.push(vscode.commands.registerCommand("unotes.code", () => {
         this.hotkeyExec(['Code']);
-      });
-      vscode.commands.registerCommand("unotes.codeblock", () => {
+      }));
+      this.disposables.push(vscode.commands.registerCommand("unotes.codeblock", () => {
         this.hotkeyExec(['CodeBlock']);
-      });
-      vscode.commands.registerCommand("unotes.indent", () => {
+      }));
+      this.disposables.push(vscode.commands.registerCommand("unotes.indent", () => {
         this.hotkeyExec(['Indent']);
-      });
-      vscode.commands.registerCommand("unotes.outdent", () => {
+      }));
+      this.disposables.push(vscode.commands.registerCommand("unotes.outdent", () => {
         this.hotkeyExec(['Outdent']);
-      });
-      vscode.commands.registerCommand("unotes.hr", () => {
+      }));
+      this.disposables.push(vscode.commands.registerCommand("unotes.hr", () => {
         this.hotkeyExec(['HR']);
-      });
+      }));
 
 
     }
@@ -153,6 +154,8 @@ class UNotesPanel {
       const filePath = path.join(vscode.workspace.rootPath, unote.folderPath, unote.label);
       this.currentNote = filePath;
       this.updateContents(filePath);
+      const title = unote.label.substring(0, unote.label.lastIndexOf('.'));
+      this.panel.title = 'Unotes - ' + title;
     }
     catch (e) {
       console.log(e);
