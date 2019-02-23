@@ -179,7 +179,6 @@ class UNotesPanel {
       if(this.panel._active){
         this.updateContents(filePath);
       } else {
-        console.log("setting reload");
         this.reloadContent = true;
       }    
       return true;
