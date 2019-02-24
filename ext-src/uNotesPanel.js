@@ -30,7 +30,8 @@ class UNotesPanel {
       this.extensionPath = extensionPath;
       this.disposables = [];
       this.reloadContent = false;
-      this.currentNote = '';
+      this.currentPath = '';
+      this.currentNote = null;
       
       this.panel = vscode.window.createWebviewPanel('unotes', "UNotes", column, {
         enableScripts: true,
@@ -63,7 +64,7 @@ class UNotesPanel {
       this.panel.onDidChangeViewState(e => {
         if(e.webviewPanel._active){
           if(this.reloadContent){
-            this.updateContents(this.currentNote);
+            this.updateContents();
             this.reloadContent = false;
           }
         }
@@ -143,17 +144,18 @@ class UNotesPanel {
   }
 
   saveChanges(content){
-    if(this.currentNote){
-      this.writingFile = this.currentNote;
-      fs.writeFileSync(this.currentNote, content);
+    if(this.currentPath){
+      this.writingFile = this.currentPath;
+      fs.writeFileSync(this.currentPath, content);
     }
   }
 
   showUNote(unote) {
     try {
       const filePath = path.join(vscode.workspace.rootPath, unote.folderPath, unote.label);
-      this.currentNote = filePath;
-      this.updateContents(filePath);
+      this.currentNote = unote;
+      this.currentPath = filePath;
+      this.updateContents();
       const title = unote.label.substring(0, unote.label.lastIndexOf('.'));
       this.panel.title = 'Unotes - ' + title;
     }
@@ -162,10 +164,11 @@ class UNotesPanel {
     }
   }
 
-  updateContents(filePath){
+  updateContents(){
     try {
-      const content = fs.readFileSync(filePath).toString('ascii');
-      this.panel.webview.postMessage({ command: 'setContent', content });
+      const content = fs.readFileSync(this.currentPath).toString('ascii');
+      const folderPath = vscode.Uri.file(path.join(vscode.workspace.rootPath, this.currentNote.folderPath)).path;
+      this.panel.webview.postMessage({ command: 'setContent', content, folderPath });
     }
     catch (e){
       console.log(e);
@@ -174,10 +177,10 @@ class UNotesPanel {
 
   updateFileIfOpen(filePath) {
     // update our view if an external change happens
-    if((this.currentNote == filePath) && (filePath != this.writingFile)){
+    if((this.currentPath == filePath) && (filePath != this.writingFile)){
         // if the view is active then load now else flag to reload on showing
       if(this.panel._active){
-        this.updateContents(filePath);
+        this.updateContents();
       } else {
         this.reloadContent = true;
       }    

@@ -9,7 +9,8 @@ import './override-contents.css';
 import './override-codemirror.css';
 import { debounce } from 'debounce';
 
-var img_root = 'vscode-resource:/s:/BrainGrapes/Unotes/ext-test-project/2018 Notes/';
+// root for local images
+var img_root = '';
 
 function escapeRegExp(str) {
   return str.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
@@ -82,6 +83,7 @@ class TuiEditor extends Component {
   handleMessage(e) {
     switch(e.data.command){
       case 'setContent':
+        img_root = e.data.folderPath + '/';
         this.state.editor.setMarkdown(e.data.content);
         this.state.editor.scrollTop(0);
         break;
