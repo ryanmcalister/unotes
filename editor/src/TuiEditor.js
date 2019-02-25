@@ -23,7 +23,7 @@ function replaceAll(str, find, replace) {
 Editor.defineExtension('unotes', function() {
   const defaultRenderer = Editor.markdownit.renderer.rules.image;
   const httpRE = /^https?:\/\/|^data:/;
-  Editor.markdownit.renderer.rules.image=function (tokens, idx, options, env, self) { 
+  const imgFunc=function (tokens, idx, options, env, self) { 
     const token = tokens[idx]
     const srcIndex = token.attrIndex('src');
     const altIndex = token.attrIndex('alt');
@@ -41,6 +41,9 @@ Editor.defineExtension('unotes', function() {
     const img = `<img${src}${alt}${ttl} />`;
     return img;
   };
+
+  Editor.markdownit.renderer.rules.image = imgFunc;
+  Editor.markdownitHighlight.renderer.rules.image = imgFunc;
 });
 
 class TuiEditor extends Component {
@@ -65,7 +68,9 @@ class TuiEditor extends Component {
       exts: ['scrollSync', 'colorSyntax', 'chart', 'uml', 'unotes']
     });
 
-    editor.on("convertorBeforeHtmlToMarkdownConverted", this.onHtmlBefore.bind(this))
+    editor.on("convertorBeforeHtmlToMarkdownConverted", this.onHtmlBefore.bind(this));
+
+    editor.on("previewBeforeHook", this.onPreviewBeforeHook.bind(this));
 
     window.addEventListener('message', this.handleMessage.bind(this));
 
@@ -74,6 +79,11 @@ class TuiEditor extends Component {
 
   onHtmlBefore(e){
     return replaceAll(e, img_root, '');
+  }
+
+  onPreviewBeforeHook(e){
+    console.log(e);
+    return e;
   }
 
   componentWillUnmount() {
