@@ -152,11 +152,11 @@ class UNotesPanel {
 
   showUNote(unote) {
     try {
-      const filePath = path.join(vscode.workspace.rootPath, unote.folderPath, unote.label);
+      const filePath = path.join(vscode.workspace.rootPath, unote.folderPath, unote.file);
       this.currentNote = unote;
       this.currentPath = filePath;
       this.updateContents();
-      const title = unote.label.substring(0, unote.label.lastIndexOf('.'));
+      const title = unote.label;
       this.panel.title = 'Unotes - ' + title;
     }
     catch (e) {

@@ -28,7 +28,7 @@ class UNoteProvider {
     }
     if (element) {
       if(element.isFolder){
-        return Promise.resolve(this.getItemsFromFolder(element.folderPath + '/' + element.label));
+        return Promise.resolve(this.getItemsFromFolder(element.folderPath + '/' + element.file));
       }
       return Promise.resolve([]);
 
@@ -55,9 +55,19 @@ class UNoteProvider {
 }
 exports.UNoteProvider = UNoteProvider;
 
+function stripMD(str){
+  const pos = str.toUpperCase().lastIndexOf('.MD');
+  if(pos<0){
+    return str;
+  }
+  return str.substring(0, pos);
+}
+
 class UNote extends vscode.TreeItem {
-  constructor(label, collapsibleState, isFolder, folderPath) {
+  constructor(file, collapsibleState, isFolder, folderPath) {
+    const label = stripMD(file);
     super(label, collapsibleState);
+    this.file = file;
     this.label = label;
     this.collapsibleState = collapsibleState;
     this.isFolder = isFolder;
