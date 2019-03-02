@@ -1,6 +1,6 @@
 {
   "name": "UNotes",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "publisher": "ryanmcalister",
   "engines": {
     "vscode": "^1.30.0"
@@ -166,6 +166,7 @@
   },
   "private": true,
   "dependencies": {
+    "debounce": "^1.2.0",
     "fast-glob": "^2.2.6"
   },
   "devDependencies": {

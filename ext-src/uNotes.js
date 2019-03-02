@@ -9,6 +9,7 @@ const path = require("path");
 const fs = require("fs");
 const fg = require('fast-glob');
 const uNotesPanel = require('./uNotesPanel');
+const debounce = require("debounce");
 
 class UNoteProvider {
   constructor(workspaceRoot) {
@@ -17,6 +18,7 @@ class UNoteProvider {
     this.workspaceRoot = workspaceRoot;
     this._onDidChangeTreeData = new vscode.EventEmitter();
     this.onDidChangeTreeData = this._onDidChangeTreeData.event;
+    this.refresh = debounce(this.refresh.bind(this), 200, true);
         
   }
 
@@ -33,6 +35,7 @@ class UNoteProvider {
     console.log("refreshing...")
     this._onDidChangeTreeData.fire();
   }
+  
   getTreeItem(element) {
     return element;
   }
@@ -193,24 +196,28 @@ class UNotes {
 
   }
 
+  getSelectedPaths(){
+    const paths = [vscode.workspace.rootPath];
+    if(this.view.selection.length > 0 ){
+      // create in the selected folder
+      const item = this.view.selection[0];
+      paths.push(item.folderPath);        
+      if(item.isFolder){
+        // add parent folder name
+        paths.push(item.file);
+      }
+    }
+    return paths;
+  }
+
   onAddNewNote(){
     vscode.window.showInputBox({ placeHolder: 'Enter new note name' })
     .then(value => {
       if(!value) return;
-      let newFilePath = '';
       const newFileName = stripMD(value) + '.md';
-      if(this.view.selection.length > 0 ){
-        // create in the selected folder
-        const item = this.view.selection[0];        
-        if(item.isFolder){
-          newFilePath = path.join(vscode.workspace.rootPath, item.folderPath, item.file, newFileName);
-        } else {
-          newFilePath = path.join(vscode.workspace.rootPath, item.folderPath, newFileName);
-        }              
-      } else {
-        // create a new .md file in the root directory
-        newFilePath = path.join(vscode.workspace.rootPath, newFileName);
-      }
+      const paths = this.getSelectedPaths();
+      paths.push(newFileName);
+      const newFilePath = path.join(...paths);
       if(this.addNewNote(newFilePath)){
         this.selectAfterRefresh = newFilePath;
       }
@@ -224,16 +231,7 @@ class UNotes {
     vscode.window.showInputBox({ placeHolder: 'Enter new folder name' })
     .then(value => {
       if(!value) return;
-      const paths = [];
-      paths.push(vscode.workspace.rootPath);  // abs path
-      if(this.view.selection.length > 0 ){
-        const item = this.view.selection[0];
-        paths.push(item.folderPath);
-        if(item.isFolder){
-          // add parent foler name
-          paths.push(item.file);
-        }
-      } 
+      const paths = this.getSelectedPaths();
       paths.push(value);    // add folder name        
       const newFolderPath = path.join(...paths);
       if(this.addNewFolder(newFolderPath)){
