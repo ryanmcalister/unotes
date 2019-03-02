@@ -9,7 +9,7 @@
     "Other"
   ],
   "activationEvents": [
-    "onView:noteFiles"
+    "onView:unoteFiles"
   ],
   "main": "./ext-src/extension.js",
   "contributes": {
@@ -19,10 +19,36 @@
         "title": "Unotes"
       },
       {
-        "command": "unotes.heading1",
-        "title": "Unotes Heading 1"
+        "command": "unotes.addNote",
+        "title": "Add Note",
+        "icon": {
+          "light": "resources/light/document.svg",
+          "dark": "resources/dark/document.svg"
+        }
+      },
+      {
+        "command": "unotes.addFolder",
+        "title": "Add Folder",
+        "icon": {
+          "light": "resources/light/folder.svg",
+          "dark": "resources/dark/folder.svg"
+        }
       }
     ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "unotes.addNote",
+          "when": "view == unoteFiles",
+          "group": "navigation"
+        },
+        {
+          "command": "unotes.addFolder",
+          "when": "view == unoteFiles",
+          "group": "navigation"
+        }
+      ]
+    },
     "keybindings": [
       {
         "command": "unotes.heading.1",
@@ -132,7 +158,7 @@
     "views": {
       "unotes": [
         {
-          "id": "noteFiles",
+          "id": "unoteFiles",
           "name": "Note Files"
         }
       ]
