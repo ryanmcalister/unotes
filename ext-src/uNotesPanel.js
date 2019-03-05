@@ -21,6 +21,20 @@ class UNotesPanel {
     }
   }
 
+  static recreate(extensionPath, currentNote){
+    try {
+      _currentPanel.dispose();
+      _currentPanel = null;
+      UNotesPanel.createOrShow(extensionPath);
+      console.log(currentNote);
+      if(currentNote){
+        _currentPanel.showUNote(currentNote);
+      }
+    } catch(e) {
+      console.log(e);
+    }
+  }
+
   static instance(){
     return _currentPanel;
   }
@@ -54,7 +68,10 @@ class UNotesPanel {
         switch (message.command) {
           case 'applyChanges':
             this.saveChanges(message.content)
-            return;
+            break;
+          case 'resized':
+            UNotesPanel.recreate(this.extensionPath, this.currentNote)
+            break;
           default:
             console.log("Unknown webview message received:")
             console.log(message)

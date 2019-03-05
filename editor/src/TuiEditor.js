@@ -51,6 +51,7 @@ class TuiEditor extends Component {
   constructor(props) {
     super(props);
     this.el = React.createRef();
+    this.handleResizeMessage = debounce(this.handleResizeMessage.bind(this), 1000);
   }
 
   componentDidMount() {
@@ -74,6 +75,8 @@ class TuiEditor extends Component {
 
     window.addEventListener('message', this.handleMessage.bind(this));
 
+    window.addEventListener('resize', this.handleResizeMessage);
+
     this.setState({ editor });
   }
 
@@ -88,6 +91,13 @@ class TuiEditor extends Component {
 
   componentWillUnmount() {
     window.removeEventListener('message', this.handleMessage.bind(this));
+    window.removeEventListener('resize', this.handleResizeMessage);
+  }
+
+  handleResizeMessage(e){
+    window.vscode.postMessage({
+      command: 'resized'
+    });
   }
 
   handleMessage(e) {

@@ -1,6 +1,6 @@
 {
   "name": "UNotes",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "publisher": "ryanmcalister",
   "engines": {
     "vscode": "^1.30.0"
