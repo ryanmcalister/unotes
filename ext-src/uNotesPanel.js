@@ -21,12 +21,19 @@ class UNotesPanel {
     }
   }
 
-  static recreate(extensionPath, currentNote){
+  static close(){
     try {
       _currentPanel.dispose();
       _currentPanel = null;
+    } catch(e) {
+      console.log(e);
+    }
+  }
+
+  static recreate(extensionPath, currentNote){
+    try {
+      UNotesPanel.close();
       UNotesPanel.createOrShow(extensionPath);
-      console.log(currentNote);
       if(currentNote){
         _currentPanel.showUNote(currentNote);
       }
@@ -205,6 +212,12 @@ class UNotesPanel {
     } 
     this.writingFile = '';
     return false;
+  }
+
+  closeIfOpen(filePath) {
+    if(filePath == this.currentPath){
+      UNotesPanel.close();
+    }
   }
 
   doRefactor() {

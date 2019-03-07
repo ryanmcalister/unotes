@@ -66,7 +66,29 @@ class TuiEditor extends Component {
       },
       usageStatistics: false,
       useCommandShortcut: false,
-      exts: ['scrollSync', 'colorSyntax', 'chart', 'uml', 'unotes']
+      exts: ['scrollSync', 'chart', 'uml', 'unotes'],
+      toolbarItems: [
+        'heading',
+        'bold',
+        'italic',
+        'strike',
+        'divider',
+        'hr',
+        'quote',
+        'divider',
+        'ul',
+        'ol',
+        'task',
+        'indent',
+        'outdent',
+        'divider',
+        'table',
+        'image',
+        'link',
+        'divider',
+        'code',
+        'codeblock'
+      ]
     });
 
     editor.on("convertorBeforeHtmlToMarkdownConverted", this.onHtmlBefore.bind(this));

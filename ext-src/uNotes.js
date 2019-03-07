@@ -169,7 +169,7 @@ class UNotes {
       console.log("onDidChange");
       if(uNotesPanel.UNotesPanel.instance()){
         const panel = uNotesPanel.UNotesPanel.instance();
-        if(panel.updateFileIfOpen(e.fsPath)){
+        if(panel && panel.updateFileIfOpen(e.fsPath)){
           uNoteProvider.refresh();
         }
 
@@ -191,7 +191,10 @@ class UNotes {
     fswatcher.onDidDelete((e) => {
       console.log("onDidDelete");
       uNoteProvider.refresh();
-      // todo check for current note and close if
+      const panel = uNotesPanel.UNotesPanel.instance();
+      if(panel){
+        panel.closeIfOpen(e.fsPath);
+      }
     });
 
   }
