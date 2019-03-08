@@ -33,6 +33,22 @@
           "light": "resources/light/folder.svg",
           "dark": "resources/dark/folder.svg"
         }
+      },
+      {
+        "command": "unotes.deleteFolder",
+        "title": "Remove Folder",
+        "icon": {
+          "light": "resources/light/folder.svg",
+          "dark": "resources/dark/folder.svg"
+        }
+      },
+      {
+        "command": "unotes.deleteNote",
+        "title": "Remove Note",
+        "icon": {
+          "light": "resources/light/document.svg",
+          "dark": "resources/dark/document.svg"
+        }
       }
     ],
     "menus": {
@@ -46,6 +62,17 @@
           "command": "unotes.addFolder",
           "when": "view == unoteFiles",
           "group": "navigation"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "unotes.deleteNote",
+          "when": "viewItem == uNoteFile",
+          "group": "navigation"
+        },
+        {
+          "command": "unotes.deleteFolder",
+          "when": "viewItem == uNoteFolder"
         }
       ]
     },

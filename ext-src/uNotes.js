@@ -123,12 +123,35 @@ function UNoteFolderFromPath(folderPath){
   return new UNote(path.basename(folderPath), vscode.TreeItemCollapsibleState.None, true, relPath);
 }
 
+/**
+ * Helper to remove a directory tree
+ * @param {string} dirPath the root dir 
+ */
+const deleteFolderRecursive = function(dirPath) {
+  try {
+    if (fs.existsSync(dirPath)) {
+      fs.readdirSync(dirPath).forEach(function(file, index){
+        const curPath = path.join(dirPath, file);
+        if (fs.lstatSync(curPath).isDirectory()) { // recurse
+          deleteFolderRecursive(curPath);
+        } else { // delete file
+          fs.unlinkSync(curPath);
+        }
+      });
+      fs.rmdirSync(dirPath);
+    }
+  }
+  catch(e){
+    console.log(e);
+  }
+};
+
 class UNotes {
   constructor(context) {
     this.disposables = [];
     this.currentNote = null;
     this.selectAfterRefresh = null;
-
+    
     context.subscriptions.push(vscode.commands.registerCommand('unotes.start', function () {
       uNotesPanel.UNotesPanel.createOrShow(context.extensionPath);
     }));
@@ -161,6 +184,14 @@ class UNotes {
 
     this.disposables.push(
       vscode.commands.registerCommand('unotes.addFolder', this.onAddNewFolder.bind(this))
+    );
+
+    this.disposables.push(
+      vscode.commands.registerCommand('unotes.deleteNote', this.onDeleteNote.bind(this))
+    );
+
+    this.disposables.push(
+      vscode.commands.registerCommand('unotes.deleteFolder', this.onDeleteFolder.bind(this))
     );
 
     // Setup the File System Watcher for file events
@@ -211,6 +242,20 @@ class UNotes {
       }
     }
     return paths;
+  }
+
+  onDeleteNote(note){
+    fs.unlinkSync(path.join(vscode.workspace.rootPath, note.folderPath, note.file));
+  }
+  
+  onDeleteFolder(folder){
+    return vscode.window.showWarningMessage(`Delete '${folder.file}' and all its contents?`, 'Yes','No')
+    .then(result => {
+      if(result == 'Yes'){
+        deleteFolderRecursive(path.join(vscode.workspace.rootPath, folder.folderPath, folder.file));
+        this.uNoteProvider.refresh();
+      }
+    });    
   }
 
   onAddNewNote(){

@@ -1,6 +1,8 @@
 # Updates
 
 ## [0.1.6] - 2019-03-08
+### Added
+- Removed file and folder to context menu
 ### Fixed
 - View closed on deleted file
 - Removed text color extension
