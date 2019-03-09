@@ -35,6 +35,22 @@
         }
       },
       {
+        "command": "unotes.addNoteHere",
+        "title": "Add Note",
+        "icon": {
+          "light": "resources/light/document.svg",
+          "dark": "resources/dark/document.svg"
+        }
+      },
+      {
+        "command": "unotes.addFolderHere",
+        "title": "Add Folder",
+        "icon": {
+          "light": "resources/light/folder.svg",
+          "dark": "resources/dark/folder.svg"
+        }
+      },
+      {
         "command": "unotes.deleteFolder",
         "title": "Remove Folder",
         "icon": {
@@ -48,6 +64,22 @@
         "icon": {
           "light": "resources/light/document.svg",
           "dark": "resources/dark/document.svg"
+        }
+      },
+      {
+        "command": "unotes.moveUp",
+        "title": "Move Up",
+        "icon": {
+          "light": "resources/light/arrow_up.svg",
+          "dark": "resources/dark/arrow_up.svg"
+        }
+      },
+      {
+        "command": "unotes.moveDown",
+        "title": "Move Down",
+        "icon": {
+          "light": "resources/light/arrow_down.svg",
+          "dark": "resources/dark/arrow_down.svg"
         }
       }
     ],
@@ -66,13 +98,32 @@
       ],
       "view/item/context": [
         {
+          "command": "unotes.addNoteHere",
+          "when": "view == unoteFiles",
+          "group": "unotesAdd"
+        },
+        {
+          "command": "unotes.addFolderHere",
+          "when": "view == unoteFiles",
+          "group": "unotesAdd"
+        },
+        {
           "command": "unotes.deleteNote",
-          "when": "viewItem == uNoteFile",
-          "group": "navigation"
+          "when": "viewItem == uNoteFile"
         },
         {
           "command": "unotes.deleteFolder",
           "when": "viewItem == uNoteFolder"
+        },
+        {
+          "command": "unotes.moveDown",
+          "when": "viewItem == uNoteFile",
+          "group": "inline@2"
+        },
+        {
+          "command": "unotes.moveUp",
+          "when": "viewItem == uNoteFile",
+          "group": "inline@1"
         }
       ]
     },

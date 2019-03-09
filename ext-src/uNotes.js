@@ -11,6 +11,49 @@ const fg = require('fast-glob');
 const uNotesPanel = require('./uNotesPanel');
 const debounce = require("debounce");
 
+
+class UNoteTree {
+  constructor(name){
+    this.name = name;
+    this.folders = {};
+    this.files = {};
+  }
+
+  syncFiles(paths, notes){
+    if(paths.length > 0){
+      const folderName = paths[0];
+      paths.shift();    // pop off folder
+      let child = this.folders[folderName];
+      if(!child){
+        child = new UNoteTree(folderName);
+        this.folders[folderName] = child; 
+      }
+      return child.syncFiles(paths, notes);
+    }
+    // sync with files
+    let count = Object.keys(this.files).length;
+    // sort the notes array
+    notes.sort((a, b) => {
+      let ai = this.files[a.label];
+      if(!ai){
+        ai = count++;
+        this.files[a.label] = ai
+      }
+      let bi = this.files[b.label];
+      if(!bi){
+        bi = count++;
+        this.files[b.label] = bi;
+      }
+      return ai - bi;
+    })
+    // reset the files indexes
+    const keys = Object.keys(this.files);
+    for(let i = 0; i < count; i++){
+      this.files[keys[i]] = i;
+    }
+  }
+}
+
 class UNoteProvider {
   constructor(workspaceRoot) {
     this.disposables = [];
@@ -19,6 +62,8 @@ class UNoteProvider {
     this._onDidChangeTreeData = new vscode.EventEmitter();
     this.onDidChangeTreeData = this._onDidChangeTreeData.event;
     this.refresh = debounce(this.refresh.bind(this), 200, true);
+
+    this.noteTree = new UNoteTree("");
         
   }
 
@@ -73,8 +118,15 @@ class UNoteProvider {
       return new UNote(path.basename(item), vscode.TreeItemCollapsibleState.None, false, relativePath);
     }
     const folderPath = path.join(this.workspaceRoot, relativePath);
-    let folders = fg.sync([`${folderPath}/*`, '!**/node_modules/**'], { deep: 0, onlyDirectories: true }).map(toFolder);
+    let folders = fg.sync([`${folderPath}/*`, '!**/node_modules/**', '!**/^\.*/**'], { deep: 0, onlyDirectories: true }).map(toFolder);
     let notes = fg.sync([`${folderPath}/*.md`], { deep: 0, onlyFiles: true, nocase: true }).map(toNote);
+    // get the relative path in a list
+    //const paths = path.relative(".", path.join('.', relativePath)).split(path.sep);
+    const paths = path.join(relativePath).split(path.sep);
+    paths.shift();  // cut off the root path
+    // sync the notes
+    this.noteTree.syncFiles(paths, notes);
+    console.log(this.noteTree);
     return folders.concat(notes);
   }
 }
@@ -194,6 +246,15 @@ class UNotes {
       vscode.commands.registerCommand('unotes.deleteFolder', this.onDeleteFolder.bind(this))
     );
 
+    this.disposables.push(
+      vscode.commands.registerCommand('unotes.moveUp', this.onMoveUp.bind(this))
+    );
+
+    this.disposables.push(
+      vscode.commands.registerCommand('unotes.moveDown', this.onMoveDown.bind(this))
+    );
+
+
     // Setup the File System Watcher for file events
     const fswatcher = vscode.workspace.createFileSystemWatcher("**/*.md", false, false, false);
     fswatcher.onDidChange((e) => {
@@ -242,6 +303,14 @@ class UNotes {
       }
     }
     return paths;
+  }
+
+  onMoveUp(note){
+
+  }
+
+  onMoveDown(note){
+
   }
 
   onDeleteNote(note){
