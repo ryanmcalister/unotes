@@ -19,17 +19,25 @@ class UNoteTree {
     this.files = {};
   }
 
-  syncFiles(paths, notes){
-    if(paths.length > 0){
-      const folderName = paths[0];
-      paths.shift();    // pop off folder
-      let child = this.folders[folderName];
-      if(!child){
-        child = new UNoteTree(folderName);
-        this.folders[folderName] = child; 
-      }
-      return child.syncFiles(paths, notes);
+  // recursively find the folder from paths
+  getFolder(paths){
+    if(paths.length == 0){
+      return this;
     }
+    const folderName = paths.shift();
+    let child = this.folders[folderName];
+    if(!child){
+      child = new UNoteTree(folderName);
+      this.folders[folderName] = child; 
+    }
+    return child.getFolder(paths);
+  }
+
+  syncFolders(folders){
+    // todo
+  }
+
+  syncFiles(notes){
     // sync with files
     let count = Object.keys(this.files).length;
     // sort the notes array
@@ -121,11 +129,12 @@ class UNoteProvider {
     let folders = fg.sync([`${folderPath}/*`, '!**/node_modules/**', '!**/^\.*/**'], { deep: 0, onlyDirectories: true }).map(toFolder);
     let notes = fg.sync([`${folderPath}/*.md`], { deep: 0, onlyFiles: true, nocase: true }).map(toNote);
     // get the relative path in a list
-    //const paths = path.relative(".", path.join('.', relativePath)).split(path.sep);
     const paths = path.join(relativePath).split(path.sep);
     paths.shift();  // cut off the root path
     // sync the notes
-    this.noteTree.syncFiles(paths, notes);
+    const noteFolder = this.noteTree.getFolder(paths);
+    noteFolder.syncFolders(folders);
+    noteFolder.syncFiles(notes);
     console.log(this.noteTree);
     return folders.concat(notes);
   }
