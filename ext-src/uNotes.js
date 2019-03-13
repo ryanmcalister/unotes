@@ -11,8 +11,8 @@ const fg = require('fast-glob');
 const uNotesPanel = require('./uNotesPanel');
 const debounce = require("debounce");
 
-
 class UNoteTree {
+
   constructor(name){
     this.name = name;
     this.folders = {};
@@ -34,7 +34,32 @@ class UNoteTree {
   }
 
   syncFolders(folders){
-    // todo
+    // remove folders that don't exist
+    this.removeMissing(folders, this.folders);
+  }
+
+  removeMissing(notes, obj){
+    try {
+      const count = notes.length;
+      const seen = new Set();
+      for(let i = 0; i < count; ++i){
+        seen.add(notes[i].label);
+      }
+      const toRemove = [];
+      for(const key in obj){
+        if(obj.hasOwnProperty(key)){
+          if(!seen.has(key)){
+            toRemove.push(key);
+          }
+        }
+      }
+      for(const key in toRemove){
+        delete obj[key];
+      }
+    } catch(e){
+      const msg = e.message;
+      console.log(msg);
+    }
   }
 
   syncFiles(notes){
@@ -53,11 +78,28 @@ class UNoteTree {
         this.files[b.label] = bi;
       }
       return ai - bi;
-    })
+    });
+
+    // remove notes that don't exist
+    this.removeMissing(notes, this.files);
+
     // reset the files indexes
     const keys = Object.keys(this.files);
     for(let i = 0; i < count; i++){
       this.files[keys[i]] = i;
+    }
+  }
+
+  load(){
+    
+  }
+
+  save(){
+    try {
+      fs.writeFileSync(path.join(vscode.workspace.rootPath, './.unotes'), JSON.stringify(this, null, 2), 'utf-8');
+    } catch(e){
+      const msg = e.message;
+      console.log(msg);
     }
   }
 }
@@ -70,8 +112,10 @@ class UNoteProvider {
     this._onDidChangeTreeData = new vscode.EventEmitter();
     this.onDidChangeTreeData = this._onDidChangeTreeData.event;
     this.refresh = debounce(this.refresh.bind(this), 200, true);
+    this.saveNoteTree = debounce(this.saveNoteTree.bind(this), 1000);
 
     this.noteTree = new UNoteTree("");
+    this.noteTree.load(); 
         
   }
 
@@ -82,6 +126,10 @@ class UNoteProvider {
 				x.dispose();
 			}
 	  }
+  }
+
+  saveNoteTree(){
+    this.noteTree.save();
   }
 
   refresh() {
@@ -135,7 +183,7 @@ class UNoteProvider {
     const noteFolder = this.noteTree.getFolder(paths);
     noteFolder.syncFolders(folders);
     noteFolder.syncFiles(notes);
-    console.log(this.noteTree);
+    this.saveNoteTree();
     return folders.concat(notes);
   }
 }
