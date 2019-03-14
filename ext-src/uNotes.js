@@ -12,17 +12,6 @@ const { UNoteProvider } = require("./uNoteProvider");
 const { UNote } = require("./uNote");
 const { Utils, Config } = require("./uNotesCommon");
 
-function UNoteFileFromPath(filePath){
-  const folderPath = path.relative(vscode.workspace.rootPath, path.dirname(filePath));
-  const newNote = new UNote(path.basename(filePath), vscode.TreeItemCollapsibleState.None, false, folderPath);
-  return newNote;
-}
-
-function UNoteFolderFromPath(folderPath){
-  let relPath = path.relative(".", path.dirname(folderPath));
-  return new UNote(path.basename(folderPath), vscode.TreeItemCollapsibleState.None, true, relPath);
-}
-
 /**
  * Helper to remove a directory tree
  * @param {string} dirPath the root dir 
@@ -85,6 +74,10 @@ class UNotes {
     );
 
     this.disposables.push(
+      vscode.commands.registerCommand('unotes.addNoteHere', this.onAddNewNoteHere.bind(this))
+    );
+
+    this.disposables.push(
       vscode.commands.registerCommand('unotes.addFolder', this.onAddNewFolder.bind(this))
     );
 
@@ -117,10 +110,14 @@ class UNotes {
       console.log("onDidCreate");
       uNoteProvider.refresh();
       if(this.selectAfterRefresh){
-        const newNote = UNoteFileFromPath(this.selectAfterRefresh);
+        const newNote = UNote.noteFromPath(this.selectAfterRefresh);
         setTimeout(() => {
-          this.view.reveal(newNote, { expand: 3 });          
-          this.selectAfterRefresh = null;
+          try {
+            this.view.reveal(newNote, { expand: 3 });          
+            this.selectAfterRefresh = null;
+          } catch(e){
+            console.log(e.message())
+          }
         }, 500); 
       }
     }, null,  this.disposables);
@@ -178,12 +175,11 @@ class UNotes {
     });    
   }
 
-  onAddNewNote(){
+  addNoteCommon(paths){
     vscode.window.showInputBox({ placeHolder: 'Enter new note name' })
     .then(value => {
       if(!value) return;
       const newFileName = Utils.stripMD(value) + '.md';
-      const paths = this.getSelectedPaths();
       paths.push(newFileName);
       const newFilePath = path.join(...paths);
       if(this.addNewNote(newFilePath)){
@@ -193,6 +189,23 @@ class UNotes {
     .catch(err => {
       console.log(err);
     }); 
+  }
+
+  onAddNewNoteHere(item){
+    if(!item){
+      return;
+    }
+    const paths = [vscode.workspace.rootPath];
+    paths.push(item.folderPath);        
+    if(item.isFolder){
+      // add parent folder name
+      paths.push(item.file);
+    }
+    this.addNoteCommon(paths);    
+  }
+
+  onAddNewNote(){
+    this.addNoteCommon(this.getSelectedPaths());
   }
 
   onAddNewFolder(){
@@ -205,7 +218,7 @@ class UNotes {
       if(this.addNewFolder(newFolderPath)){
         this.uNoteProvider.refresh();
         const relPath = path.relative(vscode.workspace.rootPath, newFolderPath);
-        const newFolder = UNoteFolderFromPath(relPath);
+        const newFolder = UNote.folderFromPath(relPath);
         setTimeout(() => {
           this.view.reveal(newFolder, { expand: 3 });          
         }, 500); 

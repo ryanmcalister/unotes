@@ -79,11 +79,16 @@ class UNoteProvider {
   }
   
   getParent(element) {
-    if(!element)
-      return null;
-    if(!element.folderPath)
-      return null;
-    return Promise.resolve(UNoteFolderFromPath(element.folderPath));
+    try {
+      if(!element)
+        return null;
+      if(!element.folderPath)
+        return null;
+      return Promise.resolve(UNote.folderFromPath(element.folderPath));
+
+    } catch(e){
+      console.log("getParent failed: " + e.message());
+    }
   }
 
   getChildren(element) {
@@ -115,8 +120,7 @@ class UNoteProvider {
       }
       const folderPath = path.join(this.workspaceRoot, relativePath);
 
-      const tmp = fg.sync([`${folderPath}/*`, '!**/node_modules/**', '!**/^\.*/**'], { deep: 0, onlyDirectories: true });
-      const folders = tmp.map(toFolder);
+      const folders = fg.sync([`${folderPath}/*`, '!**/node_modules/**', '!**/^\.*/**'], { deep: 0, onlyDirectories: true }).map(toFolder);
       const notes = fg.sync([`${folderPath}/*.md`], { deep: 0, onlyFiles: true, nocase: true }).map(toNote);
       // get the relative path in a list
       const paths = path.join(relativePath).split(path.sep);
@@ -129,7 +133,7 @@ class UNoteProvider {
       return folders.concat(notes);
 
     } catch(e){
-      console.log("Error building tree: " + e.message);
+      console.log("Error building tree: " + e.message());
     }
   }
 }

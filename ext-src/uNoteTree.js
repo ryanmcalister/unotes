@@ -141,7 +141,7 @@ class UNoteTree {
         this.loadFromObject(obj);
       }
     } catch(e){
-      const msg = e.message;
+      const msg = e.message();
       console.log(msg);
       vscode.window.showWarningMessage("Failed to load Unotes meta information. \nNote ordering may be lost.");
     }
@@ -151,7 +151,7 @@ class UNoteTree {
     try {
       fs.writeFileSync(this.getTreeFilePath(), JSON.stringify(this, null, 2));
     } catch(e){
-      const msg = e.message;
+      const msg = e.message();
       console.log(msg);
     }
   }
