@@ -4,16 +4,19 @@ import 'tui-editor/dist/tui-editor.css';
 import 'tui-editor/dist/tui-editor-contents.css';
 import 'codemirror/lib/codemirror.css';
 import 'highlight.js/styles/github.css';
+import './override-light.css';
+import './override-contents-light.css';
 import './override.css';
 import './override-contents.css';
 import './override-codemirror.css';
+import './override-codemirror-light.css';
 import { debounce } from 'debounce';
 
 // root for local images
 var img_root = '';
 
 function escapeRegExp(str) {
-  return str.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
+  return str.replace(/([.*+?^=!:${}()|[]\/\\])/g, "\\$1");
 }
 
 function replaceAll(str, find, replace) {

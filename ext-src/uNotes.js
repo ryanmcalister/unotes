@@ -82,6 +82,10 @@ class UNotes {
     );
 
     this.disposables.push(
+      vscode.commands.registerCommand('unotes.addFolderHere', this.onAddNewFolderHere.bind(this))
+    );
+
+    this.disposables.push(
       vscode.commands.registerCommand('unotes.deleteNote', this.onDeleteNote.bind(this))
     );
 
@@ -208,11 +212,11 @@ class UNotes {
     this.addNoteCommon(this.getSelectedPaths());
   }
 
-  onAddNewFolder(){
+  addFolderCommon(paths){
     vscode.window.showInputBox({ placeHolder: 'Enter new folder name' })
     .then(value => {
       if(!value) return;
-      const paths = this.getSelectedPaths();
+      
       paths.push(value);    // add folder name        
       const newFolderPath = path.join(...paths);
       if(this.addNewFolder(newFolderPath)){
@@ -227,6 +231,23 @@ class UNotes {
     .catch(err => {
       console.log(err);
     });
+  }
+
+  onAddNewFolderHere(item){
+    if(!item){
+      return;
+    }
+    const paths = [vscode.workspace.rootPath];
+    paths.push(item.folderPath);        
+    if(item.isFolder){
+      // add parent folder name
+      paths.push(item.file);
+    }
+    this.addFolderCommon(paths);    
+  }
+
+  onAddNewFolder(){
+    this.addFolderCommon(this.getSelectedPaths());
   }
   
   addNewNote(notePath){

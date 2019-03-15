@@ -1,8 +1,15 @@
 # Updates
 
+## [0.1.7] - 2019-03-15
+### Added
+- Improved light theming
+- Note ordering
+
 ## [0.1.6] - 2019-03-08
 ### Added
-- Removed file and folder to context menu
+- Remove file and folder to context menu
+- Add file and folder from context menu
+
 ### Fixed
 - View closed on deleted file
 - Removed text color extension

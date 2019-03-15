@@ -1,0 +1,100 @@
+@charset "UTF-8";
+/**
+* @fileoverview style for content
+* @author NHN Ent. FE Development Lab <dl_javascript@nhnent.com>
+*/
+
+body.vscode-light .tui-editor-contents p {
+    color: #777;
+}
+
+body.vscode-light .tui-editor-contents h1 {
+    border-bottom: 3px double #999;
+    color: #333;
+}
+
+body.vscode-light .tui-editor-contents h2 {
+    border-bottom: 1px solid #dbdbdb;
+    color: var(--vscode-titleBar-activeForeground);
+}
+
+body.vscode-light .tui-editor-contents h3,
+body.vscode-light .tui-editor-contents h4 {
+    color: var(--vscode-titleBar-inactiveForeground);
+}
+
+body.vscode-light .tui-editor-contents h5,
+body.vscode-light .tui-editor-contents h6 {
+    color: var(--vscode-titleBar-inactiveForeground);
+}
+
+body.vscode-light .tui-editor-contents blockquote {
+    border-left: 4px solid var(--vscode-textBlockQuote-border);
+    color: var(--vscode-editorGutter-commentRangeForeground);
+}
+
+body.vscode-light .tui-editor-contents pre {
+    background-color: var(--vscode-textBlockQuote-background);
+}
+
+body.vscode-light .tui-editor-contents code {
+    color: var(--vscode-textPreformat-foreground);
+}
+
+body.vscode-light .tui-editor-contents pre code {
+    color: inherit;
+    background-color: transparent;
+}
+
+body.vscode-light .tui-editor-contents pre.addon {
+    border: 1px solid #2d2d2e;
+    background-color: rgb(0, 0, 0);
+}
+
+body.vscode-light .tui-editor-contents table {
+    color: rgb(187, 187, 187);
+}
+
+body.vscode-light .tui-editor-contents table td {
+    border: 1px solid #313131;
+}
+
+body.vscode-light .tui-editor-contents table th {
+    border: 1px solid #72777b;
+    background-color: #484b4d;
+    color: #fff;
+}
+
+body.vscode-light .tui-editor-contents ul,
+body.vscode-light .tui-editor-contents menu,
+body.vscode-light .tui-editor-contents ol,
+body.vscode-light .tui-editor-contents dir {
+    color: rgb(189, 189, 189);
+}
+
+body.vscode-light .tui-editor-contents hr {
+    border-top: 1px solid rgb(48, 48, 48);
+}
+
+body.vscode-light .tui-editor-contents a {
+    color: var(--link-color);
+}
+
+body.vscode-light .tui-editor-contents a:hover {
+    color: var(--link-active-color);
+}
+
+body.vscode-light .tui-editor-contents .task-list-item {
+    border: 0;
+    list-style: none;
+    padding-left: 22px;
+    margin-left: -22px;
+    background-repeat: no-repeat;
+    background-size: 16px 16px;
+    background-position: 0 2px;
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAYAAAAfSC3RAAAAAXNSR0IArs4c6QAAADdJREFUKBVjvHv37n8GMgALSI+SkhJJWu/du8fARJIOJMWjGpECA505GjjoIYLEB6dVUNojFQAA/1MJUFWet/4AAAAASUVORK5CYII=');
+}
+
+body.vscode-light .tui-editor-contents .task-list-item.checked {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAYAAAAfSC3RAAAAAXNSR0IArs4c6QAAAMpJREFUKBVjjJ/64D8DGYCJDD1gLbTVyM3OxJDiJMzAxcYIdyALnIWDAdJU7i/OICfCxsDMxMgwc88bwk5F1vTs/W+GFUffwY2H+1FBlI2hLliCQYCbGSyJrqlzwwuGj9//YWoMtRBgUBJnZ6gMEGeQFWaFOw9kE7omkG5GWDyCPF7mJ86gIMbO8P//fwZGRkYGXJpAGuFO/fbrP0PXppcMD179JKgJRSOIA9N8/NZXrM4DqYEBjOgAaYYFOUwRNhruVGyS+MTI1ggAx8NTGcUtFVQAAAAASUVORK5CYII=');
+}

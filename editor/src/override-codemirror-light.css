@@ -1,0 +1,138 @@
+/* BASICS */
+
+body.vscode-light .CodeMirror {
+  /* Set height, width, borders, and global font properties here */
+  color: var(--vscode-foreground);
+}
+
+body.vscode-light .CodeMirror-scrollbar-filler, .CodeMirror-gutter-filler {
+  background-color: white; /* The little square between H and V scrollbars */
+}
+
+/* GUTTER */
+
+body.vscode-light .CodeMirror-gutters {
+  border-right: 1px solid #ddd;
+  background-color: #f7f7f7;
+}
+body.vscode-light .CodeMirror-linenumbers {}
+body.vscode-light .CodeMirror-linenumber {
+  color: #999;
+}
+
+body.vscode-light .CodeMirror-guttermarker { color: black; }
+body.vscode-light .CodeMirror-guttermarker-subtle { color: #999; }
+
+/* CURSOR */
+
+body.vscode-light .CodeMirror-cursor {
+  border-left: 1px solid var(--vscode-editorCursor-foreground);
+}
+/* Shown when moving in bi-directional text */
+body.vscode-light .CodeMirror div.CodeMirror-secondarycursor {
+  border-left: 1px solid silver;
+}
+body.vscode-light .cm-fat-cursor .CodeMirror-cursor {
+  background: #7e7;
+}
+body.vscode-light .cm-fat-cursor div.CodeMirror-cursors {
+  z-index: 1;
+}
+body.vscode-light .cm-fat-cursor-mark {
+  background-color: rgba(20, 255, 20, 0.5);
+  -webkit-animation: blink 1.06s steps(1) infinite;
+  -moz-animation: blink 1.06s steps(1) infinite;
+  animation: blink 1.06s steps(1) infinite;
+}
+body.vscode-light .cm-animate-fat-cursor {
+  width: auto;
+  border: 0;
+  -webkit-animation: blink 1.06s steps(1) infinite;
+  -moz-animation: blink 1.06s steps(1) infinite;
+  animation: blink 1.06s steps(1) infinite;
+  background-color: #7e7;
+}
+@-moz-keyframes blink {
+  0% {}
+  50% { background-color: transparent; }
+  100% {}
+}
+@-webkit-keyframes blink {
+  0% {}
+  50% { background-color: transparent; }
+  100% {}
+}
+@keyframes blink {
+  0% {}
+  50% { background-color: transparent; }
+  100% {}
+}
+
+/* Can style cursor different in overwrite (non-insert) mode */
+body.vscode-light .CodeMirror-overwrite .CodeMirror-cursor {}
+
+.CodeMirror-ruler {
+  border-left: 1px solid #ccc;
+}
+
+/* DEFAULT THEME */
+
+body.vscode-light .cm-s-default .cm-header {color: rgb(241, 219, 120);}
+body.vscode-light .cm-s-default .cm-quote {color: rgb(153, 187, 153);}
+body.vscode-light .cm-negative {color: #d44;}
+body.vscode-light .cm-positive {color: #292;}
+body.vscode-light .cm-header, .cm-strong {font-weight: bold;}
+body.vscode-light .cm-em {font-style: italic;}
+body.vscode-light .cm-link {text-decoration: underline;}
+body.vscode-light .cm-strikethrough {text-decoration: line-through;}
+
+body.vscode-light .cm-s-default .cm-keyword {color: rgb(187, 150, 192);}
+body.vscode-light .cm-s-default .cm-atom {color: rgb(109, 95, 201);}
+body.vscode-light .cm-s-default .cm-number {color: rgb(95, 138, 146);}
+body.vscode-light .cm-s-default .cm-def {color: rgb(243, 241, 125);}
+body.vscode-light .cm-s-default .cm-variable,
+body.vscode-light .cm-s-default .cm-punctuation,
+body.vscode-light .cm-s-default .cm-property,
+body.vscode-light .cm-s-default .cm-operator {}
+body.vscode-light .cm-s-default .cm-variable-2 {color: var(--vscode-textPreformat-foreground);}
+body.vscode-light .cm-s-default .cm-variable-3, .cm-s-default .cm-type {color: var(--vscode-descriptionForeground);}
+body.vscode-light .cm-s-default .cm-comment {color: rgb(224, 161, 97);}
+body.vscode-light .cm-s-default .cm-string {color: var(--vscode-editorCodeLens-foreground);}
+body.vscode-light .cm-s-default .cm-string-2 {color: #f50;}
+body.vscode-light .cm-s-default .cm-meta {color: #555;}
+body.vscode-light .cm-s-default .cm-qualifier {color: #555;}
+body.vscode-light .cm-s-default .cm-builtin {color: var(--vscode-list-warningForeground);}
+body.vscode-light .cm-s-default .cm-bracket {color: #997;}
+body.vscode-light .cm-s-default .cm-tag {color: rgb(90, 126, 84);}
+body.vscode-light .cm-s-default .cm-attribute {color: var(--vscode-list-highlightForeground);}
+body.vscode-light .cm-s-default .cm-hr {color: var(--vscode-list-focusForeground);}
+body.vscode-light .cm-s-default .cm-link {color: var(--vscode-textLink-foreground);}
+
+body.vscode-light .cm-s-default .cm-error {color: #f00;}
+body.vscode-light .cm-invalidchar {color: #f00;}
+/* Default styles for common addons */
+
+body.vscode-light div.CodeMirror span.CodeMirror-matchingbracket {color: #0b0;}
+body.vscode-light div.CodeMirror span.CodeMirror-nonmatchingbracket {color: #a22;}
+body.vscode-light .CodeMirror-matchingtag { background: rgba(255, 150, 0, .3); }
+body.vscode-light .CodeMirror-activeline-background {background: #e8f2ff;}
+
+/* STOP */
+
+/* The rest of this file contains styles related to the mechanics of
+   the editor. You probably shouldn't touch them. */
+
+body.vscode-light .CodeMirror {
+  background: inherit;
+}
+
+body.vscode-light .CodeMirror-selected { background: #d9d9d9; }
+body.vscode-light .CodeMirror-focused .CodeMirror-selected { background: #d7d4f0; }
+body.vscode-light .CodeMirror-crosshair { cursor: crosshair; }
+body.vscode-light .CodeMirror-line::selection, .CodeMirror-line > span::selection, .CodeMirror-line > span > span::selection { background: #d7d4f0; }
+body.vscode-light .CodeMirror-line::-moz-selection, .CodeMirror-line > span::-moz-selection, .CodeMirror-line > span > span::-moz-selection { background: #d7d4f0; }
+
+body.vscode-light .cm-searching {
+  background-color: #ffa;
+  background-color: rgba(255, 255, 0, .4);
+}

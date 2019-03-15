@@ -1,50 +1,50 @@
 /* BASICS */
 
-.CodeMirror {
+body.vscode-dark .CodeMirror {
   /* Set height, width, borders, and global font properties here */
   color: var(--vscode-foreground);
 }
 
-.CodeMirror-scrollbar-filler, .CodeMirror-gutter-filler {
+body.vscode-dark .CodeMirror-scrollbar-filler, .CodeMirror-gutter-filler {
   background-color: white; /* The little square between H and V scrollbars */
 }
 
 /* GUTTER */
 
-.CodeMirror-gutters {
+body.vscode-dark .CodeMirror-gutters {
   border-right: 1px solid #ddd;
   background-color: #f7f7f7;
 }
-.CodeMirror-linenumbers {}
-.CodeMirror-linenumber {
+body.vscode-dark .CodeMirror-linenumbers {}
+body.vscode-dark .CodeMirror-linenumber {
   color: #999;
 }
 
-.CodeMirror-guttermarker { color: black; }
-.CodeMirror-guttermarker-subtle { color: #999; }
+body.vscode-dark .CodeMirror-guttermarker { color: black; }
+body.vscode-dark .CodeMirror-guttermarker-subtle { color: #999; }
 
 /* CURSOR */
 
-.CodeMirror-cursor {
+body.vscode-dark .CodeMirror-cursor {
   border-left: 1px solid var(--vscode-editorCursor-foreground);
 }
 /* Shown when moving in bi-directional text */
-.CodeMirror div.CodeMirror-secondarycursor {
+body.vscode-dark .CodeMirror div.CodeMirror-secondarycursor {
   border-left: 1px solid silver;
 }
-.cm-fat-cursor .CodeMirror-cursor {
+body.vscode-dark .cm-fat-cursor .CodeMirror-cursor {
   background: #7e7;
 }
-.cm-fat-cursor div.CodeMirror-cursors {
+body.vscode-dark .cm-fat-cursor div.CodeMirror-cursors {
   z-index: 1;
 }
-.cm-fat-cursor-mark {
+body.vscode-dark .cm-fat-cursor-mark {
   background-color: rgba(20, 255, 20, 0.5);
   -webkit-animation: blink 1.06s steps(1) infinite;
   -moz-animation: blink 1.06s steps(1) infinite;
   animation: blink 1.06s steps(1) infinite;
 }
-.cm-animate-fat-cursor {
+body.vscode-dark .cm-animate-fat-cursor {
   width: auto;
   border: 0;
   -webkit-animation: blink 1.06s steps(1) infinite;
@@ -69,7 +69,7 @@
 }
 
 /* Can style cursor different in overwrite (non-insert) mode */
-.CodeMirror-overwrite .CodeMirror-cursor {}
+body.vscode-dark .CodeMirror-overwrite .CodeMirror-cursor {}
 
 .CodeMirror-ruler {
   border-left: 1px solid #ccc;
@@ -77,62 +77,62 @@
 
 /* DEFAULT THEME */
 
-.cm-s-default .cm-header {color: rgb(241, 219, 120);}
-.cm-s-default .cm-quote {color: rgb(153, 187, 153);}
-.cm-negative {color: #d44;}
-.cm-positive {color: #292;}
-.cm-header, .cm-strong {font-weight: bold;}
-.cm-em {font-style: italic;}
-.cm-link {text-decoration: underline;}
-.cm-strikethrough {text-decoration: line-through;}
+body.vscode-dark .cm-s-default .cm-header {color: rgb(241, 219, 120);}
+body.vscode-dark .cm-s-default .cm-quote {color: rgb(153, 187, 153);}
+body.vscode-dark .cm-negative {color: #d44;}
+body.vscode-dark .cm-positive {color: #292;}
+body.vscode-dark .cm-header, .cm-strong {font-weight: bold;}
+body.vscode-dark .cm-em {font-style: italic;}
+body.vscode-dark .cm-link {text-decoration: underline;}
+body.vscode-dark .cm-strikethrough {text-decoration: line-through;}
 
-.cm-s-default .cm-keyword {color: rgb(187, 150, 192);}
-.cm-s-default .cm-atom {color: rgb(109, 95, 201);}
-.cm-s-default .cm-number {color: rgb(95, 138, 146);}
-.cm-s-default .cm-def {color: rgb(243, 241, 125);}
-.cm-s-default .cm-variable,
-.cm-s-default .cm-punctuation,
-.cm-s-default .cm-property,
-.cm-s-default .cm-operator {}
-.cm-s-default .cm-variable-2 {color: var(--vscode-textPreformat-foreground);}
-.cm-s-default .cm-variable-3, .cm-s-default .cm-type {color: var(--vscode-descriptionForeground);}
-.cm-s-default .cm-comment {color: rgb(224, 161, 97);}
-.cm-s-default .cm-string {color: var(--vscode-editorCodeLens-foreground);}
-.cm-s-default .cm-string-2 {color: #f50;}
-.cm-s-default .cm-meta {color: #555;}
-.cm-s-default .cm-qualifier {color: #555;}
-.cm-s-default .cm-builtin {color: var(--vscode-list-warningForeground);}
-.cm-s-default .cm-bracket {color: #997;}
-.cm-s-default .cm-tag {color: rgb(90, 126, 84);}
-.cm-s-default .cm-attribute {color: var(--vscode-list-highlightForeground);}
-.cm-s-default .cm-hr {color: var(--vscode-list-focusForeground);}
-.cm-s-default .cm-link {color: var(--vscode-textLink-foreground);}
+body.vscode-dark .cm-s-default .cm-keyword {color: rgb(187, 150, 192);}
+body.vscode-dark .cm-s-default .cm-atom {color: rgb(109, 95, 201);}
+body.vscode-dark .cm-s-default .cm-number {color: rgb(95, 138, 146);}
+body.vscode-dark .cm-s-default .cm-def {color: rgb(243, 241, 125);}
+body.vscode-dark .cm-s-default .cm-variable,
+body.vscode-dark .cm-s-default .cm-punctuation,
+body.vscode-dark .cm-s-default .cm-property,
+body.vscode-dark .cm-s-default .cm-operator {}
+body.vscode-dark .cm-s-default .cm-variable-2 {color: var(--vscode-textPreformat-foreground);}
+body.vscode-dark .cm-s-default .cm-variable-3, .cm-s-default .cm-type {color: var(--vscode-descriptionForeground);}
+body.vscode-dark .cm-s-default .cm-comment {color: rgb(224, 161, 97);}
+body.vscode-dark .cm-s-default .cm-string {color: var(--vscode-editorCodeLens-foreground);}
+body.vscode-dark .cm-s-default .cm-string-2 {color: #f50;}
+body.vscode-dark .cm-s-default .cm-meta {color: #555;}
+body.vscode-dark .cm-s-default .cm-qualifier {color: #555;}
+body.vscode-dark .cm-s-default .cm-builtin {color: var(--vscode-list-warningForeground);}
+body.vscode-dark .cm-s-default .cm-bracket {color: #997;}
+body.vscode-dark .cm-s-default .cm-tag {color: rgb(90, 126, 84);}
+body.vscode-dark .cm-s-default .cm-attribute {color: var(--vscode-list-highlightForeground);}
+body.vscode-dark .cm-s-default .cm-hr {color: var(--vscode-list-focusForeground);}
+body.vscode-dark .cm-s-default .cm-link {color: var(--vscode-textLink-foreground);}
 
-.cm-s-default .cm-error {color: #f00;}
-.cm-invalidchar {color: #f00;}
+body.vscode-dark .cm-s-default .cm-error {color: #f00;}
+body.vscode-dark .cm-invalidchar {color: #f00;}
 /* Default styles for common addons */
 
-div.CodeMirror span.CodeMirror-matchingbracket {color: #0b0;}
-div.CodeMirror span.CodeMirror-nonmatchingbracket {color: #a22;}
-.CodeMirror-matchingtag { background: rgba(255, 150, 0, .3); }
-.CodeMirror-activeline-background {background: #e8f2ff;}
+body.vscode-dark div.CodeMirror span.CodeMirror-matchingbracket {color: #0b0;}
+body.vscode-dark div.CodeMirror span.CodeMirror-nonmatchingbracket {color: #a22;}
+body.vscode-dark .CodeMirror-matchingtag { background: rgba(255, 150, 0, .3); }
+body.vscode-dark .CodeMirror-activeline-background {background: #e8f2ff;}
 
 /* STOP */
 
 /* The rest of this file contains styles related to the mechanics of
    the editor. You probably shouldn't touch them. */
 
-.CodeMirror {
+body.vscode-dark .CodeMirror {
   background: inherit;
 }
 
-.CodeMirror-selected { background: #d9d9d9; }
-.CodeMirror-focused .CodeMirror-selected { background: #d7d4f0; }
-.CodeMirror-crosshair { cursor: crosshair; }
-.CodeMirror-line::selection, .CodeMirror-line > span::selection, .CodeMirror-line > span > span::selection { background: #d7d4f0; }
-.CodeMirror-line::-moz-selection, .CodeMirror-line > span::-moz-selection, .CodeMirror-line > span > span::-moz-selection { background: #d7d4f0; }
+body.vscode-dark .CodeMirror-selected { background: #d9d9d9; }
+body.vscode-dark .CodeMirror-focused .CodeMirror-selected { background: #d7d4f0; }
+body.vscode-dark .CodeMirror-crosshair { cursor: crosshair; }
+body.vscode-dark .CodeMirror-line::selection, .CodeMirror-line > span::selection, .CodeMirror-line > span > span::selection { background: #d7d4f0; }
+body.vscode-dark .CodeMirror-line::-moz-selection, .CodeMirror-line > span::-moz-selection, .CodeMirror-line > span > span::-moz-selection { background: #d7d4f0; }
 
-.cm-searching {
+body.vscode-dark .cm-searching {
   background-color: #ffa;
   background-color: rgba(255, 255, 0, .4);
 }

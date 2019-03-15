@@ -1,6 +1,6 @@
 {
   "name": "UNotes",
-  "version": "0.1.5",
+  "version": "0.1.7",
   "publisher": "ryanmcalister",
   "engines": {
     "vscode": "^1.30.0"
@@ -100,12 +100,12 @@
         {
           "command": "unotes.addNoteHere",
           "when": "view == unoteFiles",
-          "group": "unotesAdd"
+          "group": "unotesAdd@1"
         },
         {
           "command": "unotes.addFolderHere",
           "when": "view == unoteFiles",
-          "group": "unotesAdd"
+          "group": "unotesAdd@2"
         },
         {
           "command": "unotes.deleteNote",
