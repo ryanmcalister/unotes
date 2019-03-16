@@ -52,7 +52,7 @@ body.vscode-light .tui-editor-contents pre.addon {
 }
 
 body.vscode-light .tui-editor-contents table {
-    color: rgb(187, 187, 187);
+    color: rgb(80, 80, 80);
 }
 
 body.vscode-light .tui-editor-contents table td {
@@ -69,7 +69,7 @@ body.vscode-light .tui-editor-contents ul,
 body.vscode-light .tui-editor-contents menu,
 body.vscode-light .tui-editor-contents ol,
 body.vscode-light .tui-editor-contents dir {
-    color: rgb(189, 189, 189);
+    color: rgb(104, 104, 104);
 }
 
 body.vscode-light .tui-editor-contents hr {

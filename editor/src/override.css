@@ -39,7 +39,8 @@ body.vscode-dark .tui-editor-defaultUI button {
     color: var(--vscode-button-foreground);
 }
 body.vscode-dark .tui-editor-defaultUI button.te-ok-button {
-    background-color: #4b96e6;
+  background-color: var(--vscode-button-background);
+  color: var(--vscode-button-foreground);
 }
 body.vscode-dark .tui-editor-defaultUI button.te-close-button {
     background-color: #777;
@@ -62,7 +63,7 @@ body.vscode-dark .te-toolbar-section {
 }
 
 body.vscode-dark .tui-editor-defaultUI-toolbar button {
-    background-color: var(--vscode-button-background);
+    background-color: var(--vscode-activityBar-background);
     border: 1px solid var(--vscode-activityBar-border);
     padding: 3px;
 }
@@ -71,7 +72,7 @@ body.vscode-dark .tui-editor-defaultUI-toolbar button:hover,
 body.vscode-dark .tui-editor-defaultUI-toolbar button:active,
 body.vscode-dark .tui-editor-defaultUI-toolbar button.active {
     border: 1px solid var(--vscode-activityBar-border);
-    background-color: var(--vscode-button-hoverBackground);
+    background-color: var(--vscode-activityBar-dropBackground);
 }
 
 body.vscode-dark .tui-editor-defaultUI-toolbar button.tui-scrollsync {
@@ -83,46 +84,45 @@ body.vscode-dark .tui-editor-defaultUI button.tui-scrollsync.active {
 }
 
 body.vscode-dark .tui-editor-defaultUI .te-mode-switch-section {
-    background-color: var(--vscode-dropdown-background);
+    background-color: var(--vscode-list-inactiveFocusBackground);
     border-top: 1px solid var(--vscode-dropdown-border);
 }
 
 body.vscode-dark .tui-editor-defaultUI .te-switch-button {
-    background: var(--vscode-dropdown-background);
-    color: var(--vscode-dropdown-foreground);
+    background: var(--vscode-list-inactiveFocusBackground);
+    color: var(--vscode-list-activeSelectionForeground);
     border-left: 1px solid var(--vscode-dropdown-border);
     border-right: 1px solid var(--vscode-dropdown-border);
 }
 
 body.vscode-dark .tui-editor-defaultUI .te-switch-button.active {
-    background-color: var(--vscode-list-hoverBackground);
-    color: var(--vscode-dropdown-foreground);
+    background-color: var(--vscode-list-activeSelectionBackground);
+    color: var(--vscode-list-activeSelectionForeground);
 }
 
 
 body.vscode-dark .tui-editor-defaultUI .te-markdown-tab-section {
-    background: var(--vscode-dropdown-background);
+    background: var(--vscode-list-focusBackground);
 }
 
 body.vscode-dark .te-markdown-tab-section .te-tab {
-    background: var(--vscode-dropdown-background);
+    background: var(--vscode-list-focusBackground);
 }
 
 body.vscode-dark .tui-editor-defaultUI .te-tab button {
-    background-color: var(--vscode-dropdown-background);
-    border: solid 1px var(--vscode-dropdown-border);
-    color: var(--vscode-dropdown-foreground);
+  background-color: var(--vscode-list-focusBackground);
+  border: solid 1px var(--vscode-list-invalidItemForeground);
+  color: var(--vscode-list-activeSelectionForeground);
 }
 
 body.vscode-dark .te-markdown-tab-section .te-tab button.te-tab-active,
 body.vscode-dark .te-markdown-tab-section .te-tab button:hover.te-tab-active {
-    background-color: var(--vscode-list-hoverBackground);
-    color: var(--vscode-list-hoverForeground)
+  background-color: var(--vscode-list-activeSelectionBackground);
 }
 
 body.vscode-dark .te-markdown-tab-section .te-tab button:hover {
-    background-color: var(--vscode-list-hoverBackground);
-    color: var(--vscode-list-hoverForeground);
+  background-color: var(--vscode-list-focusBackground);
+  color: var(--vscode-list-activeSelectionForeground);
 }
 
 body.vscode-dark .tui-popup-modal-background {
@@ -173,11 +173,13 @@ body.vscode-dark .te-popup-add-image .te-tab {
 
 body.vscode-dark .te-popup-add-image .te-tab button {
     border: 1px solid var(--vscode-dropdown-border);
-    background: var(--vscode-dropdown-background);
+    background: var(--vscode-list-focusBackground);
+    color: var(--vscode-list-highlightForeground);
 }
 
 body.vscode-dark .te-popup-add-image .te-tab button.te-tab-active {
-     background: var(--vscode-dropdown-background);
+  background: var(--vscode-list-activeSelectionBackground);
+  color: var(--vscode-list-activeSelectionForeground);
 }
 
 body.vscode-dark .te-popup-add-table .te-table-body {

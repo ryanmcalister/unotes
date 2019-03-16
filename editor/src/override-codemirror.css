@@ -105,7 +105,7 @@ body.vscode-dark .cm-s-default .cm-builtin {color: var(--vscode-list-warningFore
 body.vscode-dark .cm-s-default .cm-bracket {color: #997;}
 body.vscode-dark .cm-s-default .cm-tag {color: rgb(90, 126, 84);}
 body.vscode-dark .cm-s-default .cm-attribute {color: var(--vscode-list-highlightForeground);}
-body.vscode-dark .cm-s-default .cm-hr {color: var(--vscode-list-focusForeground);}
+body.vscode-dark .cm-s-default .cm-hr {color: var(--vscode-activityBar-inactiveForeground);}
 body.vscode-dark .cm-s-default .cm-link {color: var(--vscode-textLink-foreground);}
 
 body.vscode-dark .cm-s-default .cm-error {color: #f00;}
