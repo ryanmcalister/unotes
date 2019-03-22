@@ -11,8 +11,11 @@ const { Config } = require("./uNotesCommon");
 
 class UNoteTree {
 
-  constructor(name){
+  constructor(name, isOrdered){
+    if(isOrdered===undefined)
+      isOrdered = true;
     this.name = name;
+    this.isOrdered = isOrdered;
     this.folders = {};
     this.files = {};
   }
@@ -32,6 +35,11 @@ class UNoteTree {
   }
 
   syncFolders(folders){
+    const count = folders.length;
+    for(let i = 0; i < count; ++i){
+      const folder = this.getFolder([folders[i].label]);
+      folders[i].addState(folder.isOrdered ? 'ord' : 'uord');
+    }
     // remove folders that don't exist
     this.removeMissing(folders, this.folders);
   }
@@ -57,12 +65,21 @@ class UNoteTree {
       }
 
     } catch(e){
-      const msg = e.message();
+      const msg = e.message;
       console.log(msg);
     }
   }
 
   syncFiles(notes){
+    // set is ordered state
+    const count = notes.length;
+    for(let i = 0; i < count; i++){
+      notes[i].addState(this.isOrdered ? 'ord' : 'uord');
+    }
+
+
+    if(!this.isOrdered) return;
+
     // sync with files
     let nextIndex = 1000000;
     // sort the notes array
@@ -84,7 +101,6 @@ class UNoteTree {
     this.removeMissing(notes, this.files);
 
     // reset the files indexes
-    const count = notes.length;
     for(let i = 0; i < count; i++){
       this.files[notes[i].label] = i;
     }
@@ -124,6 +140,9 @@ class UNoteTree {
 
   loadFromObject(obj){
     this.name = obj.name;
+    if(obj.isOrdered === undefined)
+      obj.isOrdered = true;
+    this.isOrdered = obj.isOrdered;
     this.files = obj.files;
     for(let key in obj.folders){
       const tree = new UNoteTree();
@@ -141,7 +160,7 @@ class UNoteTree {
         this.loadFromObject(obj);
       }
     } catch(e){
-      const msg = e.message();
+      const msg = e.message;
       console.log(msg);
       vscode.window.showWarningMessage("Failed to load Unotes meta information. \nNote ordering may be lost.");
     }
@@ -151,7 +170,7 @@ class UNoteTree {
     try {
       fs.writeFileSync(this.getTreeFilePath(), JSON.stringify(this, null, 2));
     } catch(e){
-      const msg = e.message();
+      const msg = e.message;
       console.log(msg);
     }
   }

@@ -120,7 +120,7 @@ class UNotes {
             this.view.reveal(newNote, { expand: 3 });          
             this.selectAfterRefresh = null;
           } catch(e){
-            console.log(e.message())
+            console.log(e.message)
           }
         }, 500); 
       }

@@ -1,6 +1,6 @@
 {
   "name": "UNotes",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "publisher": "ryanmcalister",
   "engines": {
     "vscode": "^1.30.0"
@@ -81,6 +81,22 @@
           "light": "resources/light/arrow_down.svg",
           "dark": "resources/dark/arrow_down.svg"
         }
+      },
+      {
+        "command": "unotes.orderingOn",
+        "title": "Manual Ordering",
+        "icon": {
+          "light": "resources/light/folder.svg",
+          "dark": "resources/dark/folder.svg"
+        }
+      },
+      {
+        "command": "unotes.orderingOff",
+        "title": "A-Z Ordering",
+        "icon": {
+          "light": "resources/light/folder.svg",
+          "dark": "resources/dark/folder.svg"
+        }
       }
     ],
     "menus": {
@@ -109,21 +125,32 @@
         },
         {
           "command": "unotes.deleteNote",
-          "when": "viewItem == uNoteFile"
+          "when": "viewItem =~ /(uNoteFile)/"
         },
         {
           "command": "unotes.deleteFolder",
-          "when": "viewItem == uNoteFolder"
+          "when": "viewItem =~ /(uNoteFolder)/",
+          "group": "unotesFolder@1"
         },
         {
           "command": "unotes.moveDown",
-          "when": "viewItem == uNoteFile",
+          "when": "viewItem =~ /(uNoteFile:ord)/",
           "group": "inline@2"
         },
         {
           "command": "unotes.moveUp",
-          "when": "viewItem == uNoteFile",
+          "when": "viewItem =~ /(uNoteFile:ord)/",
           "group": "inline@1"
+        },
+        {
+          "command": "unotes.orderingOff",
+          "when": "viewItem =~ /(uNoteFolder:ord)/",
+          "group": "unotesFolder@2"
+        },
+        {
+          "command": "unotes.orderingOn",
+          "when": "viewItem =~ /(uNoteFolder:uord)/",
+          "group": "unotesFolder@2"
         }
       ]
     },

@@ -32,6 +32,14 @@ class UNoteProvider {
     this.disposables.push(
       vscode.commands.registerCommand('unotes.moveDown', this.onMoveDown.bind(this))
     );
+
+    this.disposables.push(
+      vscode.commands.registerCommand('unotes.orderingOff', this.onOrderingOff.bind(this))
+    );
+
+    this.disposables.push(
+      vscode.commands.registerCommand('unotes.orderingOn', this.onOrderingOn.bind(this))
+    );
         
   }
 
@@ -47,6 +55,8 @@ class UNoteProvider {
   getPaths(note){
     // get the relative path in a list
     const paths = path.join(note.folderPath).split(path.sep);
+    if(note.isFolder)
+      paths.push(note.label);
     paths.shift();  // cut off the root path
     return paths;
   }
@@ -62,6 +72,20 @@ class UNoteProvider {
     const paths = this.getPaths(note);
     const noteFolder = this.noteTree.getFolder(paths);
     noteFolder.moveDown(note.label);
+    this.refresh();
+  }
+
+  onOrderingOff(folder){
+    const paths = this.getPaths(folder);
+    const noteFolder = this.noteTree.getFolder(paths);
+    noteFolder.isOrdered = false;
+    this.refresh();
+  }
+
+  onOrderingOn(folder){
+    const paths = this.getPaths(folder);
+    const noteFolder = this.noteTree.getFolder(paths);
+    noteFolder.isOrdered = true;
     this.refresh();
   }
 
@@ -87,7 +111,7 @@ class UNoteProvider {
       return Promise.resolve(UNote.folderFromPath(element.folderPath));
 
     } catch(e){
-      console.log("getParent failed: " + e.message());
+      console.log("getParent failed: " + e.message);
     }
   }
 
@@ -130,10 +154,11 @@ class UNoteProvider {
       noteFolder.syncFolders(folders);
       noteFolder.syncFiles(notes);
       this.saveNoteTree();
+  
       return folders.concat(notes);
 
     } catch(e){
-      console.log("Error building tree: " + e.message());
+      console.log("Error building tree: " + e.message);
     }
   }
 }
