@@ -13,7 +13,7 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.91 r13725"
-   sodipodi:docname="folder.svg">
+   sodipodi:docname="add_folder.svg">
   <metadata
      id="metadata12">
     <rdf:RDF>
@@ -63,9 +63,15 @@
      inkscape:connector-curvature="0"
      style="fill:none" />
   <path
-     d="m 8.5,5.5 -2,-2 -6,0 0,2 0,10 13,0 2,-1 0,-9 z"
+     d="m 8.5,5.5 -2,-2 -6,0 0,2 0,10 13,0 2,-1 0,-9 z m 2,6 -2,0 0,2 -2,0 0,-2 -2,0 0,-2 2,0 0,-2 2,0 0,2 2,0 z"
      id="path6"
      inkscape:connector-curvature="0"
-     sodipodi:nodetypes="ccccccccc"
-     style="fill:#828282;fill-opacity:0.70520234;stroke:#000000;stroke-opacity:0.71098268" />
+     sodipodi:nodetypes="cccccccccccccccccccccc"
+     style="fill:#828282;fill-opacity:1;stroke:#000000;stroke-opacity:1" />
+  <path
+     style="fill:#97ff5c;fill-opacity:1;fill-rule:evenodd;stroke:#018900;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="m 4.4999995,9.5000046 2.0000005,0 0,-2.0021846 2,0.00218 0,2 2,0 0,2 -2,0 0,2 -2,0 0,-2 -2.0000005,0 z"
+     id="path4142"
+     inkscape:connector-curvature="0"
+     sodipodi:nodetypes="ccccccccccccc" />
 </svg>

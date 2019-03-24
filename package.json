@@ -1,12 +1,37 @@
 {
   "name": "UNotes",
-  "version": "0.1.8",
+  "displayName": "UNOTES - Markdown Notes WYSIWYG",
+  "version": "0.1.9",
+  "author": {
+    "name": "Ryan McAlister",
+    "email": "rymc26@gmail.com"
+  },
   "publisher": "ryanmcalister",
+  "license": "SEE LICENSE IN LICENSE",
+  "homepage": "https://github.com/ryanmcalister/unotes/blog/master/README.md",
+  "bugs": {
+    "url": "https://github.com/ryanmcalister/unotes/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ryanmcalister/unotes.git"
+  },
   "engines": {
     "vscode": "^1.30.0"
   },
   "categories": [
     "Other"
+  ],
+  "galleryBanner": {
+    "color": "#333333",
+    "theme": "dark"
+  },
+  "keywords": [
+    "markdown",
+    "notes",
+    "notebook",
+    "editor",
+    "wysiwyg"
   ],
   "activationEvents": [
     "onView:unoteFiles"
@@ -22,7 +47,7 @@
         "command": "unotes.addNote",
         "title": "Add Note",
         "icon": {
-          "light": "resources/light/document.svg",
+          "light": "resources/light/add_note.svg",
           "dark": "resources/dark/document.svg"
         }
       },
@@ -30,7 +55,7 @@
         "command": "unotes.addFolder",
         "title": "Add Folder",
         "icon": {
-          "light": "resources/light/folder.svg",
+          "light": "resources/light/add_folder.svg",
           "dark": "resources/dark/folder.svg"
         }
       },

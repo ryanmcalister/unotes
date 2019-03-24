@@ -39,6 +39,9 @@ class UNoteTree {
     for(let i = 0; i < count; ++i){
       const folder = this.getFolder([folders[i].label]);
       folders[i].addState(folder.isOrdered ? 'ord' : 'uord');
+      if(!folder.isOrdered){
+        folders[i].setUnorderedIcon();
+      }
     }
     // remove folders that don't exist
     this.removeMissing(folders, this.folders);
