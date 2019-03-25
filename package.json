@@ -48,7 +48,7 @@
         "title": "Add Note",
         "icon": {
           "light": "resources/light/add_note.svg",
-          "dark": "resources/dark/document.svg"
+          "dark": "resources/dark/add_note.svg"
         }
       },
       {
@@ -56,39 +56,39 @@
         "title": "Add Folder",
         "icon": {
           "light": "resources/light/add_folder.svg",
-          "dark": "resources/dark/folder.svg"
+          "dark": "resources/dark/add_folder.svg"
         }
       },
       {
         "command": "unotes.addNoteHere",
         "title": "Add Note",
         "icon": {
-          "light": "resources/light/document.svg",
-          "dark": "resources/dark/document.svg"
+          "light": "resources/light/add_note.svg",
+          "dark": "resources/dark/add_note.svg"
         }
       },
       {
         "command": "unotes.addFolderHere",
         "title": "Add Folder",
         "icon": {
-          "light": "resources/light/folder.svg",
-          "dark": "resources/dark/folder.svg"
+          "light": "resources/light/add_folder.svg",
+          "dark": "resources/dark/add_folder.svg"
         }
       },
       {
         "command": "unotes.deleteFolder",
         "title": "Remove Folder",
         "icon": {
-          "light": "resources/light/folder.svg",
-          "dark": "resources/dark/folder.svg"
+          "light": "resources/light/remove_folder.svg",
+          "dark": "resources/dark/remove_folder.svg"
         }
       },
       {
         "command": "unotes.deleteNote",
         "title": "Remove Note",
         "icon": {
-          "light": "resources/light/document.svg",
-          "dark": "resources/dark/document.svg"
+          "light": "resources/light/remove_note.svg",
+          "dark": "resources/dark/remove_note.svg"
         }
       },
       {
@@ -119,8 +119,8 @@
         "command": "unotes.orderingOff",
         "title": "A-Z Ordering",
         "icon": {
-          "light": "resources/light/folder.svg",
-          "dark": "resources/dark/folder.svg"
+          "light": "resources/light/folder_alpha.svg",
+          "dark": "resources/dark/folder_alpha.svg"
         }
       }
     ],

@@ -13,7 +13,7 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.91 r13725"
-   sodipodi:docname="folder.svg">
+   sodipodi:docname="note.svg">
   <metadata
      id="metadata12">
     <rdf:RDF>
@@ -37,20 +37,19 @@
      guidetolerance="10"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:window-width="1397"
-     inkscape:window-height="1057"
+     inkscape:window-width="1312"
+     inkscape:window-height="993"
      id="namedview8"
      showgrid="true"
      inkscape:object-nodes="true"
-     inkscape:snap-intersection-paths="false"
-     inkscape:snap-smooth-nodes="true"
-     inkscape:zoom="39.333333"
-     inkscape:cx="8.5416537"
-     inkscape:cy="7.0356023"
-     inkscape:window-x="2323"
-     inkscape:window-y="345"
+     inkscape:zoom="44.037039"
+     inkscape:cx="4.239277"
+     inkscape:cy="7.9330025"
+     inkscape:window-x="1508"
+     inkscape:window-y="245"
      inkscape:window-maximized="0"
-     inkscape:current-layer="svg2">
+     inkscape:current-layer="svg2"
+     inkscape:snap-smooth-nodes="true">
     <inkscape:grid
        type="xygrid"
        id="grid4140"
@@ -58,14 +57,15 @@
        originy="0.5" />
   </sodipodi:namedview>
   <path
-     d="M 0,-8 24,-8 24,16 0,16 0,-8 Z"
+     d="m 0,-8 c 5.6568542,-5.656854 18.343146,-5.656854 24,0 5.656854,5.6568542 5.656854,18.343146 0,24 C 18.343146,21.656854 5.6568542,21.656854 0,16 -5.6568542,10.343146 -5.6568542,-2.3431458 0,-8 Z"
      id="path4"
      inkscape:connector-curvature="0"
-     style="fill:none" />
+     style="fill:none"
+     sodipodi:nodetypes="sssss" />
   <path
-     d="m 8.5,5.5 -2,-2 -6,0 0,2 0,10 13,0 2,-1 0,-9 z"
+     d="m 9.5,0.5 -7,0 0,14 11,0 0,-10 z m -1,5 0,-4 4,4 z"
      id="path6"
      inkscape:connector-curvature="0"
-     sodipodi:nodetypes="ccccccccc"
-     style="fill:#d1c5a2;fill-opacity:0.78431374;stroke:#605d58;stroke-opacity:1" />
+     style="fill:#c7d0d2;fill-opacity:0.83815026;stroke:#565656;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.76744187"
+     sodipodi:nodetypes="cccccccccc" />
 </svg>

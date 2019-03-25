@@ -13,7 +13,7 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.91 r13725"
-   sodipodi:docname="folder.svg">
+   sodipodi:docname="remove_folder.svg">
   <metadata
      id="metadata12">
     <rdf:RDF>
@@ -37,18 +37,18 @@
      guidetolerance="10"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:window-width="1397"
-     inkscape:window-height="1057"
+     inkscape:window-width="1476"
+     inkscape:window-height="982"
      id="namedview8"
      showgrid="true"
      inkscape:object-nodes="true"
      inkscape:snap-intersection-paths="false"
      inkscape:snap-smooth-nodes="true"
      inkscape:zoom="39.333333"
-     inkscape:cx="8.5416537"
-     inkscape:cy="7.0356023"
-     inkscape:window-x="2323"
-     inkscape:window-y="345"
+     inkscape:cx="3.7492808"
+     inkscape:cy="7.340687"
+     inkscape:window-x="1805"
+     inkscape:window-y="255"
      inkscape:window-maximized="0"
      inkscape:current-layer="svg2">
     <inkscape:grid
@@ -68,4 +68,10 @@
      inkscape:connector-curvature="0"
      sodipodi:nodetypes="ccccccccc"
      style="fill:#d1c5a2;fill-opacity:0.78431374;stroke:#605d58;stroke-opacity:1" />
+  <path
+     style="fill:#ff5c72;fill-opacity:1;fill-rule:evenodd;stroke:#892300;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="M 4.6725392,11.913818 6.0867532,10.499604 4.6709948,9.0838457 6.0867499,7.6711736 7.5009635,9.0853872 8.915177,7.6711736 l 1.414214,1.4142136 -1.414214,1.4142138 1.414214,1.414213 -1.414214,1.414214 -1.4142135,-1.414214 -1.414214,1.414214 z"
+     id="path4142"
+     inkscape:connector-curvature="0"
+     sodipodi:nodetypes="ccccccccccccc" />
 </svg>

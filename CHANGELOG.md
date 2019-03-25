@@ -1,5 +1,14 @@
 # Updates
 
+## [0.1.9] - 2019-03-22
+### Added
+- Folder ordering option
+- New icons
+
+## [0.1.8] - 2019-03-16
+### Added
+- Improved theming
+
 ## [0.1.7] - 2019-03-15
 ### Added
 - Improved light theming
