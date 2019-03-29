@@ -14,6 +14,8 @@ Unotes is an [open-source](https://github.com/ryanmcalister/unotes 'Open Unotes 
 
 Unotes helps you visualize and manage your markdown notes. Organize your notes in nested folders and edit them with a rich WYSIWYG editor. 
 
+Use Visual Studio Code's built in search and version control features for all your notes.
+
 # Features
 
 ### WYSIWYG Editor
