@@ -26,9 +26,9 @@ Unotes helps you visualize and manage your markdown notes. Organize your notes i
 
 ### Editing Toolbar
 
-### Paste Images From Clipboard
+### Paste Images from the Clipboard
 
-### Local Image support
+### Local Image Support
 
 ### Customizable Hotkeys
 
