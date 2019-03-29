@@ -18,8 +18,8 @@ class UNote extends vscode.TreeItem {
     this.isFolder = isFolder;
     this.folderPath = folderPath;
     this.iconPath = {
-      light: path.join(__filename, '..', '..', 'resources', 'light', this.isFolder ? 'folder.svg' : 'note.svg'),
-      dark: path.join(__filename, '..', '..', 'resources', 'dark', this.isFolder ? 'folder.svg' : 'note.svg')
+      light: path.join(Utils.context.extensionPath, 'resources', 'light', this.isFolder ? 'folder.svg' : 'note.svg'),
+      dark: path.join(Utils.context.extensionPath, 'resources', 'dark', this.isFolder ? 'folder.svg' : 'note.svg')
     };
     this.contextValue = (this.isFolder ? 'uNoteFolder' : 'uNoteFile')
   }
@@ -28,8 +28,8 @@ class UNote extends vscode.TreeItem {
   }
   setUnorderedIcon(){
     this.iconPath = {
-      light: path.join(__filename, '..', '..', 'resources', 'light', "folder_alpha.svg"),
-      dark: path.join(__filename, '..', '..', 'resources', 'dark', "folder_alpha.svg")
+      light: path.join(Utils.context.extensionPath, 'resources', 'light', "folder_alpha.svg"),
+      dark: path.join(Utils.context.extensionPath, 'resources', 'dark', "folder_alpha.svg")
     };
   }
   get tooltip() {

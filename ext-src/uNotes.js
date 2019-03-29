@@ -41,6 +41,8 @@ class UNotes {
     this.currentNote = null;
     this.selectAfterRefresh = null;
 
+    Utils.context = context;
+
     this.initUnotesFolder();
     
     context.subscriptions.push(vscode.commands.registerCommand('unotes.start', function () {

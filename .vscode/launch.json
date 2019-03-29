@@ -5,16 +5,37 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Launch Extension",
+      "name": "Launch Unotes",
       "type": "extensionHost",
       "request": "launch",
       "runtimeExecutable": "${execPath}",
+      "env": {
+          "VSCODE_DEBUGGING_EXTENSION": "Unotes"
+      },
       "args": [
           "--extensionDevelopmentPath=${workspaceFolder}"
       ],
       "stopOnEntry": false,
       "sourceMaps": true,
-      "outFiles": ["${workspaceFolder}/ext-src"]
+      "outFiles": ["${workspaceFolder}/dist/**.*.js"],
+      "skipFiles": ["<node_internals>/**", "**/node_modules/**"]
+    },
+    {
+      "name": "Watch & Launch Unotes",
+      "type": "extensionHost",
+      "request": "launch",
+      "runtimeExecutable": "${execPath}",
+      "env": {
+          "VSCODE_DEBUGGING_EXTENSION": "Unotes"
+      },
+      "args": [
+          "--extensionDevelopmentPath=${workspaceFolder}"
+      ],
+      "smartStep": true,
+      "sourceMaps": true,
+      "outFiles": ["${workspaceFolder}/dist/**.*.js"],
+      "skipFiles": ["<node_internals>/**", "**/node_modules/**"],
+      "preLaunchTask": "npm: watch"
     }
   ]
 }

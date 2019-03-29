@@ -1,5 +1,9 @@
 # Updates
 
+## [1.0.0] - 2019-03-29
+### Added
+- Project improvements
+
 ## [0.1.9] - 2019-03-22
 ### Added
 - Folder ordering option

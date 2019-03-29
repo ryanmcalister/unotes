@@ -252,9 +252,8 @@ class UNotesPanel {
 
   getWebviewContent() {
     const vsScheme = { scheme: 'vscode-resource' };
-		const manifest = require(path.join(this.extensionPath, 'build', 'asset-manifest.json'));
-		const mainScript = manifest['main.js'];
-		const mainStyle = manifest['main.css'];
+		const mainScript = '/static/js/main.js';
+		const mainStyle = '/static/css/main.css';
     
 		const scriptPathOnDisk = vscode.Uri.file(path.join(this.extensionPath, 'build', mainScript));
 		const scriptUri = scriptPathOnDisk.with(vsScheme);

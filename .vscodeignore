@@ -1,2 +1,10 @@
 **/public
 **/editor
+.vscode
+node_modules
+out/
+editor/
+ext-src/
+tsconfig.json
+webpack.config.js
+*.vsix

@@ -1,7 +1,7 @@
 {
-  "name": "UNotes",
+  "name": "Unotes",
   "displayName": "UNOTES - Markdown Notes WYSIWYG",
-  "version": "0.1.9",
+  "version": "1.0.0",
   "author": {
     "name": "Ryan McAlister",
     "email": "rymc26@gmail.com"
@@ -23,7 +23,7 @@
     "Other"
   ],
   "galleryBanner": {
-    "color": "#333333",
+    "color": "#666666",
     "theme": "dark"
   },
   "keywords": [
@@ -36,7 +36,7 @@
   "activationEvents": [
     "onView:unoteFiles"
   ],
-  "main": "./ext-src/extension.js",
+  "main": "./dist/extension.js",
   "contributes": {
     "commands": [
       {
@@ -280,7 +280,7 @@
       "activitybar": [
         {
           "id": "unotes",
-          "title": "UNotes",
+          "title": "Unotes",
           "icon": "unotes.svg"
         }
       ]
@@ -289,7 +289,7 @@
       "unotes": [
         {
           "id": "unoteFiles",
-          "name": "Note Files"
+          "name": ""
         }
       ]
     }
@@ -301,13 +301,22 @@
   },
   "devDependencies": {
     "@types/node": "^10.12.18",
+    "ts-loader": "^5.3.3",
     "typescript": "^3.2.4",
-    "vscode": "^1.1.25"
+    "vscode": "^1.1.25",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.3.0"
   },
   "scripts": {
-    "vscode:prepublish": "rmdir /s /q build && cd editor && node build-non-split.js && move build .. && cd ..",
+    "vscode:prepublish": "npm run build-editor && npm run bundle",
+    "build": "webpack --mode development",
+    "build-editor": "rmdir /s /q build && cd editor && node build-non-split.js && move build .. && cd ..",
+    "bundle": "webpack --mode production",
     "postinstall": "node ./node_modules/vscode/bin/install",
-    "build": "rmdir /s /q build && cd editor && node build-non-split.js && move build .. && cd .."
+    "pack": "vsce package",
+    "pub": "vsce publish",
+    "compile": "webpack --mode none",
+    "watch": "webpack --watch --development --info-verbosity verbose"
   },
   "eslintConfig": {
     "extends": "react-app"

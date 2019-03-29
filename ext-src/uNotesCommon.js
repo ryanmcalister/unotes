@@ -9,6 +9,8 @@ const vscode = require("vscode");
 
 exports.Utils = {
 
+  context: null,
+
   stripMD(str){
     const pos = str.toUpperCase().lastIndexOf('.MD');
     if(pos<0){
