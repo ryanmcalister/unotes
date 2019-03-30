@@ -5,6 +5,8 @@
 # ᑌᑎotes Markdown WYSIWYG
 > Unotes gives you a `markdown` note editor right inside Visual Studio Code. Don't get distracted with noisy markdown syntax. **Enjoy** your notes with a rich `wysiwyg` editor. Take full control of the markdown when needed. Start taking notes in **_style_**!  
 
+![Intro](https://raw.githubusercontent.com/ryanmcalister/unotes/master/resources/screenshots/intro.gif)
+
 # What's new in Unotes 1.0
 - Folder options for alphabetical or manual note ordering
 - Local image support
