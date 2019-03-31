@@ -32,9 +32,12 @@ Use Visual Studio Code's built in search and version control features for all yo
 
 ### Paste Images from the Clipboard
 
-### Local Image Support
+### Local, Embedded and URL Images
+
+### Table Support
 
 ### Customizable Hotkeys
+
 
 ## Acknowlegments
 Unotes is here largely thanks to
