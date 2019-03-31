@@ -294,7 +294,6 @@
       ]
     }
   },
-  "private": true,
   "dependencies": {
     "debounce": "^1.2.0",
     "fast-glob": "^2.2.6"
