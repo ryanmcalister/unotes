@@ -22,9 +22,17 @@ Use Visual Studio Code's built in search and version control features for all yo
 
 ### WYSIWYG Editor
 
+![Editor](https://raw.githubusercontent.com/ryanmcalister/unotes/master/resources/screenshots/wysiwyg.gif)
+
 ### Split Markdown / Preview View
 
+![Buttons](https://raw.githubusercontent.com/ryanmcalister/unotes/master/resources/screenshots/buttons.gif)
+
+![Split View](https://raw.githubusercontent.com/ryanmcalister/unotes/master/resources/screenshots/split.gif)
+
 ### Color Themes Supported
+
+![Themes](https://raw.githubusercontent.com/ryanmcalister/unotes/master/resources/screenshots/themes.gif)
 
 ### Note Ordering
 
