@@ -111,7 +111,7 @@ class UNoteTree {
 
   moveUp(key){
     let value = this.files[key];
-    if(value){
+    if(value!=undefined){
       value = Math.max(0,--value);
       this.files[key] = value;
       for(let k in this.files){
@@ -125,7 +125,7 @@ class UNoteTree {
 
   moveDown(key){
     let value = this.files[key];
-    if(value){
+    if(value!==undefined){
       value = Math.min(Object.keys(this.files).length-1, ++value);
       this.files[key] = value;
       for(let k in this.files){

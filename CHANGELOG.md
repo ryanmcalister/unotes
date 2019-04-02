@@ -1,5 +1,9 @@
 # Updates
 
+## [1.0.4] - 2019-04-02
+### Fixed
+- Ordering first item bug
+
 ## [1.0.0] - 2019-03-29
 ### Added
 - Project improvements

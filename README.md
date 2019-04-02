@@ -36,6 +36,8 @@ Use Visual Studio Code's built in search and version control features for all yo
 
 ### Note Ordering
 
+![Ordering](https://raw.githubusercontent.com/ryanmcalister/unotes/master/resources/screenshots/ordering.gif)
+
 ### Editing Toolbar
 
 ### Paste Images from the Clipboard
