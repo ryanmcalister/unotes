@@ -7,6 +7,9 @@
 
 ![Intro](https://raw.githubusercontent.com/ryanmcalister/unotes/master/resources/screenshots/intro.gif)
 
+# ♥
+If find Unotes useful, please [write a review](https://marketplace.visualstudio.com/items?itemName=ryanmcalister.Unotes&ssr=false#review-details). 
+
 # What's new in Unotes 1.0
 - Folder options for alphabetical or manual note ordering
 - Local image support
