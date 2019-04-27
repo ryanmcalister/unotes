@@ -7,6 +7,7 @@ Object.defineProperty(exports, "__esModule", {
 const vscode = require('vscode');
 const path = require('path');
 const fs = require('fs');
+const { Config, Utils } = require("./uNotesCommon");
 
 let _currentPanel = null;
 
@@ -52,12 +53,14 @@ class UNotesPanel {
       this.extensionPath = extensionPath;
       this.disposables = [];
       this.reloadContent = false;
+      this.updateSettings = false;
       this.currentPath = '';
       this.currentNote = null;
       
       this.panel = vscode.window.createWebviewPanel('unotes', "UNotes", column, {
         enableScripts: true,
         retainContextWhenHidden: true,
+        enableFindWidget: true,
         localResourceRoots: [
           vscode.Uri.file(path.join(vscode.workspace.rootPath)),
           vscode.Uri.file(path.join(this.extensionPath, 'build'))
@@ -91,6 +94,10 @@ class UNotesPanel {
           if(this.reloadContent){
             this.updateContents();
             this.reloadContent = false;
+          }
+          if(this.updateSettings){
+            this.updateEditorSettings();
+            this.updateSettings = false;
           }
         }
       }, null, this.disposables);
@@ -154,12 +161,23 @@ class UNotesPanel {
         this.hotkeyExec(['HR']);
       }));
 
+      Utils.context.subscriptions.push(Config.onDidChange_editor_settings(this.updateEditorSettings.bind(this)));
+      this.updateEditorSettings();
 
     }
     catch (e) {
       console.log(e);
     }
 
+  }
+
+  updateEditorSettings(){
+    if(this.panel._active){
+      this.panel.webview.postMessage({ command: 'settings', settings: Config.settings.get('editor') });
+      
+    } else {
+      this.updateSettings = true;
+    }
   }
 
   hotkeyExec(args){

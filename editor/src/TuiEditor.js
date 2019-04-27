@@ -55,6 +55,11 @@ class TuiEditor extends Component {
     super(props);
     this.el = React.createRef();
     this.handleResizeMessage = debounce(this.handleResizeMessage.bind(this), 1000);
+    this.state = { 
+      settings : { 
+        display2X: false 
+      }
+    }
   }
 
   componentDidMount() {
@@ -135,6 +140,11 @@ class TuiEditor extends Component {
       case 'exec':
         this.state.editor.exec(...e.data.args);
         break;
+      case 'settings':
+        this.setState({ settings: e.data.settings });
+        console.log("Updating settings...");
+        console.log(e.data.settings);
+        break;
 
       default:
     }
@@ -150,7 +160,7 @@ class TuiEditor extends Component {
 
   render() {
     return (
-      <div id="editor" ref={this.el} />
+      <div className={this.state.settings.display2X ? "biggy" : "display1X"} id="editor" ref={this.el} />
     );
   }
 }

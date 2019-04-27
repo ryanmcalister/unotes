@@ -6,6 +6,9 @@ Object.defineProperty(exports, "__esModule", {
 
 const path = require("path");
 const vscode = require("vscode");
+const extId = 'unotes';
+
+exports.ExtId = extId;
 
 exports.Utils = {
 
@@ -19,8 +22,35 @@ exports.Utils = {
     return str.substring(0, pos);
   }
 
-}
+} // Utils
 
-exports.Config = {
-  folderPath: path.join(vscode.workspace.rootPath, './.unotes')
-};
+class UnotesConfig {
+  constructor() {
+    this.folderPath = path.join(vscode.workspace.rootPath, './.unotes');
+    this.settings = vscode.workspace.getConfiguration(extId);
+
+    // setting change events
+    this._onDidChange_editor_settings = new vscode.EventEmitter();
+    this.onDidChange_editor_settings = this._onDidChange_editor_settings.event;
+  }
+
+
+
+  onChange(e){
+    if(e.affectsConfiguration(extId)){
+      this.settings = vscode.workspace.getConfiguration(extId);
+      // fire events
+      const editorPath = extId + '.editor';
+      if(e.affectsConfiguration(editorPath)){
+        this._onDidChange_editor_settings.fire();
+        if(e.affectsConfiguration(editorPath + '.display2X')){
+          console.log(this.settings.get('editor'));
+          console.log(`display2X==${this.settings.get('editor.display2X')}`);
+        }
+      }
+    }      
+  }
+
+} // UnotesConfig
+
+exports.Config = new UnotesConfig();

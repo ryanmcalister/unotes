@@ -1,7 +1,7 @@
 {
   "name": "Unotes",
   "displayName": "UNOTES - Markdown Notes WYSIWYG",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "author": {
     "name": "Ryan McAlister",
     "email": "rymc26@gmail.com"
@@ -40,6 +40,17 @@
   "icon": "resources/unotes-icon.png",
   "preview": false,
   "contributes": {
+    "configuration": {
+      "type": "object",
+      "title": "Unotes",
+      "properties": {
+          "unotes.editor.display2X": {
+              "type": "boolean",
+              "default": false,
+              "markdownDescription": "Display toolbar buttons at 2X size"
+          }
+      }
+    },
     "commands": [
       {
         "command": "unotes.start",

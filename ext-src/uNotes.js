@@ -48,6 +48,8 @@ class UNotes {
     context.subscriptions.push(vscode.commands.registerCommand('unotes.start', function () {
       UNotesPanel.createOrShow(context.extensionPath);
     }));
+
+    context.subscriptions.push(vscode.workspace.onDidChangeConfiguration(Config.onChange.bind(Config)));
     
     // Create view and Provider
     const uNoteProvider = new UNoteProvider(vscode.workspace.rootPath);
