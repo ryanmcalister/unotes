@@ -46,7 +46,7 @@ class UNotes {
       return;
     }
 
-    if(!vscode.workspace.workspaceFolders.length > 1){
+    if(vscode.workspace.workspaceFolders.length > 1){
       vscode.window.showWarningMessage("Warning: unotes currently does not support multiple workspaces.");
     }
 
