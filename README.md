@@ -91,6 +91,12 @@ No markdown WYSIWYG is perfect and Unotes has its share of issues. Some issues h
 #### CodeBlocks
 - Some characters are escape encoded undesireably.
 
+#### Open Workspace Folder
+- Before using Unotes you must have a folder currently opened in the workspace.
+
+#### Multiple Workspace Folder Not Supported
+- Unotes currently does not support multiple workspace folders open. This may be a future enhancement.
+
 ## Acknowlegments
 Unotes is here largely thanks to
 - [tui editor](https://github.com/nhnent/tui.editor)
