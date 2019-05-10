@@ -1,6 +1,6 @@
 # Updates
 
-## [1.0.5] - 2019-05-10
+## [1.0.6] - 2019-05-10
 ### Added
 - Warnings for workspace folder issues
 - New user setting 'unotes.editor.display2x' to render buttons larger for HDPI screens
