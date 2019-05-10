@@ -44,11 +44,9 @@ body.vscode-dark .tui-editor-defaultUI button.te-ok-button {
 }
 body.vscode-dark .tui-editor-defaultUI button.te-close-button {
     background-color: #777;
-    padding: 0 25px;
-    height: 62px;
 }
 
-body.vscode-dark .biggy .tui-editor-defaultUI-toolbar {
+body.vscode-dark .display2X .tui-editor-defaultUI-toolbar {
   padding: 0 25px;
   height: 62px;
 }
@@ -61,7 +59,7 @@ body.vscode-dark .tui-toolbar-divider {
     background-color: var(--vscode-activityBar-inactiveForeground);
 }
 
-body.vscode-dark .biggy .tui-toolbar-divider {
+body.vscode-dark .display2X .tui-toolbar-divider {
   width: 1px;
   height: 28px;
   margin: 11px 12px;
@@ -71,7 +69,7 @@ body.vscode-dark .tui-toolbar-button-group {
     border-right: 1px solid var(--vscode-activityBar-border);
 }
 
-body.vscode-dark .biggy .tui-toolbar-button-group {
+body.vscode-dark .display2X .tui-toolbar-button-group {
   height: 56px;
 }
 
@@ -79,7 +77,7 @@ body.vscode-dark .te-toolbar-section {
     border-bottom: 1px solid var(--vscode-activityBar-border);
 }
 
-body.vscode-dark .biggy .te-toolbar-section {
+body.vscode-dark .display2X .te-toolbar-section {
   height: 64px;
 }
 
@@ -88,7 +86,7 @@ body.vscode-dark .tui-editor-defaultUI-toolbar button {
     border: 1px solid var(--vscode-activityBar-border);
 }
 
-body.vscode-dark .biggy .tui-editor-defaultUI-toolbar button {
+body.vscode-dark .display2X .tui-editor-defaultUI-toolbar button {
     width: 44px;
     height: 44px;
     padding: 3px;
@@ -340,7 +338,7 @@ body.vscode-dark .tui-toolbar-icons {
   background: url('editor-dark.png');
 }
 
-body.vscode-dark .biggy .tui-toolbar-icons {
+body.vscode-dark .display2X .tui-toolbar-icons {
   background: url('editor-2x-dark.png');
   background-size: 436px 376px;
 }
@@ -357,169 +355,181 @@ body.vscode-dark .tui-toolbar-icons {
 }
 }
 
-body.vscode-dark .biggy .tui-toolbar-icons.tui-heading {
+body.vscode-dark .display2X .tui-toolbar-icons.tui-heading {
   background-position: -344px -96px;
 }
 
-body.vscode-dark .biggy .tui-toolbar-icons.tui-heading:disabled {
+body.vscode-dark .display2X .tui-toolbar-icons.tui-heading:disabled {
   background-position: -386px -96px;
 }
 
-body.vscode-dark .biggy .tui-toolbar-icons.tui-bold {
+body.vscode-dark .display2X .tui-toolbar-icons.tui-bold {
   background-position: -8px -8px;
 }
 
-body.vscode-dark .biggy .tui-toolbar-icons.tui-bold:disabled {
+body.vscode-dark .display2X .tui-toolbar-icons.tui-bold:disabled {
   background-position: -50px -8px;
 }
 
-body.vscode-dark .biggy .tui-toolbar-icons.tui-heading {
+body.vscode-dark .display2X .tui-toolbar-icons.tui-heading {
   background-position: -344px -96px;
 }
 
-body.vscode-dark .biggy .tui-toolbar-icons.tui-heading:disabled {
+body.vscode-dark .display2X .tui-toolbar-icons.tui-heading:disabled {
   background-position: -386px -96px;
 }
 
-body.vscode-dark .biggy .tui-toolbar-icons.tui-bold {
+body.vscode-dark .display2X .tui-toolbar-icons.tui-bold {
   background-position: -8px -8px;
 }
 
-body.vscode-dark .biggy .tui-toolbar-icons.tui-bold:disabled {
+body.vscode-dark .display2X .tui-toolbar-icons.tui-bold:disabled {
   background-position: -50px -8px;
 }
 
-body.vscode-dark .biggy .tui-toolbar-icons.tui-italic {
+body.vscode-dark .display2X .tui-toolbar-icons.tui-italic {
   background-position: -8px -96px;
 }
 
-body.vscode-dark .biggy .tui-toolbar-icons.tui-italic:disabled {
+body.vscode-dark .display2X .tui-toolbar-icons.tui-italic:disabled {
   background-position: -50px -96px;
 }
 
-body.vscode-dark .biggy .tui-toolbar-icons.tui-color {
+body.vscode-dark .display2X .tui-toolbar-icons.tui-color {
   background-position: -344px -140px;
 }
 
-body.vscode-dark .biggy .tui-toolbar-icons.tui-color:disabled {
+body.vscode-dark .display2X .tui-toolbar-icons.tui-color:disabled {
   background-position: -386px -140px;
 }
 
-body.vscode-dark .biggy .tui-toolbar-icons.tui-strike {
+body.vscode-dark .display2X .tui-toolbar-icons.tui-strike {
   background-position: -8px -52px;
 }
 
-body.vscode-dark .biggy .tui-toolbar-icons.tui-strike:disabled {
+body.vscode-dark .display2X .tui-toolbar-icons.tui-strike:disabled {
   background-position: -50px -52px;
 }
 
-body.vscode-dark .biggy .tui-toolbar-icons.tui-hrline {
+body.vscode-dark .display2X .tui-toolbar-icons.tui-hrline {
   background-position: -92px -184px;
 }
 
-body.vscode-dark .biggy .tui-toolbar-icons.tui-hrline:disabled {
+body.vscode-dark .display2X .tui-toolbar-icons.tui-hrline:disabled {
   background-position: -134px -184px;
 }
 
-body.vscode-dark .biggy .tui-toolbar-icons.tui-quote {
+body.vscode-dark .display2X .tui-toolbar-icons.tui-quote {
   background-position: -8px -228px;
 }
 
-body.vscode-dark .biggy .tui-toolbar-icons.tui-quote:disabled {
+body.vscode-dark .display2X .tui-toolbar-icons.tui-quote:disabled {
   background-position: -50px -228px;
 }
 
-body.vscode-dark .biggy .tui-toolbar-icons.tui-ul {
+body.vscode-dark .display2X .tui-toolbar-icons.tui-ul {
   background-position: -92px -8px;;
 }
 
-body.vscode-dark .biggy .tui-toolbar-icons.tui-ul:disabled {
+body.vscode-dark .display2X .tui-toolbar-icons.tui-ul:disabled {
   background-position: -134px -8px;;
 }
 
-body.vscode-dark .biggy .tui-toolbar-icons.tui-ol {
+body.vscode-dark .display2X .tui-toolbar-icons.tui-ol {
   background-position: -92px -52px;
 }
 
-body.vscode-dark .biggy .tui-toolbar-icons.tui-ol:disabled {
+body.vscode-dark .display2X .tui-toolbar-icons.tui-ol:disabled {
   background-position: -134px -52px;
 }
 
-body.vscode-dark .biggy .tui-toolbar-icons.tui-task {
+body.vscode-dark .display2X .tui-toolbar-icons.tui-task {
   background-position: -260px -96px;
 }
 
-body.vscode-dark .biggy .tui-toolbar-icons.tui-task:disabled {
+body.vscode-dark .display2X .tui-toolbar-icons.tui-task:disabled {
   background-position: -302px -96px;
 }
 
-body.vscode-dark .biggy .tui-toolbar-icons.tui-indent {
+body.vscode-dark .display2X .tui-toolbar-icons.tui-indent {
   background-position: -92px -96px;
 }
 
-body.vscode-dark .biggy .tui-toolbar-icons.tui-indent:disabled {
+body.vscode-dark .display2X .tui-toolbar-icons.tui-indent:disabled {
   background-position: -134px -96px;
 }
 
-body.vscode-dark .biggy .tui-toolbar-icons.tui-outdent {
+body.vscode-dark .display2X .tui-toolbar-icons.tui-outdent {
   background-position: -92px -140px;
 }
 
-body.vscode-dark .biggy .tui-toolbar-icons.tui-outdent:disabled {
+body.vscode-dark .display2X .tui-toolbar-icons.tui-outdent:disabled {
   background-position: -134px -140px;
 }
 
-body.vscode-dark .biggy .tui-toolbar-icons.tui-table {
+body.vscode-dark .display2X .tui-toolbar-icons.tui-table {
   background-position: -176px -184px;
 }
 
-body.vscode-dark .biggy .tui-toolbar-icons.tui-table:disabled {
+body.vscode-dark .display2X .tui-toolbar-icons.tui-table:disabled {
   background-position: -218px -184px;
 }
 
-body.vscode-dark .biggy .tui-toolbar-icons.tui-image {
+body.vscode-dark .display2X .tui-toolbar-icons.tui-image {
   background-position: -260px -8px;
 }
 
-body.vscode-dark .biggy .tui-toolbar-icons.tui-image:disabled {
+body.vscode-dark .display2X .tui-toolbar-icons.tui-image:disabled {
   background-position: -302px -8px;
 }
 
-body.vscode-dark .biggy .tui-toolbar-icons.tui-link {
+body.vscode-dark .display2X .tui-toolbar-icons.tui-link {
   background-position: -260px -52px;
 }
 
-body.vscode-dark .biggy .tui-toolbar-icons.tui-link:disabled {
+body.vscode-dark .display2X .tui-toolbar-icons.tui-link:disabled {
   background-position: -302px -52px;
 }
 
-body.vscode-dark .biggy .tui-toolbar-icons.tui-code {
+body.vscode-dark .display2X .tui-toolbar-icons.tui-code {
   background-position: -260px -184px;
 }
 
-body.vscode-dark .biggy .tui-toolbar-icons.tui-code:disabled {
+body.vscode-dark .display2X .tui-toolbar-icons.tui-code:disabled {
   background-position: -302px -184px;
 }
 
-body.vscode-dark .biggy .tui-toolbar-icons.tui-codeblock {
+body.vscode-dark .display2X .tui-toolbar-icons.tui-codeblock {
   background-position: -260px -140px;
 }
 
-body.vscode-dark .biggy .tui-toolbar-icons.tui-codeblock:disabled {
+body.vscode-dark .display2X .tui-toolbar-icons.tui-codeblock:disabled {
   background-position: -302px -140px;
 }
 
-body.vscode-dark .biggy .tui-toolbar-icons.tui-more {
+body.vscode-dark .display2X .tui-toolbar-icons.tui-more {
   background-position: -344px -184px;
 }
 
-body.vscode-dark .biggy .tui-toolbar-icons.tui-more:disabled {
+body.vscode-dark .display2X .tui-toolbar-icons.tui-more:disabled {
   background-position: -386px -184px;
 }
 
+body.vscode-dark .tui-toolbar-icons.tui-heading {
+  background-position: -172px -48px;
+}
 
+body.vscode-dark .tui-toolbar-icons.tui-heading:disabled {
+  background-position: -193px -48px;
+}
 
+body.vscode-dark .tui-toolbar-icons.tui-bold {
+  background-position: -4px -4px;
+}
 
+body.vscode-dark .tui-toolbar-icons.tui-bold:disabled {
+  background-position: -25px -4px;
+}
 
 body.vscode-dark .tui-toolbar-icons.tui-italic {
   background-position: -4px -48px;

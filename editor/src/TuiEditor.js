@@ -142,8 +142,6 @@ class TuiEditor extends Component {
         break;
       case 'settings':
         this.setState({ settings: e.data.settings });
-        console.log("Updating settings...");
-        console.log(e.data.settings);
         break;
 
       default:
@@ -160,7 +158,7 @@ class TuiEditor extends Component {
 
   render() {
     return (
-      <div className={this.state.settings.display2X ? "biggy" : "display1X"} id="editor" ref={this.el} />
+      <div className={this.state.settings.display2X ? "display2X" : "display1X"} id="editor" ref={this.el} />
     );
   }
 }
