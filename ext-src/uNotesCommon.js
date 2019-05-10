@@ -47,8 +47,8 @@ class UnotesConfig {
       if(e.affectsConfiguration(editorPath)){
         this._onDidChange_editor_settings.fire();
         if(e.affectsConfiguration(editorPath + '.display2X')){
-          console.log(this.settings.get('editor'));
-          console.log(`display2X==${this.settings.get('editor.display2X')}`);
+          //console.log(this.settings.get('editor'));
+          //console.log(`display2X==${this.settings.get('editor.display2X')}`);
         }
       }
     }      

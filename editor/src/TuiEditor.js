@@ -115,7 +115,7 @@ class TuiEditor extends Component {
   }
 
   onPreviewBeforeHook(e){
-    console.log(e);
+    //console.log(e);
     return e;
   }
 
