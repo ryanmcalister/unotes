@@ -3,7 +3,8 @@
 ## [1.0.5] - 2019-05-10
 ### Added
 - Warnings for workspace folder issues
-- editor.display2x setting to render buttons larger for HDPI screens
+- New user setting 'unotes.editor.display2x' to render buttons larger for HDPI screens
+- Enabled WYSIWYG in-document search
 
 ### Fixed
 - UTF8 encoding bug (fixes issue #6)

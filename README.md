@@ -88,9 +88,6 @@ No markdown WYSIWYG is perfect and Unotes has its share of issues. Some issues h
 #### Copy and Paste 
 - You may not always get the desired results when pasting directly into the WYSIWYG editor. In some cases it may be best to paste into the raw markdown view.
 
-#### Unicode
-- Some unicode characters may not be preserved well in the editor.
-
 #### CodeBlocks
 - Some characters are escape encoded undesireably.
 
