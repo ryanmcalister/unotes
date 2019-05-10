@@ -189,7 +189,7 @@ class UNotesPanel {
   saveChanges(content){
     if(this.currentPath){
       this.writingFile = this.currentPath;
-      fs.writeFileSync(this.currentPath, content);
+      fs.writeFileSync(this.currentPath, content, 'utf8');
     }
   }
 
@@ -209,7 +209,7 @@ class UNotesPanel {
 
   updateContents(){
     try {
-      const content = fs.readFileSync(this.currentPath).toString('ascii');
+      const content = fs.readFileSync(this.currentPath, 'utf8');
       const folderPath = vscode.Uri.file(path.join(vscode.workspace.rootPath, this.currentNote.folderPath)).path;
       this.panel.webview.postMessage({ command: 'setContent', content, folderPath });
     }

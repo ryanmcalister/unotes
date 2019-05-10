@@ -1,5 +1,13 @@
 # Updates
 
+## [1.0.5] - 2019-05-10
+### Added
+- Warnings for workspace folder issues
+- editor.display2x setting to render buttons larger for HDPI screens
+
+### Fixed
+- UTF8 encoding bug (fixes issue #6)
+
 ## [1.0.4] - 2019-04-02
 ### Fixed
 - Ordering first item bug

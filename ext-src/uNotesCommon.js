@@ -26,6 +26,9 @@ exports.Utils = {
 
 class UnotesConfig {
   constructor() {
+    if(!vscode.workspace.rootPath){
+      return;
+    }
     this.folderPath = path.join(vscode.workspace.rootPath, './.unotes');
     this.settings = vscode.workspace.getConfiguration(extId);
 

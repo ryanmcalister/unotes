@@ -41,6 +41,15 @@ class UNotes {
     this.currentNote = null;
     this.selectAfterRefresh = null;
 
+    if(!vscode.workspace.rootPath){
+      vscode.window.showWarningMessage("Please open a folder BEFORE using unotes.");
+      return;
+    }
+
+    if(!vscode.workspace.workspaceFolders.length > 1){
+      vscode.window.showWarningMessage("Warning: unotes currently does not support multiple workspaces.");
+    }
+
     Utils.context = context;
 
     this.initUnotesFolder();
