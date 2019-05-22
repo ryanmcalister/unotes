@@ -1,6 +1,6 @@
 # Updates
 
-## [1.0.7] - 2019-05-21
+## [1.0.8] - 2019-05-22
 ### Fixed
 - Mac retina / HDPI display issue
 
