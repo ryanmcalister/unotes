@@ -74,7 +74,7 @@ Use Visual Studio Code's `built-in` search and version control features for all 
 - All note files are stored as `.md` files
 - Sync to a repository using `Git` or other version control system
 - Folder and Note settings are stored in `.unotes/unotes_meta.json` 
-  - **Be sure to sync this file** to preserver note ordering
+  - **Be sure to sync this file** to preserve note orderings
 
 ## Additional Info
 ### Excluded Folders

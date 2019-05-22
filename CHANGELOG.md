@@ -1,5 +1,9 @@
 # Updates
 
+## [1.0.7] - 2019-05-21
+### Fixed
+- Mac retina / HDPI display issue
+
 ## [1.0.6] - 2019-05-10
 ### Added
 - Warnings for workspace folder issues
