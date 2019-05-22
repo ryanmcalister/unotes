@@ -158,7 +158,7 @@ class TuiEditor extends Component {
 
   render() {
     return (
-      <div className={(this.state.settings.display2X || window.devicePixelRatio > 1) ? "display2X" : "display1X"} id="editor" ref={this.el} />
+      <div className={(this.state.settings.display2X) ? "display2X" : "display1X"} id="editor" ref={this.el} />
     );
   }
 }

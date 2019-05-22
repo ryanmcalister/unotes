@@ -334,8 +334,9 @@ body.vscode-dark .tui-popup-code-block-editor .tui-editor-contents pre {
 }
 
 
-body.vscode-dark .tui-toolbar-icons {
+body.vscode-dark .display1X .tui-toolbar-icons {
   background: url('editor-dark.png');
+  background-size: 218px 188px;
 }
 
 body.vscode-dark .display2X .tui-toolbar-icons {
@@ -352,6 +353,7 @@ only screen and (                min-resolution: 192dpi),
 only screen and (                min-resolution: 2dppx) {
 body.vscode-dark .tui-toolbar-icons {
   background: url('editor-2x-dark.png');
+  background-size: 436px 376px;
 }
 }
 
