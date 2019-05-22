@@ -332,9 +332,9 @@ body.vscode-light .tui-popup-code-block-editor .tui-editor-contents pre {
     background-color: transparent;
 }
 
-
-body.vscode-light .tui-toolbar-icons {
+body.vscode-light .display1X .tui-toolbar-icons {
   background: url('editor.png');
+  background-size: 218px 188px;
 }
 
 body.vscode-light .display2X .tui-toolbar-icons {
