@@ -111,7 +111,7 @@ class UNotes {
     const fswatcher = vscode.workspace.createFileSystemWatcher("**/*.md", false, false, false);
 
     fswatcher.onDidChange((e) => {
-      console.log("onDidChange");
+      //console.log("onDidChange");
       if(UNotesPanel.instance()){
         const panel = UNotesPanel.instance();
         if(panel && panel.updateFileIfOpen(e.fsPath)){
@@ -124,7 +124,7 @@ class UNotes {
     }, null,  this.disposables);
 
     fswatcher.onDidCreate((e) => {
-      console.log("onDidCreate");
+      //console.log("onDidCreate");
       uNoteProvider.refresh();
       if(this.selectAfterRefresh){
         const newNote = UNote.noteFromPath(this.selectAfterRefresh);
@@ -140,7 +140,7 @@ class UNotes {
     }, null,  this.disposables);
 
     fswatcher.onDidDelete((e) => {
-      console.log("onDidDelete");
+      //console.log("onDidDelete");
       uNoteProvider.refresh();
       const panel = UNotesPanel.instance();
       if(panel){
