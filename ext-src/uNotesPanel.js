@@ -80,6 +80,9 @@ class UNotesPanel {
                     case 'applyChanges':
                         this.saveChanges(message.content)
                         break;
+                    case 'editorOpened':
+                        this.updateContents();
+                        break;
                     case 'resized':
                         UNotesPanel.recreate(this.extensionPath, this.currentNote)
                         break;
@@ -230,9 +233,11 @@ class UNotesPanel {
 
     updateContents() {
         try {
-            const content = fs.readFileSync(this.currentPath, 'utf8');
-            const folderPath = vscode.Uri.file(path.join(vscode.workspace.rootPath, this.currentNote.folderPath)).path;
-            this.panel.webview.postMessage({ command: 'setContent', content, folderPath });
+            if(this.currentNote){
+                const content = fs.readFileSync(this.currentPath, 'utf8');
+                const folderPath = vscode.Uri.file(path.join(vscode.workspace.rootPath, this.currentNote.folderPath)).path;
+                this.panel.webview.postMessage({ command: 'setContent', content, folderPath });
+            }
         }
         catch (e) {
             console.log(e);

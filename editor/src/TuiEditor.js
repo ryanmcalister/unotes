@@ -62,6 +62,7 @@ class TuiEditor extends Component {
         this.onPreviewBeforeHook = this.onPreviewBeforeHook.bind(this);
         this.handleMessage = this.handleMessage.bind(this);
         this.remarkSettings = null;
+        this.contentSet = false;
 
         this.state = {
             settings: {
@@ -118,6 +119,10 @@ class TuiEditor extends Component {
         window.addEventListener('resize', this.handleResizeMessage);
 
         this.setState({ editor });
+
+        window.vscode.postMessage({
+            command: 'editorOpened'
+        });
     }
 
     onHtmlBefore(e) {
@@ -126,11 +131,12 @@ class TuiEditor extends Component {
 
     onAfterMarkdown(e) {
         if(this.remarkSettings){
-            return remark().use({
+            const md = remark().use({
                     settings: this.remarkSettings
                 })
                 .use(this.remarkPlugin)
                 .processSync(e).contents;
+            return md;
         }
         return e;
     }
@@ -156,6 +162,7 @@ class TuiEditor extends Component {
             case 'setContent':
                 img_root = e.data.folderPath + '/';
                 this.state.editor.setMarkdown(e.data.content, false);
+                this.contentSet = true;
                 break;
             case 'exec':
                 this.state.editor.exec(...e.data.args);
@@ -173,6 +180,11 @@ class TuiEditor extends Component {
     }
 
     onChange = (event) => {
+        if(!this.contentSet){
+            // prevent saving empty file
+            console.log("Prevented saving empty file.");
+            return;
+        }
         window.vscode.postMessage({
             command: 'applyChanges',
             content: this.state.editor.getValue()

@@ -4,10 +4,23 @@
 
 var repeat = require('repeat-string')
 var pad = require('./pad')
+var count = require('ccount')
 var lineFeed = '\n'
 var space = ' '
 var leftSquareBracket = '['
 var rightSquareBracket = ']'
+var leftParenthesis = '('
+var rightParenthesis = ')'
+var lessThan = '<'
+var greaterThan = '>'
+
+var expression = /\s/
+
+var quotationMark = '"'
+var apostrophe = "'"
+
+// Expression for a protocol:
+// See <http://en.wikipedia.org/wiki/URI_scheme#Generic_syntax>.
 var lowercaseX = 'x'
 
 var ceil = Math.ceil
@@ -17,19 +30,48 @@ var tabSize = 4
 
 var opts
 
+// Wrap `url` in angle brackets when needed, or when
+// forced.
+// In links, images, and definitions, the URL part needs
+// to be enclosed when it:
+//
+// - has a length of `0`
+// - contains white-space
+// - has more or less opening than closing parentheses
+function enclose_uri(uri, always) {
+    if (
+        always ||
+        uri.length === 0 ||
+        expression.test(uri) ||
+        count(uri, leftParenthesis) !== count(uri, rightParenthesis)
+    ) {
+        return lessThan + uri + greaterThan
+    }
+
+    return uri
+}
+
+function enclose_title(title) {
+    var delimiter =
+        title.indexOf(quotationMark) === -1 ? quotationMark : apostrophe
+    return delimiter + title + delimiter
+}
+
+
 module.exports = plugin
 
 function plugin(options) {
     opts = options;
-    if(opts.listItemTabSize){
+    if (opts.listItemTabSize) {
         tabSize = Math.min(Math.max(opts.listItemTabSize, 1), 8)
     }
 
-    return function() {
+    return function () {
         var Compiler = this.Compiler
         var visitors = Compiler.prototype.visitors
 
         visitors.listItem = listItem
+        visitors.link = link
     }
 }
 
@@ -81,3 +123,27 @@ function listItem(node, parent, position, bullet) {
         : marker
 }
 
+function link(node) {
+    var self = this
+    var content = self.encode(node.url || '', node)
+    var exit = self.enterLink()
+    var escaped = self.encode(self.escape(node.url || '', node))
+    var value = self.all(node).join('')
+
+    exit()
+
+    content = enclose_uri(content)
+
+    if (node.title) {
+        content += space + enclose_title(self.encode(self.escape(node.title, node), node))
+    }
+
+    return (
+        leftSquareBracket +
+        value +
+        rightSquareBracket +
+        leftParenthesis +
+        content +
+        rightParenthesis
+    )
+}

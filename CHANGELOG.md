@@ -2,6 +2,9 @@
 
 ## [1.1.0] - 2019-06-21
 
+### Fixed
+- Race condition causing first open document to sometimes be erased
+
 ### Added
 
 - Auto-formatting options using [remark-stringify](https://github.com/remarkjs/remark/tree/master/packages/remark-stringify)
