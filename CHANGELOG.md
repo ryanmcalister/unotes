@@ -1,14 +1,15 @@
 # Updates
 
-## [1.1.0] - 2019-06-21
+## [1.1.0] - 2019-07-27
 
 ### Fixed
+
 - Race condition causing first open document to sometimes be erased
 
 ### Added
 
 - Auto-formatting options using [remark-stringify](https://github.com/remarkjs/remark/tree/master/packages/remark-stringify)
-- Updated tui-editor to v1.4.3
+- Updated tui-editor to v1.4.4
 
 ## [1.0.8] - 2019-05-22
 

@@ -7081,9 +7081,9 @@ range-parser@^1.0.3, range-parser@~1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/range-parser/-/range-parser-1.2.0.tgz#f49be6b487894ddc40dcc94a322f611092e00d5e"
 
-"raphael@https://github.com/nhnent/raphael.git#2.2.0-c":
+"raphael@git+https://github.com/nhn/raphael.git#2.2.0-c":
   version "2.2.0-c"
-  resolved "https://github.com/nhnent/raphael.git#78a6ed3ec269f33b6457b0ec66f8c3d1f2ed70e0"
+  resolved "git+https://github.com/nhn/raphael.git#78a6ed3ec269f33b6457b0ec66f8c3d1f2ed70e0"
   dependencies:
     eve "git://github.com/adobe-webplatform/eve.git#eef80ed"
 
@@ -8040,9 +8040,9 @@ sprintf-js@~1.0.2:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/sprintf-js/-/sprintf-js-1.0.3.tgz#04e6926f662895354f3dd015203633b857297e2c"
 
-"squire-rte@github:sohee-lee7/Squire#812513279820be381f0182683e01ad7867e140c0":
+"squire-rte@github:sohee-lee7/Squire#e7e620ca30a280db62c9e2fee166470d241af234":
   version "1.9.0"
-  resolved "https://codeload.github.com/sohee-lee7/Squire/tar.gz/812513279820be381f0182683e01ad7867e140c0"
+  resolved "https://codeload.github.com/sohee-lee7/Squire/tar.gz/e7e620ca30a280db62c9e2fee166470d241af234"
 
 sshpk@^1.7.0:
   version "1.16.1"
@@ -8507,12 +8507,13 @@ tty-browserify@0.0.0:
   version "0.0.0"
   resolved "https://registry.yarnpkg.com/tty-browserify/-/tty-browserify-0.0.0.tgz#a157ba402da24e9bf957f9aa69d524eed42901a6"
 
-tui-chart@^3.0.1:
-  version "3.5.2"
-  resolved "https://registry.yarnpkg.com/tui-chart/-/tui-chart-3.5.2.tgz#5bd3293582507cd21ea93420573bd2674a3ed9f7"
+tui-chart@^3.7.0:
+  version "3.7.0"
+  resolved "https://registry.yarnpkg.com/tui-chart/-/tui-chart-3.7.0.tgz#5cb98e7aac3e0430e901e8a22ea972f3fb5172ce"
+  integrity sha512-twrXxK1oqYvcvmPnULPjLdVRyvza3Ab8078HWR0UbTxuXnS8RIliRZY7FbUC1L8Ii9yvWeX3US4OGCSd0iBuJQ==
   dependencies:
     babel-polyfill "^6.26.0"
-    raphael "https://github.com/nhnent/raphael.git#2.2.0-c"
+    raphael "https://github.com/nhn/raphael.git#2.2.0-c"
     tui-code-snippet "^1.5.0"
 
 tui-code-snippet@^1.5.0:
@@ -8525,10 +8526,10 @@ tui-color-picker@^2.2.1:
   dependencies:
     tui-code-snippet "^1.5.0"
 
-tui-editor@1.4.3:
-  version "1.4.3"
-  resolved "https://registry.yarnpkg.com/tui-editor/-/tui-editor-1.4.3.tgz#d1b15888033d862048de16be6809f3e3b2ac0d2b"
-  integrity sha512-bIKdfU5JrNKAqmZqihFhpvpFFXsIcYsher3We70+wClO9Qxcc9RrkJNAVCF5FgymR4dHf7QIUUnG2B/YhoJOWQ==
+tui-editor@1.4.4:
+  version "1.4.4"
+  resolved "https://registry.yarnpkg.com/tui-editor/-/tui-editor-1.4.4.tgz#294cb42acbd04d5bddf19d030727e06523947b82"
+  integrity sha512-OxYfsY/x2ahIpwVcO8jivccRBj3YpJEe6nTd1S9Gnwtj81hjxR39JZkvCF4saNqOVHvkEX5BJMH6vK1AeEX3ig==
   dependencies:
     "@types/codemirror" "0.0.71"
     "@types/jquery" "^3.3.29"
@@ -8539,9 +8540,9 @@ tui-editor@1.4.3:
     markdown-it "^8.4.0"
     plantuml-encoder "^1.2.5"
     resize-observer-polyfill "^1.5.0"
-    squire-rte "github:sohee-lee7/Squire#812513279820be381f0182683e01ad7867e140c0"
+    squire-rte "github:sohee-lee7/Squire#e7e620ca30a280db62c9e2fee166470d241af234"
     to-mark "^1.1.7"
-    tui-chart "^3.0.1"
+    tui-chart "^3.7.0"
     tui-code-snippet "^1.5.0"
     tui-color-picker "^2.2.1"
 

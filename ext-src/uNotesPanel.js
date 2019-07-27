@@ -52,8 +52,8 @@ class UNotesPanel {
         try {
             this.extensionPath = extensionPath;
             this.disposables = [];
-            this.reloadContent = false;
-            this.updateSettings = false;
+            this.reloadContentNeeded = false;
+            this.updateSettingsNeeded = false;
             this.currentPath = '';
             this.currentNote = null;
 
@@ -82,6 +82,8 @@ class UNotesPanel {
                         break;
                     case 'editorOpened':
                         this.updateContents();
+                        this.updateEditorSettings();
+                        this.updateRemarkSettings();
                         break;
                     case 'resized':
                         UNotesPanel.recreate(this.extensionPath, this.currentNote)
@@ -94,13 +96,13 @@ class UNotesPanel {
 
             this.panel.onDidChangeViewState(e => {
                 if (e.webviewPanel._active) {
-                    if (this.reloadContent) {
+                    if (this.reloadContentNeeded) {
                         this.updateContents();
-                        this.reloadContent = false;
+                        this.reloadContentNeeded = false;
                     }
-                    if (this.updateSettings) {
+                    if (this.updateSettingsNeeded) {
                         this.updateEditorSettings();
-                        this.updateSettings = false;
+                        this.updateSettingsNeeded = false;
                     }
                 }
             }, null, this.disposables);
@@ -180,7 +182,7 @@ class UNotesPanel {
             this.panel.webview.postMessage({ command: 'settings', settings: Config.settings.get('editor') });
 
         } else {
-            this.updateSettings = true;
+            this.updateSettingsNeeded = true;
         }
     }
 
@@ -251,7 +253,7 @@ class UNotesPanel {
             if (this.panel._active) {
                 this.updateContents();
             } else {
-                this.reloadContent = true;
+                this.reloadContentNeeded = true;
             }
             return true;
         }
