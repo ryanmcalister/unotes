@@ -1,6 +1,6 @@
 # Updates
 
-## [1.1.0] - 2019-07-27
+## [1.0.14] - 2019-07-27
 
 ### Fixed
 
@@ -9,7 +9,7 @@
 ### Added
 
 - Auto-formatting options using [remark-stringify](https://github.com/remarkjs/remark/tree/master/packages/remark-stringify)
-- Updated tui-editor to v1.4.4
+- Updated tui-editor to v1.4.5
 
 ## [1.0.8] - 2019-05-22
 
