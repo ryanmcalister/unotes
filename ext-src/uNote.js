@@ -40,7 +40,7 @@ class UNote extends vscode.TreeItem {
   }
 
   static noteFromPath(filePath){
-    const folderPath = path.relative(vscode.workspace.rootPath, path.dirname(filePath));
+    const folderPath = path.relative(this.rootPath, path.dirname(filePath));
     return new UNote(path.basename(filePath), vscode.TreeItemCollapsibleState.None, false, folderPath);
   }
   

@@ -48,6 +48,11 @@
               "type": "boolean",
               "default": false,
               "markdownDescription": "Display toolbar buttons at 2X size"
+          },
+          "unotes.rootPath": {
+              "type": "string",
+              "default": null,
+              "markdownDescription": "Root path of notes"
           }
       }
     },
@@ -62,6 +67,14 @@
         "icon": {
           "light": "resources/light/add_note.svg",
           "dark": "resources/dark/add_note.svg"
+        }
+      },
+      {
+        "command": "unotes.refreshTree",
+        "title": "Refresh tree",
+        "icon": {
+          "light": "resources/light/refresh.svg",
+          "dark": "resources/dark/refresh.svg"
         }
       },
       {
@@ -140,14 +153,19 @@
     "menus": {
       "view/title": [
         {
-          "command": "unotes.addNote",
+          "command": "unotes.refreshTree",
           "when": "view == unoteFiles",
-          "group": "navigation"
+          "group": "navigation@1"
         },
         {
           "command": "unotes.addFolder",
           "when": "view == unoteFiles",
-          "group": "navigation"
+          "group": "navigation@2"
+        },
+        {
+          "command": "unotes.addNote",
+          "when": "view == unoteFiles",
+          "group": "navigation@3"
         }
       ],
       "view/item/context": [

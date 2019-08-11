@@ -62,7 +62,7 @@ class UNotesPanel {
                 retainContextWhenHidden: true,
                 enableFindWidget: true,
                 localResourceRoots: [
-                    vscode.Uri.file(path.join(vscode.workspace.rootPath)),
+                    vscode.Uri.file(path.join(Config.rootPath)),
                     vscode.Uri.file(path.join(this.extensionPath, 'build'))
                 ]
             });
@@ -221,7 +221,7 @@ class UNotesPanel {
 
     showUNote(unote) {
         try {
-            const filePath = path.join(vscode.workspace.rootPath, unote.folderPath, unote.file);
+            const filePath = path.join(Config.rootPath, unote.folderPath, unote.file);
             this.currentNote = unote;
             this.currentPath = filePath;
             this.updateContents();
@@ -237,7 +237,7 @@ class UNotesPanel {
         try {
             if(this.currentNote){
                 const content = fs.readFileSync(this.currentPath, 'utf8');
-                const folderPath = vscode.Uri.file(path.join(vscode.workspace.rootPath, this.currentNote.folderPath)).path;
+                const folderPath = vscode.Uri.file(path.join(Config.rootPath, this.currentNote.folderPath)).path;
                 this.panel.webview.postMessage({ command: 'setContent', content, folderPath });
             }
         }
