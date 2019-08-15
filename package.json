@@ -1,7 +1,7 @@
 {
   "name": "Unotes",
   "displayName": "UNOTES - Markdown Notes WYSIWYG",
-  "version": "1.0.14",
+  "version": "1.1.0",
   "author": {
     "name": "Ryan McAlister",
     "email": "rymc26@gmail.com"
@@ -51,6 +51,158 @@
           }
       }
     },
+    "colors": [{
+        "id": "unotes.text",
+        "description": "Unotes text",
+        "defaults": {
+            "dark": "editor.foreground",
+            "light": "editor.foreground",
+            "highContrast": "editor.foreground"
+        }
+    },{
+        "id": "unotes.h1",
+        "description": "Unotes heading 1",
+        "defaults": {
+            "dark": "#fff",
+            "light": "#333",
+            "highContrast": "#fff"
+        }
+    },
+    {
+        "id": "unotes.h2",
+        "description": "Unotes heading 2",
+        "defaults": {
+            "dark": "titleBar.activeForeground",
+            "light": "titleBar.activeForeground",
+            "highContrast": "titleBar.activeForeground"
+        }
+    },
+    {
+        "id": "unotes.h3h4",
+        "description": "Unotes heading 3 and 4",
+        "defaults": {
+            "dark": "titleBar.inactiveForeground",
+            "light": "titleBar.inactiveForeground",
+            "highContrast": "titleBar.inactiveForeground"
+        }
+    },
+    {
+        "id": "unotes.h5h6",
+        "description": "Unotes heading 5 and 6",
+        "defaults": {
+            "dark": "titleBar.inactiveForeground",
+            "light": "titleBar.inactiveForeground",
+            "highContrast": "titleBar.inactiveForeground"
+        }
+    },
+    {
+        "id": "unotes.blockquote",
+        "description": "Unotes blockquote",
+        "defaults": {
+            "dark": "editorGutter.commentRangeForeground",
+            "light": "editorGutter.commentRangeForeground",
+            "highContrast": "editorGutter.commentRangeForeground"
+        }
+    },
+    {
+        "id": "unotes.codeBlockBackground",
+        "description": "Unotes code block background",
+        "defaults": {
+            "dark": "textBlockQuote.background",
+            "light": "textBlockQuote.background",
+            "highContrast": "textBlockQuote.background"
+        }
+    },
+    {
+        "id": "unotes.codeBlockText",
+        "description": "Unotes code block text",
+        "defaults": {
+            "dark": "editor.foreground",
+            "light": "editor.foreground",
+            "highContrast": "editor.foreground"
+        }
+    },
+    {
+        "id": "unotes.highlight",
+        "description": "Unotes highlight / inline code",
+        "defaults": {
+            "dark": "textPreformat.foreground",
+            "light": "textPreformat.foreground",
+            "highContrast": "textPreformat.foreground"
+        }
+    },
+    {
+        "id": "unotes.table",
+        "description": "Unotes table",
+        "defaults": {
+            "dark": "#BBBBBB",
+            "light": "#505050",
+            "highContrast": "#BBBBBB"
+        }
+    },
+    {
+        "id": "unotes.tableTdBorder",
+        "description": "Unotes table cell border",
+        "defaults": {
+            "dark": "#313131",
+            "light": "#313131",
+            "highContrast": "#313131"
+        }
+    },
+    {
+        "id": "unotes.tableThBorder",
+        "description": "Unotes table header border",
+        "defaults": {
+            "dark": "#72777b",
+            "light": "#72777b",
+            "highContrast": "#72777b"
+        }
+    },
+    {
+        "id": "unotes.tableThBackground",
+        "description": "Unotes table header background",
+        "defaults": {
+            "dark": "#484b4d",
+            "light": "#484b4d",
+            "highContrast": "#484b4d"
+        }
+    },
+    {
+        "id": "unotes.tableThColor",
+        "description": "Unotes table header color",
+        "defaults": {
+            "dark": "#fff",
+            "light": "#fff",
+            "highContrast": "#fff"
+        }
+    },
+    {
+        "id": "unotes.list",
+        "description": "Unotes list color",
+        "defaults": {
+            "dark": "#BDBDBD",
+            "light": "#686868",
+            "highContrast": "#BDBDBD"
+        }
+    },
+    {
+        "id": "unotes.link",
+        "description": "Unotes link color",
+        "defaults": {
+            "dark": "textLink.foreground",
+            "light": "textLink.foreground",
+            "highContrast": "textLink.foreground"
+        }
+    },
+    {
+        "id": "unotes.linkHover",
+        "description": "Unotes hover link color",
+        "defaults": {
+            "dark": "textLink.activeForeground",
+            "light": "textLink.activeForeground",
+            "highContrast": "textLink.activeForeground"
+        }
+    }],
     "commands": [
       {
         "command": "unotes.start",

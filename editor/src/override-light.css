@@ -5,7 +5,7 @@
 */
 
 body.vscode-light .tui-editor {
-    color: var(--vscode-editor-foreground);
+    color: var(--vscode-unotes-text);
 }
 
 body.vscode-light .tui-editor .te-md-splitter {
