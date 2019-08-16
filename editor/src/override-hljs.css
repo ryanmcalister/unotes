@@ -1,0 +1,95 @@
+
+body.unotes-common .hljs {
+    display: block;
+    overflow-x: auto;
+    padding: 0.5em;
+    color: var(--vscode-unotes-pvCodeText);
+    background: #f8f8f8;
+  }
+  
+  body.unotes-common .hljs-comment,
+  body.unotes-common .hljs-quote {
+    color: var(--vscode-unotes-pvCodeComment);
+    font-style: italic;
+  }
+  
+  body.unotes-common .hljs-keyword,
+  body.unotes-common .hljs-selector-tag,
+  body.unotes-common .hljs-subst {
+    color: var(--vscode-unotes-pvCodeKeyword);
+    font-weight: bold;
+  }
+  
+  body.unotes-common .hljs-number,
+  body.unotes-common .hljs-literal,
+  body.unotes-common .hljs-variable,
+  body.unotes-common .hljs-template-variable,
+  body.unotes-common .hljs-tag .hljs-attr {
+    color: var(--vscode-unotes-pvCodeNumber);
+  }
+  
+  body.unotes-common .hljs-string,
+  body.unotes-common .hljs-doctag {
+    color: var(--vscode-unotes-pvCodeString);
+  }
+  
+  body.unotes-common .hljs-title,
+  body.unotes-common .hljs-section,
+  body.unotes-common .hljs-selector-id {
+    color: var(--vscode-unotes-pvCodeTitle);
+    font-weight: bold;
+  }
+  
+  body.unotes-common .hljs-subst {
+    font-weight: normal;
+  }
+  
+  body.unotes-common .hljs-type,
+  body.unotes-common .hljs-class .hljs-title {
+    color: var(--vscode-unotes-pvCodeType);
+    font-weight: bold;
+  }
+  
+  body.unotes-common .hljs-tag,
+  body.unotes-common .hljs-name,
+  body.unotes-common .hljs-attribute {
+    color: #000080;
+    font-weight: normal;
+  }
+  
+  body.unotes-common .hljs-regexp,
+  body.unotes-common .hljs-link {
+    color: #009926;
+  }
+  
+  body.unotes-common .hljs-symbol,
+  body.unotes-common .hljs-bullet {
+    color: #990073;
+  }
+  
+  body.unotes-common .hljs-built_in,
+  body.unotes-common .hljs-builtin-name {
+    color: #0086b3;
+  }
+  
+  body.unotes-common .hljs-meta {
+    color: #999;
+    font-weight: bold;
+  }
+  
+  body.unotes-common .hljs-deletion {
+    background: var(--vscode-unotes-pvCodeDeletion);
+  }
+  
+  body.unotes-common .hljs-addition {
+    background: var(--vscode-unotes-pvCodeAddition);
+  }
+  
+  body.unotes-common .hljs-emphasis {
+    font-style: italic;
+  }
+  
+  body.unotes-common .hljs-strong {
+    font-weight: bold;
+  }
+  
