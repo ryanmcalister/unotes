@@ -57,16 +57,16 @@
       }
     },
     "colors": [{
-        "id": "unotes.text",
-        "description": "Unotes text",
+        "id": "unotes.wysText",
+        "description": "Unotes wysiwyg text",
         "defaults": {
             "dark": "editor.foreground",
             "light": "editor.foreground",
             "highContrast": "editor.foreground"
         }
     },{
-        "id": "unotes.h1",
-        "description": "Unotes heading 1",
+        "id": "unotes.wsyH1",
+        "description": "Unotes wysiwyg heading 1",
         "defaults": {
             "dark": "#fff",
             "light": "#333",
@@ -74,8 +74,8 @@
         }
     },
     {
-        "id": "unotes.h2",
-        "description": "Unotes heading 2",
+        "id": "unotes.wsyH2",
+        "description": "Unotes wysiwyg heading 2",
         "defaults": {
             "dark": "titleBar.activeForeground",
             "light": "titleBar.activeForeground",
@@ -83,8 +83,8 @@
         }
     },
     {
-        "id": "unotes.h3h4",
-        "description": "Unotes heading 3 and 4",
+        "id": "unotes.wsyH3H4",
+        "description": "Unotes wysiwyg heading 3 and 4",
         "defaults": {
             "dark": "titleBar.inactiveForeground",
             "light": "titleBar.inactiveForeground",
@@ -92,8 +92,8 @@
         }
     },
     {
-        "id": "unotes.h5h6",
-        "description": "Unotes heading 5 and 6",
+        "id": "unotes.wsyH5H6",
+        "description": "Unotes wysiwyg heading 5 and 6",
         "defaults": {
             "dark": "titleBar.inactiveForeground",
             "light": "titleBar.inactiveForeground",
@@ -101,8 +101,8 @@
         }
     },
     {
-        "id": "unotes.blockquote",
-        "description": "Unotes blockquote",
+        "id": "unotes.wsyBlockquote",
+        "description": "Unotes wysiwyg blockquote",
         "defaults": {
             "dark": "editorGutter.commentRangeForeground",
             "light": "editorGutter.commentRangeForeground",
@@ -110,8 +110,8 @@
         }
     },
     {
-        "id": "unotes.codeBlockBackground",
-        "description": "Unotes code block background",
+        "id": "unotes.wysCodeBlockBackground",
+        "description": "Unotes wysiwyg code block background color",
         "defaults": {
             "dark": "textBlockQuote.background",
             "light": "textBlockQuote.background",
@@ -119,8 +119,8 @@
         }
     },
     {
-        "id": "unotes.codeBlockText",
-        "description": "Unotes code block text",
+        "id": "unotes.wysCodeBlockText",
+        "description": "Unotes wysiwyg code block text color",
         "defaults": {
             "dark": "editor.foreground",
             "light": "editor.foreground",
@@ -128,8 +128,8 @@
         }
     },
     {
-        "id": "unotes.highlight",
-        "description": "Unotes highlight / inline code",
+        "id": "unotes.wysHighlight",
+        "description": "Unotes wysiwyg highlight / inline code color",
         "defaults": {
             "dark": "textPreformat.foreground",
             "light": "textPreformat.foreground",
@@ -137,8 +137,8 @@
         }
     },
     {
-        "id": "unotes.table",
-        "description": "Unotes table",
+        "id": "unotes.wysTableText",
+        "description": "Unotes wysiwyg table text color",
         "defaults": {
             "dark": "#BBBBBB",
             "light": "#505050",
@@ -146,8 +146,8 @@
         }
     },
     {
-        "id": "unotes.tableTdBorder",
-        "description": "Unotes table cell border",
+        "id": "unotes.wysTableTdBorder",
+        "description": "Unotes wysiwyg table cell border color",
         "defaults": {
             "dark": "#313131",
             "light": "#313131",
@@ -155,8 +155,8 @@
         }
     },
     {
-        "id": "unotes.tableThBorder",
-        "description": "Unotes table header border",
+        "id": "unotes.wysTableThBorder",
+        "description": "Unotes wysiwyg table header border color",
         "defaults": {
             "dark": "#72777b",
             "light": "#72777b",
@@ -164,8 +164,8 @@
         }
     },
     {
-        "id": "unotes.tableThBackground",
-        "description": "Unotes table header background",
+        "id": "unotes.wysTableThBackground",
+        "description": "Unotes wysiwyg table header background color",
         "defaults": {
             "dark": "#484b4d",
             "light": "#484b4d",
@@ -173,8 +173,8 @@
         }
     },
     {
-        "id": "unotes.tableThColor",
-        "description": "Unotes table header color",
+        "id": "unotes.wysTableThText",
+        "description": "Unotes wysiwyg table header text color",
         "defaults": {
             "dark": "#fff",
             "light": "#fff",
@@ -182,8 +182,8 @@
         }
     },
     {
-        "id": "unotes.list",
-        "description": "Unotes list color",
+        "id": "unotes.wysList",
+        "description": "Unotes wysiwyg list text color",
         "defaults": {
             "dark": "#BDBDBD",
             "light": "#686868",
@@ -191,8 +191,8 @@
         }
     },
     {
-        "id": "unotes.link",
-        "description": "Unotes link color",
+        "id": "unotes.wysLink",
+        "description": "Unotes wysiwyg link color",
         "defaults": {
             "dark": "textLink.foreground",
             "light": "textLink.foreground",
@@ -200,12 +200,165 @@
         }
     },
     {
-        "id": "unotes.linkHover",
-        "description": "Unotes hover link color",
+        "id": "unotes.wysLinkHover",
+        "description": "Unotes wysiwyg hover link color",
         "defaults": {
             "dark": "textLink.activeForeground",
             "light": "textLink.activeForeground",
             "highContrast": "textLink.activeForeground"
+        }
+    },
+    {
+        "id": "unotes.mdText",
+        "description": "Unotes markdown text color",
+        "defaults": {
+            "dark": "foreground",
+            "light": "foreground",
+            "highContrast": "foreground"
+        }
+    },
+    {
+        "id": "unotes.mdSelectedBackground",
+        "description": "Unotes markdown selected text background color",
+        "defaults": {
+            "dark": "editor.selectionBackground",
+            "light": "editor.selectionBackground",
+            "highContrast": "editor.selectionBackground"
+        }
+    },
+    {
+        "id": "unotes.mdHeader",
+        "description": "Unotes markdown header color",
+        "defaults": {
+            "dark": "#F1DB78",
+            "light": "#bb96c0",
+            "highContrast": "#F1DB78"
+        }
+    },
+    {
+        "id": "unotes.mdListSub1",
+        "description": "Unotes markdown list sub item 1 color",
+        "defaults": {
+            "dark": "textPreformat.foreground",
+            "light": "textPreformat.foreground",
+            "highContrast": "textPreformat.foreground"
+        }
+    },
+    {
+        "id": "unotes.mdListSub2",
+        "description": "Unotes markdown list sub item 2 color",
+        "defaults": {
+            "dark": "descriptionForeground",
+            "light": "descriptionForeground",
+            "highContrast": "descriptionForeground"
+        }
+    },
+    {
+        "id": "unotes.mdCodeBlockText",
+        "description": "Unotes markdown codeblock text color",
+        "defaults": {
+            "dark": "#e0a161",
+            "light": "#206020",
+            "highContrast": "#e0a161"
+        }
+    },
+    {
+        "id": "unotes.mdLink",
+        "description": "Unotes markdown link color",
+        "defaults": {
+            "dark": "textLink.foreground",
+            "light": "textLink.foreground",
+            "highContrast": "textLink.foreground"
+        }
+    },
+    {
+        "id": "unotes.mdLink",
+        "description": "Unotes markdown link color",
+        "defaults": {
+            "dark": "textLink.foreground",
+            "light": "textLink.foreground",
+            "highContrast": "textLink.foreground"
+        }
+    },
+    {
+        "id": "unotes.pvCodeComment",
+        "description": "Unotes preview code comment",
+        "defaults": {
+            "dark": "#998",
+            "light": "#998",
+            "highContrast": "#998"
+        }
+    },
+    {
+        "id": "unotes.pvCodeText",
+        "description": "Unotes preview code text",
+        "defaults": {
+            "dark": "#333",
+            "light": "#333",
+            "highContrast": "#333"
+        }
+    },
+    {
+        "id": "unotes.pvCodeKeyword",
+        "description": "Unotes preview code keyword",
+        "defaults": {
+            "dark": "#3e4d75",
+            "light": "#3e4d75",
+            "highContrast": "#3e4d75"
+        }
+    },
+    {
+        "id": "unotes.pvCodeNumber",
+        "description": "Unotes preview code number",
+        "defaults": {
+            "dark": "#3e7550",
+            "light": "#3e7550",
+            "highContrast": "#3e7550"
+        }
+    },
+    {
+        "id": "unotes.pvCodeString",
+        "description": "Unotes preview code string",
+        "defaults": {
+            "dark": "#b64f69",
+            "light": "#b64f69",
+            "highContrast": "#b64f69"
+        }
+    },
+    {
+        "id": "unotes.pvCodeType",
+        "description": "Unotes preview code type",
+        "defaults": {
+            "dark": "#458",
+            "light": "#458",
+            "highContrast": "#458"
+        }
+    },
+    {
+        "id": "unotes.pvCodeDeletion",
+        "description": "Unotes preview code deletion",
+        "defaults": {
+            "dark": "#722113",
+            "light": "#eec5be",
+            "highContrast": "#722113"
+        }
+    },
+    {
+        "id": "unotes.pvCodeAddition",
+        "description": "Unotes preview code addition",
+        "defaults": {
+            "dark": "#387221",
+            "light": "#b7eba2",
+            "highContrast": "#387221"
+        }
+    },
+    {
+        "id": "unotes.pvCodeTitle",
+        "description": "Unotes preview code title",
+        "defaults": {
+            "dark": "#abb61a",
+            "light": "#abb61a",
+            "highContrast": "#abb61a"
         }
     }],
     "commands": [

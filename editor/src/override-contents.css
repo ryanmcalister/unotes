@@ -10,36 +10,36 @@ body.vscode-dark .tui-editor-contents p {
 
 body.vscode-dark .tui-editor-contents h1 {
     border-bottom: 3px double #999;
-    color: var(--vscode-unotes-h1);
+    color: var(--vscode-unotes-wysH1);
 }
 
 body.vscode-dark .tui-editor-contents h2 {
     border-bottom: 1px solid #dbdbdb;
-    color: var(--vscode-unotes-h2);
+    color: var(--vscode-unotes-wysH2);
 }
 
 body.vscode-dark .tui-editor-contents h3,
 body.vscode-dark .tui-editor-contents h4 {
-    color: var(--vscode-unotes-h3h4);
+    color: var(--vscode-unotes-wysH3H4);
 }
 
 body.vscode-dark .tui-editor-contents h5,
 body.vscode-dark .tui-editor-contents h6 {
-    color: var(--vscode-unotes-h5h6);
+    color: var(--vscode-unotes-wysH5H6);
 }
 
 body.vscode-dark .tui-editor-contents blockquote {
-    border-left: 4px solid var(--vscode-unotes-blockquote);
-    color: var(--vscode-unotes-blockquote);
+    border-left: 4px solid var(--vscode-unotes-wysBlockquote);
+    color: var(--vscode-unotes-wsyBlockquote);
 }
 
 body.vscode-dark .tui-editor-contents pre {
-    background-color: var(--vscode-unotes-codeBlockBackground);
-    color: var(--vscode-unotes-codeBlockText);
+    background-color: var(--vscode-unotes-wysCodeBlockBackground);
+    color: var(--vscode-unotes-wysCodeBlockText);
 }
 
 body.vscode-dark .tui-editor-contents code {
-    color: var(--vscode-unotes-highlight);
+    color: var(--vscode-unotes-wysHighlight);
 }
 
 body.vscode-dark .tui-editor-contents pre code {
@@ -52,24 +52,24 @@ body.vscode-dark .tui-editor-contents pre.addon {
 }
 
 body.vscode-dark .tui-editor-contents table {
-    color: var(--vscode-unotes-table);
+    color: var(--vscode-unotes-wysTableText);
 }
 
 body.vscode-dark .tui-editor-contents table td {
-    border: 1px solid var(--vscode-unotes-tableTdBorder);
+    border: 1px solid var(--vscode-unotes-wysTableTdBorder);
 }
 
 body.vscode-dark .tui-editor-contents table th {
-    border: 1px solid var(--vscode-unotes-tableThBorder);
-    background-color: var(--vscode-unotes-tableThBackground);
-    color: var(--vscode-unotes-tableThColor);
+    border: 1px solid var(--vscode-unotes-wysTableThBorder);
+    background-color: var(--vscode-unotes-wysTableThBackground);
+    color: var(--vscode-unotes-wysTableThText);
 }
 
 body.vscode-dark .tui-editor-contents ul,
 body.vscode-dark .tui-editor-contents menu,
 body.vscode-dark .tui-editor-contents ol,
 body.vscode-dark .tui-editor-contents dir {
-    color: var(--vscode-unotes-list);
+    color: var(--vscode-unotes-wysList);
 }
 
 body.vscode-dark .tui-editor-contents hr {
@@ -77,11 +77,11 @@ body.vscode-dark .tui-editor-contents hr {
 }
 
 body.vscode-dark .tui-editor-contents a {
-    color: var(--vscode-unotes-link);
+    color: var(--vscode-unotes-wysLink);
 }
 
 body.vscode-dark .tui-editor-contents a:hover {
-    color: var(--vscode-unotes-linkHover);
+    color: var(--vscode-unotes-wysLinkHover);
 }
 
 body.vscode-dark .tui-editor-contents .task-list-item {

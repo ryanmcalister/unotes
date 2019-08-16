@@ -10,6 +10,7 @@ import './override.css';
 import './override-contents.css';
 import './override-codemirror.css';
 import './override-codemirror-light.css';
+import './override-hljs.css';
 import remark from 'remark';
 import unotesRemarkPlugin from './unotesRemarkPlugin';
 import { debounce } from 'debounce';
@@ -131,11 +132,17 @@ class TuiEditor extends Component {
 
     onAfterMarkdown(e) {
         if(this.remarkSettings){
+            // Reformat markdown
+            // console.log("from...")
+            // console.log(e);
             const md = remark().use({
                     settings: this.remarkSettings
                 })
                 .use(this.remarkPlugin)
                 .processSync(e).contents;
+            // console.log("to...")
+            // console.log(md);
+
             return md;
         }
         return e;
