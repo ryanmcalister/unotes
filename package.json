@@ -71,7 +71,7 @@
       },
       {
         "command": "unotes.refreshTree",
-        "title": "Refresh tree",
+        "title": "Refresh Tree",
         "icon": {
           "light": "resources/light/refresh.svg",
           "dark": "resources/dark/refresh.svg"
