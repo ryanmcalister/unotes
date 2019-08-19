@@ -10,39 +10,39 @@ body.vscode-light .tui-editor-contents p {
 
 body.vscode-light .tui-editor-contents h1 {
     border-bottom: 3px double #999;
-    color: #333;
+    color: var(--vscode-unotes-wysH1);
 }
 
 body.vscode-light .tui-editor-contents h2 {
     border-bottom: 1px solid #dbdbdb;
-    color: var(--vscode-titleBar-activeForeground);
+    color: var(--vscode-unotes-wysH2);
 }
 
 body.vscode-light .tui-editor-contents h3,
 body.vscode-light .tui-editor-contents h4 {
-    color: var(--vscode-titleBar-inactiveForeground);
+    color: var(--vscode-unotes-wysH3H4);
 }
 
 body.vscode-light .tui-editor-contents h5,
 body.vscode-light .tui-editor-contents h6 {
-    color: var(--vscode-titleBar-inactiveForeground);
+    color: var(--vscode-unotes-wysH5H6);
 }
 
 body.vscode-light .tui-editor-contents blockquote {
-    border-left: 4px solid var(--vscode-textBlockQuote-border);
-    color: var(--vscode-editorGutter-commentRangeForeground);
+    border-left: 4px solid var(--vscode-unotes-wysBlockquote);
+    color: var(--vscode-unotes-wysBlockquote);
 }
 
 body.vscode-light .tui-editor-contents pre {
-    background-color: var(--vscode-textBlockQuote-background);
+    background-color: var(--vscode-unotes-wysCodeBlockBackground);
+    color: var(--vscode-unotes-wysCodeBlockText);
 }
 
 body.vscode-light .tui-editor-contents code {
-    color: var(--vscode-textPreformat-foreground);
+    color: var(--vscode-unotes-wysHighlight);
 }
 
 body.vscode-light .tui-editor-contents pre code {
-    color: inherit;
     background-color: transparent;
 }
 
@@ -52,24 +52,24 @@ body.vscode-light .tui-editor-contents pre.addon {
 }
 
 body.vscode-light .tui-editor-contents table {
-    color: rgb(80, 80, 80);
+    color: var(--vscode-unotes-wysTableText);
 }
 
 body.vscode-light .tui-editor-contents table td {
-    border: 1px solid #313131;
+    border: 1px solid var(--vscode-unotes-wysTableTdBorder);
 }
 
 body.vscode-light .tui-editor-contents table th {
-    border: 1px solid #72777b;
-    background-color: #484b4d;
-    color: #fff;
+    border: 1px solid var(--vscode-unotes-wysTableThBorder);
+    background-color: var(--vscode-unotes-wysTableThBackground);
+    color: var(--vscode-unotes-wysTableThText);
 }
 
 body.vscode-light .tui-editor-contents ul,
 body.vscode-light .tui-editor-contents menu,
 body.vscode-light .tui-editor-contents ol,
 body.vscode-light .tui-editor-contents dir {
-    color: rgb(104, 104, 104);
+    color: var(--vscode-unotes-wysList);
 }
 
 body.vscode-light .tui-editor-contents hr {
@@ -77,11 +77,11 @@ body.vscode-light .tui-editor-contents hr {
 }
 
 body.vscode-light .tui-editor-contents a {
-    color: var(--link-color);
+    color: var(--vscode-unotes-wysLink);
 }
 
 body.vscode-light .tui-editor-contents a:hover {
-    color: var(--link-active-color);
+    color: var(--vscode-unotes-wysLinkHover);
 }
 
 body.vscode-light .tui-editor-contents .task-list-item {

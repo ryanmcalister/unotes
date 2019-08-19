@@ -323,7 +323,7 @@ class UNotesPanel {
 				<base href="${baseUri}/">
 			</head>
 
-			<body>
+			<body class="unotes-common">
         <noscript>You need to enable JavaScript to run this app.</noscript>
         <script>
           (function() {

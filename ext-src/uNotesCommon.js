@@ -10,6 +10,10 @@ const extId = 'unotes';
 
 exports.ExtId = extId;
 
+exports.GlobalState = {
+    UnotesVersion: 'Unotes.Version'
+}
+
 exports.Utils = {
 
   context: null,

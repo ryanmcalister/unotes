@@ -10,7 +10,7 @@ const fs = require("fs");
 const { UNotesPanel } = require("./uNotesPanel");
 const { UNoteProvider } = require("./uNoteProvider");
 const { UNote } = require("./uNote");
-const { Utils, Config } = require("./uNotesCommon");
+const { Utils, Config, ExtId, GlobalState } = require("./uNotesCommon");
 
 /**
  * Helper to remove a directory tree
@@ -34,6 +34,47 @@ const deleteFolderRecursive = function(dirPath) {
     console.log(e);
   }
 };
+
+const getVersion = function(val){
+    const m = val.match(/^([0-9]*)\.([0-9]*)\..*$/);
+    if(!m || m.length < 3){
+        return [0, 0];
+    }
+    return [ parseInt(m[1]), parseInt(m[2]) ];
+}
+
+/**
+ * Check to see if a What's New message should pop up
+ */
+const checkWhatsNew = function(context){
+    const extQualifiedId = `ryanmcalister.${ExtId}`;
+    const unotes = vscode.extensions.getExtension(extQualifiedId);
+    const unotesVersion = unotes.packageJSON.version;
+    const previousVersion = context.globalState.get(GlobalState.UnotesVersion, '');
+
+    const currV = getVersion(unotesVersion);
+    const prevV = getVersion(previousVersion);
+
+    const showWhatsNew = currV[0] > prevV[0] || (currV[0] === prevV[0] && currV[1] > prevV[1]);   
+    
+    if(showWhatsNew || true){
+        context.globalState.update(GlobalState.UnotesVersion, unotesVersion);
+        const actions = [{ title: "What's New" }, { title: "Release Notes" }];
+        vscode.window.showInformationMessage(
+            `Unotes has been updated to v${unotesVersion} - check out what's new!`,
+            ...actions
+
+        ).then(value => {
+            if(value == actions[0]){
+                vscode.commands.executeCommand('vscode.open', vscode.Uri.parse("https://github.com/ryanmcalister/unotes/blob/master/README.md#whats-new-in-unotes-10"));
+
+            }
+            else if(value === actions[1]){
+                vscode.commands.executeCommand('vscode.open', vscode.Uri.parse("https://github.com/ryanmcalister/unotes/blob/master/CHANGELOG.md#updates"));
+            }
+        });
+    }
+}
 
 class UNotes {
   constructor(context) {
@@ -111,53 +152,46 @@ class UNotes {
     );
 
 
-    if (Config.rootPath !== vscode.workspace.rootPath) {
-      // Can't watch folders outside of workspace
-      return
+    if (Config.rootPath === vscode.workspace.rootPath) {
+        // Can't watch folders outside of workspace
+        this.setupFSWatcher();
     }
 
-    // Setup the File System Watcher for file events
-    const fswatcher = vscode.workspace.createFileSystemWatcher("**/*.md", false, false, false);
-
-    fswatcher.onDidChange((e) => {
-      //console.log("onDidChange");
-      if(UNotesPanel.instance()){
-        const panel = UNotesPanel.instance();
-        if(panel && panel.updateFileIfOpen(e.fsPath)){
-          uNoteProvider.refresh();
-        }
-
-      } else {
-        uNoteProvider.refresh();
-      }
-    }, null,  this.disposables);
-
-    fswatcher.onDidCreate((e) => {
-      //console.log("onDidCreate");
-      uNoteProvider.refresh();
-      if(this.selectAfterRefresh){
-        const newNote = UNote.noteFromPath(this.selectAfterRefresh);
-        setTimeout(() => {
-          try {
-            this.view.reveal(newNote, { expand: 3 });          
-            this.selectAfterRefresh = null;
-          } catch(e){
-            console.log(e.message)
-          }
-        }, 500); 
-      }
-    }, null,  this.disposables);
-
-    fswatcher.onDidDelete((e) => {
-      //console.log("onDidDelete");
-      uNoteProvider.refresh();
-      const panel = UNotesPanel.instance();
-      if(panel){
-        panel.closeIfOpen(e.fsPath);
-      }
-    }, null,  this.disposables);
+    checkWhatsNew(context);
 
   }
+
+    setupFSWatcher(){
+        // Setup the File System Watcher for file events
+        const fswatcher = vscode.workspace.createFileSystemWatcher("**/*.md", false, false, false);
+
+        fswatcher.onDidChange((e) => {
+            //console.log("onDidChange");
+            if(UNotesPanel.instance()){
+                const panel = UNotesPanel.instance();
+                if(panel && panel.updateFileIfOpen(e.fsPath)){
+                uNoteProvider.refresh();
+                }
+
+            } else {
+                uNoteProvider.refresh();
+            }
+        }, null,  this.disposables);
+
+        fswatcher.onDidCreate((e) => {
+            //console.log("onDidCreate");
+            uNoteProvider.refresh();
+        }, null,  this.disposables);
+
+        fswatcher.onDidDelete((e) => {
+            //console.log("onDidDelete");
+            uNoteProvider.refresh();
+            const panel = UNotesPanel.instance();
+            if(panel){
+                panel.closeIfOpen(e.fsPath);
+            }
+        }, null,  this.disposables);
+    }
 
   initUnotesFolder(){    
     try {
@@ -213,6 +247,17 @@ class UNotes {
         this.selectAfterRefresh = newFilePath;
       }
       this.uNoteProvider.refresh();
+      if(this.selectAfterRefresh){
+        const newNote = UNote.noteFromPath(this.selectAfterRefresh);
+        setTimeout(() => {
+          try {
+            this.view.reveal(newNote, { expand: 3 });          
+            this.selectAfterRefresh = null;
+          } catch(e){
+            console.log(e.message)
+          }
+        }, 500); 
+      }
     })
     .catch(err => {
       console.log(err);

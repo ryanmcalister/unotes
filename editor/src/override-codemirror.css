@@ -2,7 +2,7 @@
 
 body.vscode-dark .CodeMirror {
   /* Set height, width, borders, and global font properties here */
-  color: var(--vscode-foreground);
+  color: var(--vscode-unotes-mdText);
 }
 
 body.vscode-dark .CodeMirror-scrollbar-filler, .CodeMirror-gutter-filler {
@@ -77,7 +77,7 @@ body.vscode-dark .CodeMirror-overwrite .CodeMirror-cursor {}
 
 /* DEFAULT THEME */
 
-body.vscode-dark .cm-s-default .cm-header {color: rgb(241, 219, 120);}
+body.vscode-dark .cm-s-default .cm-header {color: var(--vscode-unotes-mdHeader);}
 body.vscode-dark .cm-s-default .cm-quote {color: rgb(153, 187, 153);}
 body.vscode-dark .cm-negative {color: #d44;}
 body.vscode-dark .cm-positive {color: #292;}
@@ -94,9 +94,9 @@ body.vscode-dark .cm-s-default .cm-variable,
 body.vscode-dark .cm-s-default .cm-punctuation,
 body.vscode-dark .cm-s-default .cm-property,
 body.vscode-dark .cm-s-default .cm-operator {}
-body.vscode-dark .cm-s-default .cm-variable-2 {color: var(--vscode-textPreformat-foreground);}
-body.vscode-dark .cm-s-default .cm-variable-3, .cm-s-default .cm-type {color: var(--vscode-descriptionForeground);}
-body.vscode-dark .cm-s-default .cm-comment {color: rgb(224, 161, 97);}
+body.vscode-dark .cm-s-default .cm-variable-2 {color: var(--vscode-unotes-mdListSub1);}
+body.vscode-dark .cm-s-default .cm-variable-3, .cm-s-default .cm-type {color: var(--vscode-unotes-mdListSub2);}
+body.vscode-dark .cm-s-default .cm-comment {color: var(--vscode-unotes-mdCodeBlockText);}
 body.vscode-dark .cm-s-default .cm-string {color: var(--vscode-editorCodeLens-foreground);}
 body.vscode-dark .cm-s-default .cm-string-2 {color: #f50;}
 body.vscode-dark .cm-s-default .cm-meta {color: #555;}
@@ -106,7 +106,7 @@ body.vscode-dark .cm-s-default .cm-bracket {color: #997;}
 body.vscode-dark .cm-s-default .cm-tag {color: rgb(90, 126, 84);}
 body.vscode-dark .cm-s-default .cm-attribute {color: var(--vscode-list-highlightForeground);}
 body.vscode-dark .cm-s-default .cm-hr {color: var(--vscode-activityBar-inactiveForeground);}
-body.vscode-dark .cm-s-default .cm-link {color: var(--vscode-textLink-foreground);}
+body.vscode-dark .cm-s-default .cm-link {color: var(--vscode-unotes-mdLink);}
 
 body.vscode-dark .cm-s-default .cm-error {color: #f00;}
 body.vscode-dark .cm-invalidchar {color: #f00;}
@@ -126,11 +126,11 @@ body.vscode-dark .CodeMirror {
   background: inherit;
 }
 
-body.vscode-dark .CodeMirror-selected { background: #d9d9d9; }
-body.vscode-dark .CodeMirror-focused .CodeMirror-selected { background: #d7d4f0; }
+body.vscode-dark .CodeMirror-selected { background: var(--vscode-unotes-mdSelectedBackground); }
+body.vscode-dark .CodeMirror-focused .CodeMirror-selected { background: var(--vscode-unotes-mdSelectedBackground); }
 body.vscode-dark .CodeMirror-crosshair { cursor: crosshair; }
-body.vscode-dark .CodeMirror-line::selection, .CodeMirror-line > span::selection, .CodeMirror-line > span > span::selection { background: #d7d4f0; }
-body.vscode-dark .CodeMirror-line::-moz-selection, .CodeMirror-line > span::-moz-selection, .CodeMirror-line > span > span::-moz-selection { background: #d7d4f0; }
+body.vscode-dark .CodeMirror-line::selection, .CodeMirror-line > span::selection, .CodeMirror-line > span > span::selection { background:  var(--vscode-unotes-mdSelectedBackground); }
+body.vscode-dark .CodeMirror-line::-moz-selection, .CodeMirror-line > span::-moz-selection, .CodeMirror-line > span > span::-moz-selection { background:  var(--vscode-unotes-mdSelectedBackground); }
 
 body.vscode-dark .cm-searching {
   background-color: #ffa;
