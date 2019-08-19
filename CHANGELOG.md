@@ -8,7 +8,7 @@
 
 ### Added
 
-- rootPath workspace setting to set a notes root folder path [(issue: #18)](issues/18) (contributed by epaezrubio)
+- rootPath workspace setting to set a notes root folder path [(issue: #18)](unotes/issues/18) (contributed by epaezrubio)
 - Refresh treeview command and button (contributed by epaezrubio)
 - Custom color options for wysiwyg and markdown editor
 - Updated tui-editor to v1.4.6
