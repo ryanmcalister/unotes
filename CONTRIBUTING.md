@@ -4,7 +4,7 @@ Thank you for taking time to make Unotes even better!
 
 ## Code of Conduct
 
-Let's all get along and be nice.
+Let's all get along and be nice. See the [Unotes Code of Conduct](https://github.com/ryanmcalister/unotes/blob/master/CODE_OF_CONDUCT.md).
 
 ## What you need to know
 
@@ -15,7 +15,7 @@ Unotes is a Visual Studio Code extension written in JavaScript. Unotes consists 
 
 ### The Unotes Editor
 
-This project is wraps tui-editor in a React project. It needs to be built before the Unotes Extension Project. The code lives in the `editor/src` directory.
+This project wraps [tui-editor](https://github.com/nhn/tui.editor) in a React project. It needs to be built before the Unotes Extension Project. The code lives in the `editor/src` directory.
 
 #### Installing
 
@@ -25,7 +25,7 @@ In the `editor`directory run...
 npm install
 ```
 
-### Building
+#### Building
 
 Make sure that a `build` directory exists in the `root` folder. In the `root` folder (not editor) run...
 
@@ -54,6 +54,7 @@ Then run...
 ```
 // to build in debug mode
 npm run build
+// you can now run it in VS Code by hitting F5
 
 // to build in release mode
 npm run pack

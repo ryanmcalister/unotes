@@ -1,5 +1,20 @@
 # Updates
 
+## [1.0.15] - 2019-08-19
+
+### Fixed
+
+- Remark angle bracket links always changed to bracket links
+
+### Added
+
+- `rootPath` setting to set a notes root folder path (contributed by epaezrubio)
+- Refresh treeview command and button (contributed by epaezrubio)
+- Custom color options for wysiwyg and markdown editor
+- Updated tui-editor to v1.4.6
+- Contributing guide
+- Code of conduct
+
 ## [1.0.14] - 2019-07-27
 
 ### Fixed

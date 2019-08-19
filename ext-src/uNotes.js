@@ -135,17 +135,6 @@ class UNotes {
     fswatcher.onDidCreate((e) => {
       //console.log("onDidCreate");
       uNoteProvider.refresh();
-      if(this.selectAfterRefresh){
-        const newNote = UNote.noteFromPath(this.selectAfterRefresh);
-        setTimeout(() => {
-          try {
-            this.view.reveal(newNote, { expand: 3 });          
-            this.selectAfterRefresh = null;
-          } catch(e){
-            console.log(e.message)
-          }
-        }, 500); 
-      }
     }, null,  this.disposables);
 
     fswatcher.onDidDelete((e) => {
@@ -213,6 +202,17 @@ class UNotes {
         this.selectAfterRefresh = newFilePath;
       }
       this.uNoteProvider.refresh();
+      if(this.selectAfterRefresh){
+        const newNote = UNote.noteFromPath(this.selectAfterRefresh);
+        setTimeout(() => {
+          try {
+            this.view.reveal(newNote, { expand: 3 });          
+            this.selectAfterRefresh = null;
+          } catch(e){
+            console.log(e.message)
+          }
+        }, 500); 
+      }
     })
     .catch(err => {
       console.log(err);

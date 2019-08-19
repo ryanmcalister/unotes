@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 
 const vscode = require("vscode");
 const path = require("path");
-const { Utils } = require("./uNotesCommon");
+const { Config, Utils } = require("./uNotesCommon");
 
 class UNote extends vscode.TreeItem {
   constructor(file, collapsibleState, isFolder, folderPath) {
@@ -40,7 +40,7 @@ class UNote extends vscode.TreeItem {
   }
 
   static noteFromPath(filePath){
-    const folderPath = path.relative(this.rootPath, path.dirname(filePath));
+    const folderPath = path.relative(Config.rootPath, path.dirname(filePath));
     return new UNote(path.basename(filePath), vscode.TreeItemCollapsibleState.None, false, folderPath);
   }
   

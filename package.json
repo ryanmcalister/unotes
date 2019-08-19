@@ -111,7 +111,7 @@
     },
     {
         "id": "unotes.wysCodeBlockBackground",
-        "description": "Unotes wysiwyg code block background color",
+        "description": "Unotes wysiwyg code block background",
         "defaults": {
             "dark": "textBlockQuote.background",
             "light": "textBlockQuote.background",
@@ -120,7 +120,7 @@
     },
     {
         "id": "unotes.wysCodeBlockText",
-        "description": "Unotes wysiwyg code block text color",
+        "description": "Unotes wysiwyg code block text",
         "defaults": {
             "dark": "editor.foreground",
             "light": "editor.foreground",
@@ -129,7 +129,7 @@
     },
     {
         "id": "unotes.wysHighlight",
-        "description": "Unotes wysiwyg highlight / inline code color",
+        "description": "Unotes wysiwyg highlight / inline code",
         "defaults": {
             "dark": "textPreformat.foreground",
             "light": "textPreformat.foreground",
@@ -138,7 +138,7 @@
     },
     {
         "id": "unotes.wysTableText",
-        "description": "Unotes wysiwyg table text color",
+        "description": "Unotes wysiwyg table text",
         "defaults": {
             "dark": "#BBBBBB",
             "light": "#505050",
@@ -147,7 +147,7 @@
     },
     {
         "id": "unotes.wysTableTdBorder",
-        "description": "Unotes wysiwyg table cell border color",
+        "description": "Unotes wysiwyg table cell border",
         "defaults": {
             "dark": "#313131",
             "light": "#313131",
@@ -156,7 +156,7 @@
     },
     {
         "id": "unotes.wysTableThBorder",
-        "description": "Unotes wysiwyg table header border color",
+        "description": "Unotes wysiwyg table header border",
         "defaults": {
             "dark": "#72777b",
             "light": "#72777b",
@@ -165,7 +165,7 @@
     },
     {
         "id": "unotes.wysTableThBackground",
-        "description": "Unotes wysiwyg table header background color",
+        "description": "Unotes wysiwyg table header background",
         "defaults": {
             "dark": "#484b4d",
             "light": "#484b4d",
@@ -174,7 +174,7 @@
     },
     {
         "id": "unotes.wysTableThText",
-        "description": "Unotes wysiwyg table header text color",
+        "description": "Unotes wysiwyg table header text",
         "defaults": {
             "dark": "#fff",
             "light": "#fff",
@@ -183,7 +183,7 @@
     },
     {
         "id": "unotes.wysList",
-        "description": "Unotes wysiwyg list text color",
+        "description": "Unotes wysiwyg list text",
         "defaults": {
             "dark": "#BDBDBD",
             "light": "#686868",
@@ -192,7 +192,7 @@
     },
     {
         "id": "unotes.wysLink",
-        "description": "Unotes wysiwyg link color",
+        "description": "Unotes wysiwyg link",
         "defaults": {
             "dark": "textLink.foreground",
             "light": "textLink.foreground",
@@ -201,7 +201,7 @@
     },
     {
         "id": "unotes.wysLinkHover",
-        "description": "Unotes wysiwyg hover link color",
+        "description": "Unotes wysiwyg hover link",
         "defaults": {
             "dark": "textLink.activeForeground",
             "light": "textLink.activeForeground",
@@ -210,7 +210,7 @@
     },
     {
         "id": "unotes.mdText",
-        "description": "Unotes markdown text color",
+        "description": "Unotes markdown text",
         "defaults": {
             "dark": "foreground",
             "light": "foreground",
@@ -219,7 +219,7 @@
     },
     {
         "id": "unotes.mdSelectedBackground",
-        "description": "Unotes markdown selected text background color",
+        "description": "Unotes markdown selected text background",
         "defaults": {
             "dark": "editor.selectionBackground",
             "light": "editor.selectionBackground",
@@ -228,7 +228,7 @@
     },
     {
         "id": "unotes.mdHeader",
-        "description": "Unotes markdown header color",
+        "description": "Unotes markdown header",
         "defaults": {
             "dark": "#F1DB78",
             "light": "#bb96c0",
@@ -237,7 +237,7 @@
     },
     {
         "id": "unotes.mdListSub1",
-        "description": "Unotes markdown list sub item 1 color",
+        "description": "Unotes markdown list sub item 1",
         "defaults": {
             "dark": "textPreformat.foreground",
             "light": "textPreformat.foreground",
@@ -246,7 +246,7 @@
     },
     {
         "id": "unotes.mdListSub2",
-        "description": "Unotes markdown list sub item 2 color",
+        "description": "Unotes markdown list sub item 2",
         "defaults": {
             "dark": "descriptionForeground",
             "light": "descriptionForeground",
@@ -255,7 +255,7 @@
     },
     {
         "id": "unotes.mdCodeBlockText",
-        "description": "Unotes markdown codeblock text color",
+        "description": "Unotes markdown codeblock text",
         "defaults": {
             "dark": "#e0a161",
             "light": "#206020",
@@ -264,16 +264,7 @@
     },
     {
         "id": "unotes.mdLink",
-        "description": "Unotes markdown link color",
-        "defaults": {
-            "dark": "textLink.foreground",
-            "light": "textLink.foreground",
-            "highContrast": "textLink.foreground"
-        }
-    },
-    {
-        "id": "unotes.mdLink",
-        "description": "Unotes markdown link color",
+        "description": "Unotes markdown link",
         "defaults": {
             "dark": "textLink.foreground",
             "light": "textLink.foreground",

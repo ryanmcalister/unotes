@@ -8040,9 +8040,9 @@ sprintf-js@~1.0.2:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/sprintf-js/-/sprintf-js-1.0.3.tgz#04e6926f662895354f3dd015203633b857297e2c"
 
-"squire-rte@github:seonim-ryu/Squire#10a470c9dfd07cfb37b06dedc581526b061975e1":
+"squire-rte@github:seonim-ryu/Squire#fb6cd9b1ac66ca471ded83637523c4fbf7072f86":
   version "1.9.0"
-  resolved "https://codeload.github.com/seonim-ryu/Squire/tar.gz/10a470c9dfd07cfb37b06dedc581526b061975e1"
+  resolved "https://codeload.github.com/seonim-ryu/Squire/tar.gz/fb6cd9b1ac66ca471ded83637523c4fbf7072f86"
 
 sshpk@^1.7.0:
   version "1.16.1"
@@ -8526,10 +8526,10 @@ tui-color-picker@^2.2.1:
   dependencies:
     tui-code-snippet "^1.5.0"
 
-tui-editor@1.4.5:
-  version "1.4.5"
-  resolved "https://registry.yarnpkg.com/tui-editor/-/tui-editor-1.4.5.tgz#8f21debcdff51f705d50373b6dd7b8aaaf3d70ff"
-  integrity sha512-CTZW2lHsq3ZhHBWA2GM5dpKTmYhhDoUyhh1MsiOQiFkj8gOhiI42Z9Q8VT0cmC5hXG0rhkQfRWQ8w0rGvrLvEg==
+tui-editor@1.4.6:
+  version "1.4.6"
+  resolved "https://registry.yarnpkg.com/tui-editor/-/tui-editor-1.4.6.tgz#73fc4710bc74bbb1b09463a1682cd6b6048d4988"
+  integrity sha512-CvmlcuUzYi2HAYenmSRrZsta/ODlbhYfDvQYmAigUwUUXDjMk/A0eD3LY4KC2BWETeYPBlZuM42GtnFbbitsWw==
   dependencies:
     "@types/codemirror" "0.0.71"
     "@types/jquery" "^3.3.29"
@@ -8540,7 +8540,7 @@ tui-editor@1.4.5:
     markdown-it "^8.4.0"
     plantuml-encoder "^1.2.5"
     resize-observer-polyfill "^1.5.0"
-    squire-rte "github:seonim-ryu/Squire#10a470c9dfd07cfb37b06dedc581526b061975e1"
+    squire-rte "github:seonim-ryu/Squire#fb6cd9b1ac66ca471ded83637523c4fbf7072f86"
     to-mark "^1.1.7"
     tui-chart "^3.7.0"
     tui-code-snippet "^1.5.0"

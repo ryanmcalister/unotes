@@ -138,6 +138,11 @@ function link(node) {
 
     exit()
 
+    if (content === value && protocol.test(content)) {
+        // Backslash escapes do not work in autolinks, so we do not escape.
+        return enclose_uri(self.encode(node.url), true)
+    }
+
     content = enclose_uri(content)
 
     if (node.title) {
