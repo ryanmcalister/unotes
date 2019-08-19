@@ -14,8 +14,11 @@ If find Unotes useful, please [write a review](https://marketplace.visualstudio.
 
 # What's new in Unotes 1.0
 
-- Folder options for alphabetical or manual note ordering
-- Local image support
+- [Custom color options](#custom-colors)
+- [Custom root folder](#workspace-configuration-options)
+- [Mardown formatting options](#formatting-options-experimental)
+- [Folder options for alphabetical or manual note ordering](#note-ordering)
+- [Local image support](#local-embedded-and-url-images)
 
 # ᑌᑎotes
 
@@ -50,6 +53,11 @@ Use Visual Studio Code's built-in search and version control features for all yo
 ### Paste Images from the Clipboard
 
 ### Local, Embedded and URL Images
+
+Local Image Example
+```md
+![my picture](.media/test.png)
+```
 
 ### Table Support
 
@@ -120,7 +128,7 @@ project directory. All [remark-stringify](https://github.com/remarkjs/remark/tre
 | Setting                 | Description                                                                                                                                                                      |
 | ----------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | unotes.editor.display2X | Display the button toolbar at twice the size                                                                                                                                     |
-| unotes.rootPath         | The root folder path for the notes file.<br>Setting this value will turn off auto-tracking of external file changes.<br>If needed you can click the 'Refresh' button on the note tree. |
+| unotes.rootPath         | The root folder path for the note files.<br>Setting this value will turn off auto-tracking of external file changes.<br>If needed you can click the 'Refresh' button on the notes tree. |
 
 ## Custom Colors
 
