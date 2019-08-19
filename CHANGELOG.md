@@ -8,7 +8,7 @@
 
 ### Added
 
-- `rootPath` setting to set a notes root folder path (contributed by epaezrubio)
+- `rootPath` setting to set a notes root folder path (implements: #18) (contributed by epaezrubio)
 - Refresh treeview command and button (contributed by epaezrubio)
 - Custom color options for wysiwyg and markdown editor
 - Updated tui-editor to v1.4.6

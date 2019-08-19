@@ -4,7 +4,7 @@
 
 # ᑌᑎotes Markdown WYSIWYG
 
-> Unotes gives you a `markdown` note editor right inside Visual Studio Code. Don't get distracted with noisy markdown syntax. **Enjoy** your notes with a rich **WYSIWYG** editor. Take full control of the markdown when needed. Start taking notes in **_style_**!
+> Unotes gives you a `markdown` note editor right inside Visual Studio Code. Don't get distracted with noisy markdown syntax. **Enjoy your notes** with a rich **WYSIWYG** editor. Take full control of the markdown when needed. Start taking notes in **_style_**!
 
 ![Intro](https://raw.githubusercontent.com/ryanmcalister/unotes/master/resources/screenshots/intro.gif)
 
@@ -132,7 +132,7 @@ project directory. All [remark-stringify](https://github.com/remarkjs/remark/tre
 
 ## Custom Colors
 
-Custom colors can be set to override many of the themed or default color values. Note there are different values for the wysywig, markdown editor and markdown preview panes.
+Custom colors can be set to override many of the themed or default color values. Note there are separate values for the wysywig, markdown editor and markdown preview panes.
 
 You can set options in the vscode workspace settings.json file:
 
