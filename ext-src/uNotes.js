@@ -57,7 +57,7 @@ const checkWhatsNew = function(context){
 
     const showWhatsNew = currV[0] > prevV[0] || (currV[0] === prevV[0] && currV[1] > prevV[1]);   
     
-    if(showWhatsNew || true){
+    if(showWhatsNew){
         context.globalState.update(GlobalState.UnotesVersion, unotesVersion);
         const actions = [{ title: "What's New" }, { title: "Release Notes" }];
         vscode.window.showInformationMessage(
