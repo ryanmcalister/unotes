@@ -1,7 +1,7 @@
 {
   "name": "Unotes",
   "displayName": "UNOTES - Markdown Notes WYSIWYG",
-  "version": "1.1.0",
+  "version": "1.0.15",
   "author": {
     "name": "Ryan McAlister",
     "email": "rymc26@gmail.com"
@@ -44,314 +44,317 @@
       "type": "object",
       "title": "Unotes",
       "properties": {
-          "unotes.editor.display2X": {
-              "type": "boolean",
-              "default": false,
-              "markdownDescription": "Display toolbar buttons at 2X size"
-          },
-          "unotes.rootPath": {
-              "type": "string",
-              "default": null,
-              "markdownDescription": "Root path of notes"
-          }
+        "unotes.editor.display2X": {
+          "type": "boolean",
+          "default": false,
+          "markdownDescription": "Display toolbar buttons at 2X size"
+        },
+        "unotes.rootPath": {
+          "type": "string",
+          "default": null,
+          "markdownDescription": "Root path of notes"
+        }
       }
     },
-    "colors": [{
+    "colors": [
+      {
         "id": "unotes.wysText",
         "description": "Unotes wysiwyg text",
         "defaults": {
-            "dark": "editor.foreground",
-            "light": "editor.foreground",
-            "highContrast": "editor.foreground"
+          "dark": "editor.foreground",
+          "light": "editor.foreground",
+          "highContrast": "editor.foreground"
         }
-    },{
+      },
+      {
         "id": "unotes.wsyH1",
         "description": "Unotes wysiwyg heading 1",
         "defaults": {
-            "dark": "#fff",
-            "light": "#333",
-            "highContrast": "#fff"
+          "dark": "#fff",
+          "light": "#333",
+          "highContrast": "#fff"
         }
-    },
-    {
+      },
+      {
         "id": "unotes.wsyH2",
         "description": "Unotes wysiwyg heading 2",
         "defaults": {
-            "dark": "titleBar.activeForeground",
-            "light": "titleBar.activeForeground",
-            "highContrast": "titleBar.activeForeground"
+          "dark": "titleBar.activeForeground",
+          "light": "titleBar.activeForeground",
+          "highContrast": "titleBar.activeForeground"
         }
-    },
-    {
+      },
+      {
         "id": "unotes.wsyH3H4",
         "description": "Unotes wysiwyg heading 3 and 4",
         "defaults": {
-            "dark": "titleBar.inactiveForeground",
-            "light": "titleBar.inactiveForeground",
-            "highContrast": "titleBar.inactiveForeground"
+          "dark": "titleBar.inactiveForeground",
+          "light": "titleBar.inactiveForeground",
+          "highContrast": "titleBar.inactiveForeground"
         }
-    },
-    {
+      },
+      {
         "id": "unotes.wsyH5H6",
         "description": "Unotes wysiwyg heading 5 and 6",
         "defaults": {
-            "dark": "titleBar.inactiveForeground",
-            "light": "titleBar.inactiveForeground",
-            "highContrast": "titleBar.inactiveForeground"
+          "dark": "titleBar.inactiveForeground",
+          "light": "titleBar.inactiveForeground",
+          "highContrast": "titleBar.inactiveForeground"
         }
-    },
-    {
+      },
+      {
         "id": "unotes.wsyBlockquote",
         "description": "Unotes wysiwyg blockquote",
         "defaults": {
-            "dark": "editorGutter.commentRangeForeground",
-            "light": "editorGutter.commentRangeForeground",
-            "highContrast": "editorGutter.commentRangeForeground"
+          "dark": "editorGutter.commentRangeForeground",
+          "light": "editorGutter.commentRangeForeground",
+          "highContrast": "editorGutter.commentRangeForeground"
         }
-    },
-    {
+      },
+      {
         "id": "unotes.wysCodeBlockBackground",
         "description": "Unotes wysiwyg code block background",
         "defaults": {
-            "dark": "textBlockQuote.background",
-            "light": "textBlockQuote.background",
-            "highContrast": "textBlockQuote.background"
+          "dark": "textBlockQuote.background",
+          "light": "textBlockQuote.background",
+          "highContrast": "textBlockQuote.background"
         }
-    },
-    {
+      },
+      {
         "id": "unotes.wysCodeBlockText",
         "description": "Unotes wysiwyg code block text",
         "defaults": {
-            "dark": "editor.foreground",
-            "light": "editor.foreground",
-            "highContrast": "editor.foreground"
+          "dark": "editor.foreground",
+          "light": "editor.foreground",
+          "highContrast": "editor.foreground"
         }
-    },
-    {
+      },
+      {
         "id": "unotes.wysHighlight",
         "description": "Unotes wysiwyg highlight / inline code",
         "defaults": {
-            "dark": "textPreformat.foreground",
-            "light": "textPreformat.foreground",
-            "highContrast": "textPreformat.foreground"
+          "dark": "textPreformat.foreground",
+          "light": "textPreformat.foreground",
+          "highContrast": "textPreformat.foreground"
         }
-    },
-    {
+      },
+      {
         "id": "unotes.wysTableText",
         "description": "Unotes wysiwyg table text",
         "defaults": {
-            "dark": "#BBBBBB",
-            "light": "#505050",
-            "highContrast": "#BBBBBB"
+          "dark": "#BBBBBB",
+          "light": "#505050",
+          "highContrast": "#BBBBBB"
         }
-    },
-    {
+      },
+      {
         "id": "unotes.wysTableTdBorder",
         "description": "Unotes wysiwyg table cell border",
         "defaults": {
-            "dark": "#313131",
-            "light": "#313131",
-            "highContrast": "#313131"
+          "dark": "#313131",
+          "light": "#313131",
+          "highContrast": "#313131"
         }
-    },
-    {
+      },
+      {
         "id": "unotes.wysTableThBorder",
         "description": "Unotes wysiwyg table header border",
         "defaults": {
-            "dark": "#72777b",
-            "light": "#72777b",
-            "highContrast": "#72777b"
+          "dark": "#72777b",
+          "light": "#72777b",
+          "highContrast": "#72777b"
         }
-    },
-    {
+      },
+      {
         "id": "unotes.wysTableThBackground",
         "description": "Unotes wysiwyg table header background",
         "defaults": {
-            "dark": "#484b4d",
-            "light": "#484b4d",
-            "highContrast": "#484b4d"
+          "dark": "#484b4d",
+          "light": "#484b4d",
+          "highContrast": "#484b4d"
         }
-    },
-    {
+      },
+      {
         "id": "unotes.wysTableThText",
         "description": "Unotes wysiwyg table header text",
         "defaults": {
-            "dark": "#fff",
-            "light": "#fff",
-            "highContrast": "#fff"
+          "dark": "#fff",
+          "light": "#fff",
+          "highContrast": "#fff"
         }
-    },
-    {
+      },
+      {
         "id": "unotes.wysList",
         "description": "Unotes wysiwyg list text",
         "defaults": {
-            "dark": "#BDBDBD",
-            "light": "#686868",
-            "highContrast": "#BDBDBD"
+          "dark": "#BDBDBD",
+          "light": "#686868",
+          "highContrast": "#BDBDBD"
         }
-    },
-    {
+      },
+      {
         "id": "unotes.wysLink",
         "description": "Unotes wysiwyg link",
         "defaults": {
-            "dark": "textLink.foreground",
-            "light": "textLink.foreground",
-            "highContrast": "textLink.foreground"
+          "dark": "textLink.foreground",
+          "light": "textLink.foreground",
+          "highContrast": "textLink.foreground"
         }
-    },
-    {
+      },
+      {
         "id": "unotes.wysLinkHover",
         "description": "Unotes wysiwyg hover link",
         "defaults": {
-            "dark": "textLink.activeForeground",
-            "light": "textLink.activeForeground",
-            "highContrast": "textLink.activeForeground"
+          "dark": "textLink.activeForeground",
+          "light": "textLink.activeForeground",
+          "highContrast": "textLink.activeForeground"
         }
-    },
-    {
+      },
+      {
         "id": "unotes.mdText",
         "description": "Unotes markdown text",
         "defaults": {
-            "dark": "foreground",
-            "light": "foreground",
-            "highContrast": "foreground"
+          "dark": "foreground",
+          "light": "foreground",
+          "highContrast": "foreground"
         }
-    },
-    {
+      },
+      {
         "id": "unotes.mdSelectedBackground",
         "description": "Unotes markdown selected text background",
         "defaults": {
-            "dark": "editor.selectionBackground",
-            "light": "editor.selectionBackground",
-            "highContrast": "editor.selectionBackground"
+          "dark": "editor.selectionBackground",
+          "light": "editor.selectionBackground",
+          "highContrast": "editor.selectionBackground"
         }
-    },
-    {
+      },
+      {
         "id": "unotes.mdHeader",
         "description": "Unotes markdown header",
         "defaults": {
-            "dark": "#F1DB78",
-            "light": "#bb96c0",
-            "highContrast": "#F1DB78"
+          "dark": "#F1DB78",
+          "light": "#bb96c0",
+          "highContrast": "#F1DB78"
         }
-    },
-    {
+      },
+      {
         "id": "unotes.mdListSub1",
         "description": "Unotes markdown list sub item 1",
         "defaults": {
-            "dark": "textPreformat.foreground",
-            "light": "textPreformat.foreground",
-            "highContrast": "textPreformat.foreground"
+          "dark": "textPreformat.foreground",
+          "light": "textPreformat.foreground",
+          "highContrast": "textPreformat.foreground"
         }
-    },
-    {
+      },
+      {
         "id": "unotes.mdListSub2",
         "description": "Unotes markdown list sub item 2",
         "defaults": {
-            "dark": "descriptionForeground",
-            "light": "descriptionForeground",
-            "highContrast": "descriptionForeground"
+          "dark": "descriptionForeground",
+          "light": "descriptionForeground",
+          "highContrast": "descriptionForeground"
         }
-    },
-    {
+      },
+      {
         "id": "unotes.mdCodeBlockText",
         "description": "Unotes markdown codeblock text",
         "defaults": {
-            "dark": "#e0a161",
-            "light": "#206020",
-            "highContrast": "#e0a161"
+          "dark": "#e0a161",
+          "light": "#206020",
+          "highContrast": "#e0a161"
         }
-    },
-    {
+      },
+      {
         "id": "unotes.mdLink",
         "description": "Unotes markdown link",
         "defaults": {
-            "dark": "textLink.foreground",
-            "light": "textLink.foreground",
-            "highContrast": "textLink.foreground"
+          "dark": "textLink.foreground",
+          "light": "textLink.foreground",
+          "highContrast": "textLink.foreground"
         }
-    },
-    {
+      },
+      {
         "id": "unotes.pvCodeComment",
         "description": "Unotes preview code comment",
         "defaults": {
-            "dark": "#998",
-            "light": "#998",
-            "highContrast": "#998"
+          "dark": "#998",
+          "light": "#998",
+          "highContrast": "#998"
         }
-    },
-    {
+      },
+      {
         "id": "unotes.pvCodeText",
         "description": "Unotes preview code text",
         "defaults": {
-            "dark": "#333",
-            "light": "#333",
-            "highContrast": "#333"
+          "dark": "#333",
+          "light": "#333",
+          "highContrast": "#333"
         }
-    },
-    {
+      },
+      {
         "id": "unotes.pvCodeKeyword",
         "description": "Unotes preview code keyword",
         "defaults": {
-            "dark": "#3e4d75",
-            "light": "#3e4d75",
-            "highContrast": "#3e4d75"
+          "dark": "#3e4d75",
+          "light": "#3e4d75",
+          "highContrast": "#3e4d75"
         }
-    },
-    {
+      },
+      {
         "id": "unotes.pvCodeNumber",
         "description": "Unotes preview code number",
         "defaults": {
-            "dark": "#3e7550",
-            "light": "#3e7550",
-            "highContrast": "#3e7550"
+          "dark": "#3e7550",
+          "light": "#3e7550",
+          "highContrast": "#3e7550"
         }
-    },
-    {
+      },
+      {
         "id": "unotes.pvCodeString",
         "description": "Unotes preview code string",
         "defaults": {
-            "dark": "#b64f69",
-            "light": "#b64f69",
-            "highContrast": "#b64f69"
+          "dark": "#b64f69",
+          "light": "#b64f69",
+          "highContrast": "#b64f69"
         }
-    },
-    {
+      },
+      {
         "id": "unotes.pvCodeType",
         "description": "Unotes preview code type",
         "defaults": {
-            "dark": "#458",
-            "light": "#458",
-            "highContrast": "#458"
+          "dark": "#458",
+          "light": "#458",
+          "highContrast": "#458"
         }
-    },
-    {
+      },
+      {
         "id": "unotes.pvCodeDeletion",
         "description": "Unotes preview code deletion",
         "defaults": {
-            "dark": "#722113",
-            "light": "#eec5be",
-            "highContrast": "#722113"
+          "dark": "#722113",
+          "light": "#eec5be",
+          "highContrast": "#722113"
         }
-    },
-    {
+      },
+      {
         "id": "unotes.pvCodeAddition",
         "description": "Unotes preview code addition",
         "defaults": {
-            "dark": "#387221",
-            "light": "#b7eba2",
-            "highContrast": "#387221"
+          "dark": "#387221",
+          "light": "#b7eba2",
+          "highContrast": "#387221"
         }
-    },
-    {
+      },
+      {
         "id": "unotes.pvCodeTitle",
         "description": "Unotes preview code title",
         "defaults": {
-            "dark": "#abb61a",
-            "light": "#abb61a",
-            "highContrast": "#abb61a"
+          "dark": "#abb61a",
+          "light": "#abb61a",
+          "highContrast": "#abb61a"
         }
-    }],
+      }
+    ],
     "commands": [
       {
         "command": "unotes.start",
