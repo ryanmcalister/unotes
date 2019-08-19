@@ -34,9 +34,11 @@ class UnotesConfig {
       return;
     }
 
-    this.settings = vscode.workspace.getConfiguration(extId);
-    
-    this.rootPath = this.settings.get('rootPath', vscode.workspace.rootPath)
+    this.settings = vscode.workspace.getConfiguration(extId);    
+    this.rootPath = this.settings.get('rootPath', vscode.workspace.rootPath);
+    if(!this.rootPath){
+        this.rootPath = vscode.workspace.rootPath;
+    }
     this.folderPath = path.join(this.rootPath, './.unotes');
 
     // setting change events
