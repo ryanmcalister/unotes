@@ -10,7 +10,7 @@
 
 # ♥
 
-If find Unotes useful, please [write a review](https://marketplace.visualstudio.com/items?itemName=ryanmcalister.Unotes&ssr=false#review-details).
+If you find Unotes useful, please [write a review](https://marketplace.visualstudio.com/items?itemName=ryanmcalister.Unotes&ssr=false#review-details).
 
 # What's new in Unotes 1.0
 
