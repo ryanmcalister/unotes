@@ -48,8 +48,7 @@ npm install
 
 #### Building
 
-First you must install and build the Unotes Editor (see above) and also install
-Then run...
+First you must install and build the Unotes Editor (see above) and then run...
 
 ```
 // to build in debug mode
