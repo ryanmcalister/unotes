@@ -16,7 +16,7 @@ If you find Unotes useful, please [write a review](https://marketplace.visualstu
 
 - [Custom color options](#custom-colors)
 - [Custom root folder](#workspace-configuration-options)
-- [Mardown formatting options](#formatting-options-experimental)
+- [Markdown formatting options](#formatting-options-experimental)
 - [Folder options for alphabetical or manual note ordering](#note-ordering)
 - [Local image support](#local-embedded-and-url-images)
 
