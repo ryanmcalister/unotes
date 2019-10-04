@@ -12,13 +12,11 @@
 
 If you find Unotes useful, please [write a review](https://marketplace.visualstudio.com/items?itemName=ryanmcalister.Unotes&ssr=false#review-details).
 
-# What's new in Unotes 1.0
+# What's new in Unotes 1.1
 
-- [Custom color options](#custom-colors)
-- [Custom root folder](#workspace-configuration-options)
+- Improved document scroll management
+- [Image convertion to local files](#workspace-configuration-options)
 - [Markdown formatting options](#formatting-options-experimental)
-- [Folder options for alphabetical or manual note ordering](#note-ordering)
-- [Local image support](#local-embedded-and-url-images)
 
 # ᑌᑎotes
 
@@ -51,6 +49,8 @@ Use Visual Studio Code's built-in search and version control features for all yo
 ### Editing Toolbar
 
 ### Paste Images from the Clipboard
+
+By default images will be embedded as base64 text objects. Images can also be auto-converted to local files. See [Image convertion to local files](#workspace-configuration-options).
 
 ### Local, Embedded and URL Images
 
@@ -128,6 +128,7 @@ project directory. All [remark-stringify](https://github.com/remarkjs/remark/tre
 | Setting                 | Description                                                                                                                                                                      |
 | ----------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | unotes.editor.display2X | Display the button toolbar at twice the size                                                                                                                                     |
+| unotes.editor.convertPastedImages | Automatically convert pasted images to local image files in a .media folder                                                                                            |
 | unotes.rootPath         | The root folder path for the note files.<br>Setting this value will turn off auto-tracking of external file changes.<br>If needed you can click the 'Refresh' button on the notes tree. |
 
 ## Custom Colors

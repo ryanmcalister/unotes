@@ -64,6 +64,9 @@ class TuiEditor extends Component {
         this.handleMessage = this.handleMessage.bind(this);
         this.remarkSettings = null;
         this.contentSet = false;
+        this.contentPath = null;
+        this.wysiwygScroll = {};
+        this.markdownScroll = {};
 
         this.state = {
             settings: {
@@ -107,6 +110,7 @@ class TuiEditor extends Component {
                 'code',
                 'codeblock'
             ]
+            
         });
 
         editor.on("convertorBeforeHtmlToMarkdownConverted", this.onHtmlBefore);
@@ -114,6 +118,10 @@ class TuiEditor extends Component {
         editor.on("convertorAfterHtmlToMarkdownConverted", this.onAfterMarkdown)
 
         editor.on("previewBeforeHook", this.onPreviewBeforeHook);
+
+        editor.on("addImageBlobHook", this.onPaste.bind(this));
+
+        editor.addHook("scroll", this.onScroll.bind(this));
 
         window.addEventListener('message', this.handleMessage);
 
@@ -153,6 +161,41 @@ class TuiEditor extends Component {
         return e;
     }
 
+    onScroll(e) {
+        if(!this.contentPath)
+            return;
+
+        // save the scroll positions
+        if(this.state.editor.isWysiwygMode() && e.data){
+            this.wysiwygScroll[this.contentPath] = this.state.editor.getCurrentModeEditor().scrollTop(); 
+        
+        } else {
+            this.markdownScroll[this.contentPath] = this.state.editor.getCurrentModeEditor().scrollTop(); 
+        }
+    }
+
+    onPaste(e) {
+        const toBase64 = file => new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = error => reject(error);
+        });
+
+        if(!this.state.settings.convertPastedImages){
+            return;
+        }
+
+        return toBase64(e)
+        .then(result => {
+            window.vscode.postMessage({
+                command: 'convertImage',
+                data: result
+            });
+            return null;
+        });
+    }
+
     componentWillUnmount() {
         window.removeEventListener('message', this.handleMessage.bind(this));
         window.removeEventListener('resize', this.handleResizeMessage);
@@ -164,12 +207,27 @@ class TuiEditor extends Component {
         });
     }
 
+    setContent(data){
+        img_root = data.folderPath + '/';
+        this.state.editor.setMarkdown(data.content, false);
+        this.contentSet = true;
+        
+        const isSamePath = (this.contentPath === data.contentPath);
+        this.contentPath = data.contentPath;
+        if (!isSamePath){
+            const scrolls = this.state.editor.isWysiwygMode() ? this.wysiwygScroll : this.markdownScroll;
+            let sTop = scrolls[this.contentPath];
+            if(!sTop){
+                sTop = 0;    
+            } 
+            this.state.editor.scrollTop(sTop);
+        } 
+    }
+
     handleMessage(e) {
         switch (e.data.command) {
             case 'setContent':
-                img_root = e.data.folderPath + '/';
-                this.state.editor.setMarkdown(e.data.content, false);
-                this.contentSet = true;
+                this.setContent(e.data);
                 break;
             case 'exec':
                 this.state.editor.exec(...e.data.args);
