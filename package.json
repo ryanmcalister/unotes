@@ -407,7 +407,7 @@
             },
             {
                 "command": "unotes.deleteFolder",
-                "title": "Remove Folder",
+                "title": "Delete Folder",
                 "icon": {
                     "light": "resources/light/remove_folder.svg",
                     "dark": "resources/dark/remove_folder.svg"
@@ -415,7 +415,7 @@
             },
             {
                 "command": "unotes.deleteNote",
-                "title": "Remove Note",
+                "title": "Delete Note",
                 "icon": {
                     "light": "resources/light/remove_note.svg",
                     "dark": "resources/dark/remove_note.svg"
@@ -457,8 +457,16 @@
                 "command": "unotes.convertImages",
                 "title": "Convert Images",
                 "icon": {
-                    "light": "resources/light/folder_alpha.svg",
-                    "dark": "resources/dark/folder_alpha.svg"
+                    "light": "resources/light/convert_images.svg",
+                    "dark": "resources/dark/convert_images.svg"
+                }
+            },
+            {
+                "command": "unotes.renameNote",
+                "title": "Rename Note",
+                "icon": {
+                    "light": "resources/light/refresh.svg",
+                    "dark": "resources/dark/refresh.svg"
                 }
             }
         ],
@@ -492,9 +500,14 @@
                     "group": "unotesAdd@2"
                 },
                 {
+                    "command": "unotes.renameNote",
+                    "when": "viewItem =~ /(uNoteFile)/",
+                    "group": "unotesChange@1"
+                },
+                {
                     "command": "unotes.deleteNote",
                     "when": "viewItem =~ /(uNoteFile)/",
-                    "group": "unotesChange"
+                    "group": "unotesChange@2"
                 },
                 {
                     "command": "unotes.convertImages",

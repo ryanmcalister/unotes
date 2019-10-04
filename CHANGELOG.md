@@ -8,9 +8,10 @@
 
 ### Added
 
-- convertPastedImages configuration option to auto-convert pasted or dropped images to local files in .media
-- convertImages command to convert all embedded images in a document to local files in .media
+- New `convertPastedImages` configuration option to auto-convert pasted or dropped images to local files in .media
+- New `convertImages` command to convert all embedded images in a document to local files in .media
 - Scroll positions remembered for each document in each view during Unote sessions
+- Note renaming [(issue: #26)](https://github.com/ryanmcalister/unotes/issues/26) 
 
 ## [1.0.15] - 2019-08-19
 

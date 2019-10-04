@@ -237,7 +237,7 @@ class UNotesPanel {
 
     showUNote(unote) {
         try {
-            const filePath = path.join(Config.rootPath, unote.folderPath, unote.file);
+            const filePath = unote.filePath();
             this.currentNote = unote;
             this.currentPath = filePath;
             this.updateContents();
@@ -312,6 +312,12 @@ class UNotesPanel {
         }
         this.writingFile = '';
         return false;
+    }
+
+    switchIfOpen(oldNote, newNote) {
+        if (this.currentPath == oldNote.filePath()) {
+            this.showUNote(newNote);
+        }
     }
 
     closeIfOpen(filePath) {
