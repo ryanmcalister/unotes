@@ -32,7 +32,7 @@ class UNote extends vscode.TreeItem {
       dark: path.join(Utils.context.extensionPath, 'resources', 'dark', "folder_alpha.svg")
     };
   }
-  filePath(){
+  fullPath(){
       return path.join(Config.rootPath, this.folderPath, this.file);
   }
   get tooltip() {

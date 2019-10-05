@@ -152,6 +152,10 @@ class UNotes {
         );
 
         this.disposables.push(
+            vscode.commands.registerCommand('unotes.renameFolder', this.onRenameFolder.bind(this))
+        );
+
+        this.disposables.push(
             vscode.commands.registerCommand('unotes.deleteFolder', this.onDeleteFolder.bind(this))
         );
 
@@ -278,6 +282,11 @@ class UNotes {
                 } else {
                     this.uNoteProvider.refresh();
                 }
+
+                vscode.window.showInformationMessage(`Converted and saved ${found} image files.`);
+            
+            } else {
+                vscode.window.showInformationMessage(`No embedded images found.`);
             }
         }
         catch (e) {
@@ -327,6 +336,7 @@ class UNotes {
                 const newFilePath = path.join(Config.rootPath, note.folderPath, newFileName);
                 if(fs.existsSync(newFilePath)){
                     vscode.window.showWarningMessage(`'${newFileName}' already exists.`);
+                    return;
                 }
 
                 // update the tree value
@@ -336,13 +346,46 @@ class UNotes {
                 }
 
                 // save the file
-                fs.renameSync(note.filePath(), newFilePath);
+                fs.renameSync(note.fullPath(), newFilePath);
 
                 // open the new file if the old one is showing
                 this.uNoteProvider.refresh();
                 const panel = UNotesPanel.instance();
                 if (panel){
                     panel.switchIfOpen(note, UNote.noteFromPath(newFilePath));
+                }
+            });
+    }
+    
+    onRenameFolder(folder) {
+        if(!folder){
+            return;
+        }
+        vscode.window.showInputBox({ value: folder.file})
+            .then(value => {
+                if(!value) return;
+                if(value === folder.file) return;   // no change
+
+                const newFolderPath = path.join(Config.rootPath, folder.folderPath, value);
+                if(fs.existsSync(newFolderPath)){
+                    vscode.window.showWarningMessage(`'${value}' already exists.`);
+                    return;
+                }
+
+                // update the tree value
+                if(!this.uNoteProvider.renameFolder(folder, value)){
+                    console.log("Failed to rename folder in uNoteProvider.");
+                    return;
+                }
+
+                // rename the folder
+                fs.renameSync(folder.fullPath(), newFolderPath);
+
+                this.uNoteProvider.refresh();
+
+                const panel = UNotesPanel.instance();
+                if (panel){
+                    panel.checkCurrentFile();
                 }
             });
     }

@@ -468,6 +468,14 @@
                     "light": "resources/light/refresh.svg",
                     "dark": "resources/dark/refresh.svg"
                 }
+            },
+            {
+                "command": "unotes.renameFolder",
+                "title": "Rename Folder",
+                "icon": {
+                    "light": "resources/light/refresh.svg",
+                    "dark": "resources/dark/refresh.svg"
+                }
             }
         ],
         "menus": {
@@ -513,6 +521,11 @@
                     "command": "unotes.convertImages",
                     "when": "viewItem =~ /(uNoteFile)/",
                     "group": "unotesProcess@1"
+                },
+                {
+                    "command": "unotes.renameFolder",
+                    "when": "viewItem =~ /(uNoteFolder)/",
+                    "group": "unotesFolder@1"
                 },
                 {
                     "command": "unotes.deleteFolder",

@@ -96,6 +96,16 @@ class UNoteProvider {
         return noteFolder.renameNote(note.label, Utils.stripMD(newFileName));
     }
 
+    renameFolder(folder, newFolderName) {
+        const paths = this.getPaths(folder);
+        if(paths.length < 1){
+            return false;
+        }
+        paths.pop();    // get parent folder
+        const noteFolder = this.noteTree.getFolder(paths);
+        return noteFolder.renameFolder(folder.file, newFolderName);
+    }
+
     saveNoteTree() {
         this.noteTree.save();
     }

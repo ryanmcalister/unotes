@@ -14,8 +14,10 @@ If you find Unotes useful, please [write a review](https://marketplace.visualstu
 
 # What's new in Unotes 1.1
 
-- Improved document scroll management
-- [Image convertion to local files](#workspace-configuration-options)
+- Note/Folder renaming commands added to context menu
+- Improved document scroll position management
+- New command to convert embedded note images to files
+- [New configuration setting to auto-convert pasted images](#workspace-configuration-options)
 - [Markdown formatting options](#formatting-options-experimental)
 
 # ᑌᑎotes
@@ -50,7 +52,7 @@ Use Visual Studio Code's built-in search and version control features for all yo
 
 ### Paste Images from the Clipboard
 
-By default images will be embedded as base64 text objects. Images can also be auto-converted to local files. See [Image convertion to local files](#workspace-configuration-options).
+By default images are embedded as base64 text objects. Images can optionally be auto-converted to local files when pasted. See [Image convertion to local files](#workspace-configuration-options).
 
 ### Local, Embedded and URL Images
 

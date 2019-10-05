@@ -82,6 +82,17 @@ class UNoteTree {
         return true;
     }
 
+    renameFolder(oldName, newName){
+        const folder = this.folders[oldName];
+        if(folder === undefined){
+            return false;
+        }
+        folder.name = newName;
+        delete this.folders[oldName];
+        this.folders[newName] = folder;
+        return true;
+    }
+
     syncFiles(notes) {
         // set is ordered state
         const count = notes.length;
