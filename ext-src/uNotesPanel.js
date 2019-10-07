@@ -290,7 +290,11 @@ class UNotesPanel {
                     }
                     return '';  // failed
                 });
-                return newContent;
+                
+                if(found > 0){
+                    return newContent;
+                }
+                return content;
             }
         }
         catch(e){
