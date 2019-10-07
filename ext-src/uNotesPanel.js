@@ -56,6 +56,7 @@ class UNotesPanel {
             this.updateSettingsNeeded = false;
             this.currentPath = '';
             this.currentNote = null;
+            this.imageToConvert = null;
 
             this.panel = vscode.window.createWebviewPanel('unotes', "UNotes", column, {
                 enableScripts: true,
@@ -78,7 +79,18 @@ class UNotesPanel {
             this.panel.webview.onDidReceiveMessage(message => {
                 switch (message.command) {
                     case 'applyChanges':
-                        this.saveChanges(message.content)
+                        // kind of a hack to replace pasted images with actual files
+                        if (this.imageToConvert){
+                            const newContent = this.convertImage(message.content, this.imageToConvert);
+                            if(newContent){     // will be empty on error
+                                message.content = newContent;
+                            }
+                        }
+                        this.saveChanges(message.content);
+                        if (this.imageToConvert){
+                            this.imageToConvert = null;  
+                            this.updateContents();
+                        }
                         break;
                     case 'editorOpened':
                         this.updateContents();
@@ -87,6 +99,9 @@ class UNotesPanel {
                         break;
                     case 'resized':
                         UNotesPanel.recreate(this.extensionPath, this.currentNote)
+                        break;
+                    case 'convertImage':
+                        this.imageToConvert = message.data;
                         break;
                     default:
                         console.log("Unknown webview message received:")
@@ -213,6 +228,7 @@ class UNotesPanel {
     }
 
     saveChanges(content) {
+        
         if (this.currentPath) {
             this.writingFile = this.currentPath;
             fs.writeFileSync(this.currentPath, content, 'utf8');
@@ -221,7 +237,7 @@ class UNotesPanel {
 
     showUNote(unote) {
         try {
-            const filePath = path.join(Config.rootPath, unote.folderPath, unote.file);
+            const filePath = unote.fullPath();
             this.currentNote = unote;
             this.currentPath = filePath;
             this.updateContents();
@@ -238,13 +254,54 @@ class UNotesPanel {
             if(this.currentNote){
                 const content = fs.readFileSync(this.currentPath, 'utf8');
                 const folderPath = vscode.Uri.file(path.join(Config.rootPath, this.currentNote.folderPath)).path;
-                this.panel.webview.postMessage({ command: 'setContent', content, folderPath });
+                this.panel.webview.postMessage({ command: 'setContent', content, folderPath, contentPath: this.currentPath });
             }
         }
         catch (e) {
             console.log(e);
         }
-    }
+    }   
+
+    /**
+     * Removes the given image data from the content, 
+     * saves an image, puts a relative image path in its place
+     * @returns the new content, or blank if a failure happends
+     */
+    convertImage(content, image) {
+        try {
+            if(this.currentNote){
+                const noteFolder = path.join(Config.rootPath, this.currentNote.folderPath);
+                let found = 0;
+
+                // get a unique image index
+                let index = Utils.getNextImageIndex(noteFolder);
+    
+                // replace the embedded image with a relative file
+                let newContent = content.replace(image, (d) => {
+                    let match = /data:image\/(.*);base64,(.*)$/g.exec(d);
+
+                    if(match){
+                        // write the file
+                        const fname = Utils.saveMediaImage(noteFolder, new Buffer(match[2], 'base64'), index++, match[1]);
+
+                        found++;
+                        // replace the content with the the relative path
+                        return Utils.getImageTagUrl(fname);
+                    }
+                    return '';  // failed
+                });
+                
+                if(found > 0){
+                    return newContent;
+                }
+                return content;
+            }
+        }
+        catch(e){
+            console.log(e);
+        }
+        return content;
+    }    
 
     updateFileIfOpen(filePath) {
         // update our view if an external change happens
@@ -261,16 +318,22 @@ class UNotesPanel {
         return false;
     }
 
+    switchIfOpen(oldNote, newNote) {
+        if (this.currentPath == oldNote.fullPath()) {
+            this.showUNote(newNote);
+        }
+    }
+
     closeIfOpen(filePath) {
         if (filePath == this.currentPath) {
             UNotesPanel.close();
         }
     }
-
-    doRefactor() {
-        // Send a message to the webview
-        // You can send any JSON serializable data.
-        this.panel.webview.postMessage({ command: 'refactor' });
+    
+    checkCurrentFile(){
+        if(!fs.existsSync(this.currentPath)) {
+            UNotesPanel.close();
+        }
     }
 
     dispose() {

@@ -1,93 +1,18 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg
-   xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:cc="http://creativecommons.org/ns#"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-   xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="16"
-   height="16"
-   viewBox="0 0 16 16"
-   id="svg2"
-   version="1.1"
-   inkscape:version="0.91 r13725"
-   sodipodi:docname="folder_alpha.svg">
-  <metadata
-     id="metadata12">
-    <rdf:RDF>
-      <cc:Work
-         rdf:about="">
-        <dc:format>image/svg+xml</dc:format>
-        <dc:type
-           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
-      </cc:Work>
-    </rdf:RDF>
-  </metadata>
-  <defs
-     id="defs10" />
-  <sodipodi:namedview
-     pagecolor="#ffffff"
-     bordercolor="#666666"
-     borderopacity="1"
-     objecttolerance="10"
-     gridtolerance="10"
-     guidetolerance="10"
-     inkscape:pageopacity="0"
-     inkscape:pageshadow="2"
-     inkscape:window-width="1611"
-     inkscape:window-height="982"
-     id="namedview8"
-     showgrid="true"
-     inkscape:object-nodes="true"
-     inkscape:snap-intersection-paths="false"
-     inkscape:snap-smooth-nodes="true"
-     inkscape:zoom="27.812867"
-     inkscape:cx="9.950938"
-     inkscape:cy="9.9923308"
-     inkscape:window-x="1388"
-     inkscape:window-y="367"
-     inkscape:window-maximized="0"
-     inkscape:current-layer="svg2"
-     inkscape:snap-text-baseline="true">
-    <inkscape:grid
-       type="xygrid"
-       id="grid4140"
-       originx="0.5"
-       originy="0.5" />
-  </sodipodi:namedview>
-  <path
-     d="M 0,-8 24,-8 24,16 0,16 0,-8 Z"
-     id="path4"
-     inkscape:connector-curvature="0"
-     style="fill:none" />
-  <path
-     d="m 8.5,5.5 -2,-2 -6,0 0,2 0,10 13,0 2,-1 0,-9 z"
-     id="path6"
-     inkscape:connector-curvature="0"
-     sodipodi:nodetypes="ccccccccc"
-     style="fill:#c1b592;fill-opacity:0.78431374;stroke:#605d58;stroke-opacity:1" />
-  <text
-     xml:space="preserve"
-     style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-     x="3.5"
-     y="8.5"
-     id="text4148"
-     sodipodi:linespacing="125%"><tspan
-       sodipodi:role="line"
-       id="tspan4150"
-       x="3.5"
-       y="8.5" /></text>
-  <g
-     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10px;line-height:125%;font-family:'Microsoft Sans Serif';-inkscape-font-specification:'Microsoft Sans Serif, Normal';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#d1d1d1;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-     id="text4152"
-     transform="matrix(1,0,0,0.83819918,0,2.184311)">
-    <path
-       d="M 9.0019531,10.570313 7.7421875,7.25 l -1.2011719,3.320313 2.4609375,0 z M 11.179688,13.5 l -1.069336,0 -0.8300786,-2.177734 -2.9980468,0 L 5.4912109,13.5 l -1.0009765,0 2.7490234,-7.1582031 1.0205078,0 L 11.179688,13.5 Z"
-       style="fill:#d1d1d1;fill-opacity:1;stroke:none;stroke-opacity:0.71098268"
-       id="path4159"
-       inkscape:connector-curvature="0" />
-  </g>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16" height="16" version="1.1" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+ <metadata>
+  <rdf:RDF>
+   <cc:Work rdf:about="">
+    <dc:format>image/svg+xml</dc:format>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:title/>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <path d="m0-8h24v24h-24v-24z" fill="none"/>
+ <path d="m8.5 5.5-2-2h-6v2 10h13l2-1v-9z" fill="#c1b592" fill-opacity=".78431" stroke="#605d58"/>
+ <text x="3.5" y="8.5" fill="#000000" font-family="sans-serif" letter-spacing="0px" stroke-width="1px" word-spacing="0px" style="line-height:0%" xml:space="preserve"><tspan x="3.5" y="8.5" font-size="40px" style="line-height:1.25"> </tspan></text>
+ <g transform="matrix(1 0 0 .8382 0 2.1843)" fill="#d1d1d1" stroke-width="1px">
+  <path d="m9.002 10.57-1.2598-3.3203-1.2012 3.3203h2.4609zm2.1777 2.9297h-1.0693l-0.83008-2.1777h-2.998l-0.79102 2.1777h-1.001l2.749-7.1582h1.0205l2.9199 7.1582z" fill="#d1d1d1"/>
+ </g>
 </svg>

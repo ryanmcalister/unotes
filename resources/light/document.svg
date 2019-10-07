@@ -1,1 +1,17 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><style>.icon-canvas-transparent{opacity:0;fill:#2d2d30}.icon-vs-out{fill:#2d2d30}.icon-vs-bg{fill:#c5c5c5}.icon-vs-fg{fill:#2b282e}</style><path class="icon-canvas-transparent" d="M16 16H0V0h16v16z" id="canvas"/><path class="icon-vs-out" d="M15 16H2V0h8.621L15 4.379V16z" id="outline"/><path class="icon-vs-fg" d="M13 14H4V2h5v4h4v8zm-3-9V2.207L12.793 5H10z" id="iconFg"/><path class="icon-vs-bg" d="M3 1v14h11V4.793L10.207 1H3zm10 13H4V2h5v4h4v8zm-3-9V2.207L12.793 5H10z" id="iconBg"/></svg>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg version="1.1" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+ <metadata>
+  <rdf:RDF>
+   <cc:Work rdf:about="">
+    <dc:format>image/svg+xml</dc:format>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:title/>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <style>.icon-canvas-transparent{opacity:0;fill:#2d2d30}.icon-vs-out{fill:#2d2d30}.icon-vs-bg{fill:#c5c5c5}.icon-vs-fg{fill:#2b282e}</style>
+ <path id="canvas" class="icon-canvas-transparent" d="M16 16H0V0h16v16z"/>
+ <path id="outline" class="icon-vs-out" d="M15 16H2V0h8.621L15 4.379V16z"/>
+ <path id="iconFg" class="icon-vs-fg" d="M13 14H4V2h5v4h4v8zm-3-9V2.207L12.793 5H10z"/>
+ <path id="iconBg" class="icon-vs-bg" d="M3 1v14h11V4.793L10.207 1H3zm10 13H4V2h5v4h4v8zm-3-9V2.207L12.793 5H10z"/>
+</svg>

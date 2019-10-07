@@ -1,659 +1,705 @@
 {
-  "name": "Unotes",
-  "displayName": "UNOTES - Markdown Notes WYSIWYG",
-  "version": "1.0.15",
-  "author": {
-    "name": "Ryan McAlister",
-    "email": "rymc26@gmail.com"
-  },
-  "publisher": "ryanmcalister",
-  "license": "SEE LICENSE IN LICENSE",
-  "homepage": "https://github.com/ryanmcalister/unotes/blob/master/README.md",
-  "bugs": {
-    "url": "https://github.com/ryanmcalister/unotes/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/ryanmcalister/unotes.git"
-  },
-  "engines": {
-    "vscode": "^1.30.0"
-  },
-  "categories": [
-    "Other"
-  ],
-  "galleryBanner": {
-    "color": "#666666",
-    "theme": "dark"
-  },
-  "keywords": [
-    "markdown",
-    "notes",
-    "notebook",
-    "editor",
-    "wysiwyg"
-  ],
-  "activationEvents": [
-    "onView:unoteFiles"
-  ],
-  "main": "./dist/extension.js",
-  "icon": "resources/unotes-icon.png",
-  "preview": false,
-  "contributes": {
-    "configuration": {
-      "type": "object",
-      "title": "Unotes",
-      "properties": {
-        "unotes.editor.display2X": {
-          "type": "boolean",
-          "default": false,
-          "markdownDescription": "Display toolbar buttons at 2X size"
-        },
-        "unotes.rootPath": {
-          "type": "string",
-          "default": null,
-          "markdownDescription": "Root path of notes"
-        }
-      }
+    "name": "Unotes",
+    "displayName": "UNOTES - Markdown Notes WYSIWYG",
+    "version": "1.1.0",
+    "author": {
+        "name": "Ryan McAlister",
+        "email": "rymc26@gmail.com"
     },
-    "colors": [
-      {
-        "id": "unotes.wysText",
-        "description": "Unotes wysiwyg text",
-        "defaults": {
-          "dark": "editor.foreground",
-          "light": "editor.foreground",
-          "highContrast": "editor.foreground"
-        }
-      },
-      {
-        "id": "unotes.wsyH1",
-        "description": "Unotes wysiwyg heading 1",
-        "defaults": {
-          "dark": "#fff",
-          "light": "#333",
-          "highContrast": "#fff"
-        }
-      },
-      {
-        "id": "unotes.wsyH2",
-        "description": "Unotes wysiwyg heading 2",
-        "defaults": {
-          "dark": "titleBar.activeForeground",
-          "light": "titleBar.activeForeground",
-          "highContrast": "titleBar.activeForeground"
-        }
-      },
-      {
-        "id": "unotes.wsyH3H4",
-        "description": "Unotes wysiwyg heading 3 and 4",
-        "defaults": {
-          "dark": "titleBar.inactiveForeground",
-          "light": "titleBar.inactiveForeground",
-          "highContrast": "titleBar.inactiveForeground"
-        }
-      },
-      {
-        "id": "unotes.wsyH5H6",
-        "description": "Unotes wysiwyg heading 5 and 6",
-        "defaults": {
-          "dark": "titleBar.inactiveForeground",
-          "light": "titleBar.inactiveForeground",
-          "highContrast": "titleBar.inactiveForeground"
-        }
-      },
-      {
-        "id": "unotes.wsyBlockquote",
-        "description": "Unotes wysiwyg blockquote",
-        "defaults": {
-          "dark": "editorGutter.commentRangeForeground",
-          "light": "editorGutter.commentRangeForeground",
-          "highContrast": "editorGutter.commentRangeForeground"
-        }
-      },
-      {
-        "id": "unotes.wysCodeBlockBackground",
-        "description": "Unotes wysiwyg code block background",
-        "defaults": {
-          "dark": "textBlockQuote.background",
-          "light": "textBlockQuote.background",
-          "highContrast": "textBlockQuote.background"
-        }
-      },
-      {
-        "id": "unotes.wysCodeBlockText",
-        "description": "Unotes wysiwyg code block text",
-        "defaults": {
-          "dark": "editor.foreground",
-          "light": "editor.foreground",
-          "highContrast": "editor.foreground"
-        }
-      },
-      {
-        "id": "unotes.wysHighlight",
-        "description": "Unotes wysiwyg highlight / inline code",
-        "defaults": {
-          "dark": "textPreformat.foreground",
-          "light": "textPreformat.foreground",
-          "highContrast": "textPreformat.foreground"
-        }
-      },
-      {
-        "id": "unotes.wysTableText",
-        "description": "Unotes wysiwyg table text",
-        "defaults": {
-          "dark": "#BBBBBB",
-          "light": "#505050",
-          "highContrast": "#BBBBBB"
-        }
-      },
-      {
-        "id": "unotes.wysTableTdBorder",
-        "description": "Unotes wysiwyg table cell border",
-        "defaults": {
-          "dark": "#313131",
-          "light": "#313131",
-          "highContrast": "#313131"
-        }
-      },
-      {
-        "id": "unotes.wysTableThBorder",
-        "description": "Unotes wysiwyg table header border",
-        "defaults": {
-          "dark": "#72777b",
-          "light": "#72777b",
-          "highContrast": "#72777b"
-        }
-      },
-      {
-        "id": "unotes.wysTableThBackground",
-        "description": "Unotes wysiwyg table header background",
-        "defaults": {
-          "dark": "#484b4d",
-          "light": "#484b4d",
-          "highContrast": "#484b4d"
-        }
-      },
-      {
-        "id": "unotes.wysTableThText",
-        "description": "Unotes wysiwyg table header text",
-        "defaults": {
-          "dark": "#fff",
-          "light": "#fff",
-          "highContrast": "#fff"
-        }
-      },
-      {
-        "id": "unotes.wysList",
-        "description": "Unotes wysiwyg list text",
-        "defaults": {
-          "dark": "#BDBDBD",
-          "light": "#686868",
-          "highContrast": "#BDBDBD"
-        }
-      },
-      {
-        "id": "unotes.wysLink",
-        "description": "Unotes wysiwyg link",
-        "defaults": {
-          "dark": "textLink.foreground",
-          "light": "textLink.foreground",
-          "highContrast": "textLink.foreground"
-        }
-      },
-      {
-        "id": "unotes.wysLinkHover",
-        "description": "Unotes wysiwyg hover link",
-        "defaults": {
-          "dark": "textLink.activeForeground",
-          "light": "textLink.activeForeground",
-          "highContrast": "textLink.activeForeground"
-        }
-      },
-      {
-        "id": "unotes.mdText",
-        "description": "Unotes markdown text",
-        "defaults": {
-          "dark": "foreground",
-          "light": "foreground",
-          "highContrast": "foreground"
-        }
-      },
-      {
-        "id": "unotes.mdSelectedBackground",
-        "description": "Unotes markdown selected text background",
-        "defaults": {
-          "dark": "editor.selectionBackground",
-          "light": "editor.selectionBackground",
-          "highContrast": "editor.selectionBackground"
-        }
-      },
-      {
-        "id": "unotes.mdHeader",
-        "description": "Unotes markdown header",
-        "defaults": {
-          "dark": "#F1DB78",
-          "light": "#bb96c0",
-          "highContrast": "#F1DB78"
-        }
-      },
-      {
-        "id": "unotes.mdListSub1",
-        "description": "Unotes markdown list sub item 1",
-        "defaults": {
-          "dark": "textPreformat.foreground",
-          "light": "textPreformat.foreground",
-          "highContrast": "textPreformat.foreground"
-        }
-      },
-      {
-        "id": "unotes.mdListSub2",
-        "description": "Unotes markdown list sub item 2",
-        "defaults": {
-          "dark": "descriptionForeground",
-          "light": "descriptionForeground",
-          "highContrast": "descriptionForeground"
-        }
-      },
-      {
-        "id": "unotes.mdCodeBlockText",
-        "description": "Unotes markdown codeblock text",
-        "defaults": {
-          "dark": "#e0a161",
-          "light": "#206020",
-          "highContrast": "#e0a161"
-        }
-      },
-      {
-        "id": "unotes.mdLink",
-        "description": "Unotes markdown link",
-        "defaults": {
-          "dark": "textLink.foreground",
-          "light": "textLink.foreground",
-          "highContrast": "textLink.foreground"
-        }
-      },
-      {
-        "id": "unotes.pvCodeComment",
-        "description": "Unotes preview code comment",
-        "defaults": {
-          "dark": "#998",
-          "light": "#998",
-          "highContrast": "#998"
-        }
-      },
-      {
-        "id": "unotes.pvCodeText",
-        "description": "Unotes preview code text",
-        "defaults": {
-          "dark": "#333",
-          "light": "#333",
-          "highContrast": "#333"
-        }
-      },
-      {
-        "id": "unotes.pvCodeKeyword",
-        "description": "Unotes preview code keyword",
-        "defaults": {
-          "dark": "#3e4d75",
-          "light": "#3e4d75",
-          "highContrast": "#3e4d75"
-        }
-      },
-      {
-        "id": "unotes.pvCodeNumber",
-        "description": "Unotes preview code number",
-        "defaults": {
-          "dark": "#3e7550",
-          "light": "#3e7550",
-          "highContrast": "#3e7550"
-        }
-      },
-      {
-        "id": "unotes.pvCodeString",
-        "description": "Unotes preview code string",
-        "defaults": {
-          "dark": "#b64f69",
-          "light": "#b64f69",
-          "highContrast": "#b64f69"
-        }
-      },
-      {
-        "id": "unotes.pvCodeType",
-        "description": "Unotes preview code type",
-        "defaults": {
-          "dark": "#458",
-          "light": "#458",
-          "highContrast": "#458"
-        }
-      },
-      {
-        "id": "unotes.pvCodeDeletion",
-        "description": "Unotes preview code deletion",
-        "defaults": {
-          "dark": "#722113",
-          "light": "#eec5be",
-          "highContrast": "#722113"
-        }
-      },
-      {
-        "id": "unotes.pvCodeAddition",
-        "description": "Unotes preview code addition",
-        "defaults": {
-          "dark": "#387221",
-          "light": "#b7eba2",
-          "highContrast": "#387221"
-        }
-      },
-      {
-        "id": "unotes.pvCodeTitle",
-        "description": "Unotes preview code title",
-        "defaults": {
-          "dark": "#abb61a",
-          "light": "#abb61a",
-          "highContrast": "#abb61a"
-        }
-      }
-    ],
-    "commands": [
-      {
-        "command": "unotes.start",
-        "title": "Unotes"
-      },
-      {
-        "command": "unotes.addNote",
-        "title": "Add Note",
-        "icon": {
-          "light": "resources/light/add_note.svg",
-          "dark": "resources/dark/add_note.svg"
-        }
-      },
-      {
-        "command": "unotes.refreshTree",
-        "title": "Refresh Tree",
-        "icon": {
-          "light": "resources/light/refresh.svg",
-          "dark": "resources/dark/refresh.svg"
-        }
-      },
-      {
-        "command": "unotes.addFolder",
-        "title": "Add Folder",
-        "icon": {
-          "light": "resources/light/add_folder.svg",
-          "dark": "resources/dark/add_folder.svg"
-        }
-      },
-      {
-        "command": "unotes.addNoteHere",
-        "title": "Add Note",
-        "icon": {
-          "light": "resources/light/add_note.svg",
-          "dark": "resources/dark/add_note.svg"
-        }
-      },
-      {
-        "command": "unotes.addFolderHere",
-        "title": "Add Folder",
-        "icon": {
-          "light": "resources/light/add_folder.svg",
-          "dark": "resources/dark/add_folder.svg"
-        }
-      },
-      {
-        "command": "unotes.deleteFolder",
-        "title": "Remove Folder",
-        "icon": {
-          "light": "resources/light/remove_folder.svg",
-          "dark": "resources/dark/remove_folder.svg"
-        }
-      },
-      {
-        "command": "unotes.deleteNote",
-        "title": "Remove Note",
-        "icon": {
-          "light": "resources/light/remove_note.svg",
-          "dark": "resources/dark/remove_note.svg"
-        }
-      },
-      {
-        "command": "unotes.moveUp",
-        "title": "Move Up",
-        "icon": {
-          "light": "resources/light/arrow_up.svg",
-          "dark": "resources/dark/arrow_up.svg"
-        }
-      },
-      {
-        "command": "unotes.moveDown",
-        "title": "Move Down",
-        "icon": {
-          "light": "resources/light/arrow_down.svg",
-          "dark": "resources/dark/arrow_down.svg"
-        }
-      },
-      {
-        "command": "unotes.orderingOn",
-        "title": "Manual Ordering",
-        "icon": {
-          "light": "resources/light/folder.svg",
-          "dark": "resources/dark/folder.svg"
-        }
-      },
-      {
-        "command": "unotes.orderingOff",
-        "title": "A-Z Ordering",
-        "icon": {
-          "light": "resources/light/folder_alpha.svg",
-          "dark": "resources/dark/folder_alpha.svg"
-        }
-      }
-    ],
-    "menus": {
-      "view/title": [
-        {
-          "command": "unotes.refreshTree",
-          "when": "view == unoteFiles",
-          "group": "navigation@1"
-        },
-        {
-          "command": "unotes.addFolder",
-          "when": "view == unoteFiles",
-          "group": "navigation@2"
-        },
-        {
-          "command": "unotes.addNote",
-          "when": "view == unoteFiles",
-          "group": "navigation@3"
-        }
-      ],
-      "view/item/context": [
-        {
-          "command": "unotes.addNoteHere",
-          "when": "view == unoteFiles",
-          "group": "unotesAdd@1"
-        },
-        {
-          "command": "unotes.addFolderHere",
-          "when": "view == unoteFiles",
-          "group": "unotesAdd@2"
-        },
-        {
-          "command": "unotes.deleteNote",
-          "when": "viewItem =~ /(uNoteFile)/"
-        },
-        {
-          "command": "unotes.deleteFolder",
-          "when": "viewItem =~ /(uNoteFolder)/",
-          "group": "unotesFolder@1"
-        },
-        {
-          "command": "unotes.moveDown",
-          "when": "viewItem =~ /(uNoteFile:ord)/",
-          "group": "inline@2"
-        },
-        {
-          "command": "unotes.moveUp",
-          "when": "viewItem =~ /(uNoteFile:ord)/",
-          "group": "inline@1"
-        },
-        {
-          "command": "unotes.orderingOff",
-          "when": "viewItem =~ /(uNoteFolder:ord)/",
-          "group": "unotesFolder@2"
-        },
-        {
-          "command": "unotes.orderingOn",
-          "when": "viewItem =~ /(uNoteFolder:uord)/",
-          "group": "unotesFolder@2"
-        }
-      ]
+    "publisher": "ryanmcalister",
+    "license": "SEE LICENSE IN LICENSE",
+    "homepage": "https://github.com/ryanmcalister/unotes/blob/master/README.md",
+    "bugs": {
+        "url": "https://github.com/ryanmcalister/unotes/issues"
     },
-    "keybindings": [
-      {
-        "command": "unotes.heading.1",
-        "key": "ctrl+alt+1",
-        "mac": "cmd+alt+1"
-      },
-      {
-        "command": "unotes.heading.2",
-        "key": "ctrl+alt+2",
-        "mac": "cmd+alt+2"
-      },
-      {
-        "command": "unotes.heading.3",
-        "key": "ctrl+alt+3",
-        "mac": "cmd+alt+3"
-      },
-      {
-        "command": "unotes.heading.4",
-        "key": "ctrl+alt+4",
-        "mac": "cmd+alt+4"
-      },
-      {
-        "command": "unotes.heading.5",
-        "key": "ctrl+alt+5",
-        "mac": "cmd+alt+5"
-      },
-      {
-        "command": "unotes.heading.6",
-        "key": "ctrl+alt+6",
-        "mac": "cmd+alt+6"
-      },
-      {
-        "command": "unotes.normal",
-        "key": "ctrl+alt+0",
-        "mac": "cmd+alt+0"
-      },
-      {
-        "command": "unotes.bold",
-        "key": "ctrl+alt+b",
-        "mac": "cmd+alt+b"
-      },
-      {
-        "command": "unotes.italic",
-        "key": "ctrl+alt+i",
-        "mac": "cmd+alt+i"
-      },
-      {
-        "command": "unotes.strike",
-        "key": "ctrl+alt+s",
-        "mac": "cmd+alt+s"
-      },
-      {
-        "command": "unotes.task",
-        "key": "ctrl+alt+t",
-        "mac": "cmd+alt+t"
-      },
-      {
-        "command": "unotes.ul",
-        "key": "ctrl+alt+u",
-        "mac": "cmd+alt+u"
-      },
-      {
-        "command": "unotes.ol",
-        "key": "ctrl+alt+o",
-        "mac": "cmd+alt+o"
-      },
-      {
-        "command": "unotes.blockquote",
-        "key": "ctrl+alt+q",
-        "mac": "cmd+alt+q"
-      },
-      {
-        "command": "unotes.code",
-        "key": "ctrl+alt+h",
-        "mac": "cmd+alt+h"
-      },
-      {
-        "command": "unotes.codeblock",
-        "key": "ctrl+alt+c",
-        "mac": "cmd+alt+c"
-      },
-      {
-        "command": "unotes.indent",
-        "key": "",
-        "mac": ""
-      },
-      {
-        "command": "unotes.outdent",
-        "key": "",
-        "mac": ""
-      },
-      {
-        "command": "unotes.hr",
-        "key": "ctrl+alt+l",
-        "mac": "cmd+alt+l"
-      }
-    ],
-    "viewsContainers": {
-      "activitybar": [
-        {
-          "id": "unotes",
-          "title": "Unotes",
-          "icon": "unotes.svg"
-        }
-      ]
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/ryanmcalister/unotes.git"
     },
-    "views": {
-      "unotes": [
-        {
-          "id": "unoteFiles",
-          "name": ""
+    "engines": {
+        "vscode": "^1.30.0"
+    },
+    "categories": [
+        "Other"
+    ],
+    "galleryBanner": {
+        "color": "#666666",
+        "theme": "dark"
+    },
+    "keywords": [
+        "markdown",
+        "notes",
+        "notebook",
+        "editor",
+        "wysiwyg"
+    ],
+    "activationEvents": [
+        "onView:unoteFiles"
+    ],
+    "main": "./dist/extension.js",
+    "icon": "resources/unotes-icon.png",
+    "preview": false,
+    "contributes": {
+        "configuration": {
+            "type": "object",
+            "title": "Unotes",
+            "properties": {
+                "unotes.editor.display2X": {
+                    "type": "boolean",
+                    "default": false,
+                    "markdownDescription": "Display toolbar buttons at 2X size"
+                },
+                "unotes.editor.convertPastedImages": {
+                    "type": "boolean",
+                    "default": false,
+                    "markdownDescription": "Convert pasted images to local files"
+                },
+                "unotes.rootPath": {
+                    "type": "string",
+                    "default": null,
+                    "markdownDescription": "Root path of notes"
+                }
+            }
+        },
+        "colors": [
+            {
+                "id": "unotes.wysText",
+                "description": "Unotes wysiwyg text",
+                "defaults": {
+                    "dark": "editor.foreground",
+                    "light": "editor.foreground",
+                    "highContrast": "editor.foreground"
+                }
+            },
+            {
+                "id": "unotes.wsyH1",
+                "description": "Unotes wysiwyg heading 1",
+                "defaults": {
+                    "dark": "#fff",
+                    "light": "#333",
+                    "highContrast": "#fff"
+                }
+            },
+            {
+                "id": "unotes.wsyH2",
+                "description": "Unotes wysiwyg heading 2",
+                "defaults": {
+                    "dark": "titleBar.activeForeground",
+                    "light": "titleBar.activeForeground",
+                    "highContrast": "titleBar.activeForeground"
+                }
+            },
+            {
+                "id": "unotes.wsyH3H4",
+                "description": "Unotes wysiwyg heading 3 and 4",
+                "defaults": {
+                    "dark": "titleBar.inactiveForeground",
+                    "light": "titleBar.inactiveForeground",
+                    "highContrast": "titleBar.inactiveForeground"
+                }
+            },
+            {
+                "id": "unotes.wsyH5H6",
+                "description": "Unotes wysiwyg heading 5 and 6",
+                "defaults": {
+                    "dark": "titleBar.inactiveForeground",
+                    "light": "titleBar.inactiveForeground",
+                    "highContrast": "titleBar.inactiveForeground"
+                }
+            },
+            {
+                "id": "unotes.wsyBlockquote",
+                "description": "Unotes wysiwyg blockquote",
+                "defaults": {
+                    "dark": "editorGutter.commentRangeForeground",
+                    "light": "editorGutter.commentRangeForeground",
+                    "highContrast": "editorGutter.commentRangeForeground"
+                }
+            },
+            {
+                "id": "unotes.wysCodeBlockBackground",
+                "description": "Unotes wysiwyg code block background",
+                "defaults": {
+                    "dark": "textBlockQuote.background",
+                    "light": "textBlockQuote.background",
+                    "highContrast": "textBlockQuote.background"
+                }
+            },
+            {
+                "id": "unotes.wysCodeBlockText",
+                "description": "Unotes wysiwyg code block text",
+                "defaults": {
+                    "dark": "editor.foreground",
+                    "light": "editor.foreground",
+                    "highContrast": "editor.foreground"
+                }
+            },
+            {
+                "id": "unotes.wysHighlight",
+                "description": "Unotes wysiwyg highlight / inline code",
+                "defaults": {
+                    "dark": "textPreformat.foreground",
+                    "light": "textPreformat.foreground",
+                    "highContrast": "textPreformat.foreground"
+                }
+            },
+            {
+                "id": "unotes.wysTableText",
+                "description": "Unotes wysiwyg table text",
+                "defaults": {
+                    "dark": "#BBBBBB",
+                    "light": "#505050",
+                    "highContrast": "#BBBBBB"
+                }
+            },
+            {
+                "id": "unotes.wysTableTdBorder",
+                "description": "Unotes wysiwyg table cell border",
+                "defaults": {
+                    "dark": "#313131",
+                    "light": "#313131",
+                    "highContrast": "#313131"
+                }
+            },
+            {
+                "id": "unotes.wysTableThBorder",
+                "description": "Unotes wysiwyg table header border",
+                "defaults": {
+                    "dark": "#72777b",
+                    "light": "#72777b",
+                    "highContrast": "#72777b"
+                }
+            },
+            {
+                "id": "unotes.wysTableThBackground",
+                "description": "Unotes wysiwyg table header background",
+                "defaults": {
+                    "dark": "#484b4d",
+                    "light": "#484b4d",
+                    "highContrast": "#484b4d"
+                }
+            },
+            {
+                "id": "unotes.wysTableThText",
+                "description": "Unotes wysiwyg table header text",
+                "defaults": {
+                    "dark": "#fff",
+                    "light": "#fff",
+                    "highContrast": "#fff"
+                }
+            },
+            {
+                "id": "unotes.wysList",
+                "description": "Unotes wysiwyg list text",
+                "defaults": {
+                    "dark": "#BDBDBD",
+                    "light": "#686868",
+                    "highContrast": "#BDBDBD"
+                }
+            },
+            {
+                "id": "unotes.wysLink",
+                "description": "Unotes wysiwyg link",
+                "defaults": {
+                    "dark": "textLink.foreground",
+                    "light": "textLink.foreground",
+                    "highContrast": "textLink.foreground"
+                }
+            },
+            {
+                "id": "unotes.wysLinkHover",
+                "description": "Unotes wysiwyg hover link",
+                "defaults": {
+                    "dark": "textLink.activeForeground",
+                    "light": "textLink.activeForeground",
+                    "highContrast": "textLink.activeForeground"
+                }
+            },
+            {
+                "id": "unotes.mdText",
+                "description": "Unotes markdown text",
+                "defaults": {
+                    "dark": "foreground",
+                    "light": "foreground",
+                    "highContrast": "foreground"
+                }
+            },
+            {
+                "id": "unotes.mdSelectedBackground",
+                "description": "Unotes markdown selected text background",
+                "defaults": {
+                    "dark": "editor.selectionBackground",
+                    "light": "editor.selectionBackground",
+                    "highContrast": "editor.selectionBackground"
+                }
+            },
+            {
+                "id": "unotes.mdHeader",
+                "description": "Unotes markdown header",
+                "defaults": {
+                    "dark": "#F1DB78",
+                    "light": "#bb96c0",
+                    "highContrast": "#F1DB78"
+                }
+            },
+            {
+                "id": "unotes.mdListSub1",
+                "description": "Unotes markdown list sub item 1",
+                "defaults": {
+                    "dark": "textPreformat.foreground",
+                    "light": "textPreformat.foreground",
+                    "highContrast": "textPreformat.foreground"
+                }
+            },
+            {
+                "id": "unotes.mdListSub2",
+                "description": "Unotes markdown list sub item 2",
+                "defaults": {
+                    "dark": "descriptionForeground",
+                    "light": "descriptionForeground",
+                    "highContrast": "descriptionForeground"
+                }
+            },
+            {
+                "id": "unotes.mdCodeBlockText",
+                "description": "Unotes markdown codeblock text",
+                "defaults": {
+                    "dark": "#e0a161",
+                    "light": "#206020",
+                    "highContrast": "#e0a161"
+                }
+            },
+            {
+                "id": "unotes.mdLink",
+                "description": "Unotes markdown link",
+                "defaults": {
+                    "dark": "textLink.foreground",
+                    "light": "textLink.foreground",
+                    "highContrast": "textLink.foreground"
+                }
+            },
+            {
+                "id": "unotes.pvCodeComment",
+                "description": "Unotes preview code comment",
+                "defaults": {
+                    "dark": "#998",
+                    "light": "#998",
+                    "highContrast": "#998"
+                }
+            },
+            {
+                "id": "unotes.pvCodeText",
+                "description": "Unotes preview code text",
+                "defaults": {
+                    "dark": "#333",
+                    "light": "#333",
+                    "highContrast": "#333"
+                }
+            },
+            {
+                "id": "unotes.pvCodeKeyword",
+                "description": "Unotes preview code keyword",
+                "defaults": {
+                    "dark": "#3e4d75",
+                    "light": "#3e4d75",
+                    "highContrast": "#3e4d75"
+                }
+            },
+            {
+                "id": "unotes.pvCodeNumber",
+                "description": "Unotes preview code number",
+                "defaults": {
+                    "dark": "#3e7550",
+                    "light": "#3e7550",
+                    "highContrast": "#3e7550"
+                }
+            },
+            {
+                "id": "unotes.pvCodeString",
+                "description": "Unotes preview code string",
+                "defaults": {
+                    "dark": "#b64f69",
+                    "light": "#b64f69",
+                    "highContrast": "#b64f69"
+                }
+            },
+            {
+                "id": "unotes.pvCodeType",
+                "description": "Unotes preview code type",
+                "defaults": {
+                    "dark": "#458",
+                    "light": "#458",
+                    "highContrast": "#458"
+                }
+            },
+            {
+                "id": "unotes.pvCodeDeletion",
+                "description": "Unotes preview code deletion",
+                "defaults": {
+                    "dark": "#722113",
+                    "light": "#eec5be",
+                    "highContrast": "#722113"
+                }
+            },
+            {
+                "id": "unotes.pvCodeAddition",
+                "description": "Unotes preview code addition",
+                "defaults": {
+                    "dark": "#387221",
+                    "light": "#b7eba2",
+                    "highContrast": "#387221"
+                }
+            },
+            {
+                "id": "unotes.pvCodeTitle",
+                "description": "Unotes preview code title",
+                "defaults": {
+                    "dark": "#abb61a",
+                    "light": "#abb61a",
+                    "highContrast": "#abb61a"
+                }
+            }
+        ],
+        "commands": [
+            {
+                "command": "unotes.start",
+                "title": "Unotes"
+            },
+            {
+                "command": "unotes.addNote",
+                "title": "Add Note",
+                "icon": {
+                    "light": "resources/light/add_note.svg",
+                    "dark": "resources/dark/add_note.svg"
+                }
+            },
+            {
+                "command": "unotes.refreshTree",
+                "title": "Refresh Tree",
+                "icon": {
+                    "light": "resources/light/refresh.svg",
+                    "dark": "resources/dark/refresh.svg"
+                }
+            },
+            {
+                "command": "unotes.addFolder",
+                "title": "Add Folder",
+                "icon": {
+                    "light": "resources/light/add_folder.svg",
+                    "dark": "resources/dark/add_folder.svg"
+                }
+            },
+            {
+                "command": "unotes.addNoteHere",
+                "title": "Add Note",
+                "icon": {
+                    "light": "resources/light/add_note.svg",
+                    "dark": "resources/dark/add_note.svg"
+                }
+            },
+            {
+                "command": "unotes.addFolderHere",
+                "title": "Add Folder",
+                "icon": {
+                    "light": "resources/light/add_folder.svg",
+                    "dark": "resources/dark/add_folder.svg"
+                }
+            },
+            {
+                "command": "unotes.deleteFolder",
+                "title": "Delete Folder",
+                "icon": {
+                    "light": "resources/light/remove_folder.svg",
+                    "dark": "resources/dark/remove_folder.svg"
+                }
+            },
+            {
+                "command": "unotes.deleteNote",
+                "title": "Delete Note",
+                "icon": {
+                    "light": "resources/light/remove_note.svg",
+                    "dark": "resources/dark/remove_note.svg"
+                }
+            },
+            {
+                "command": "unotes.moveUp",
+                "title": "Move Up",
+                "icon": {
+                    "light": "resources/light/arrow_up.svg",
+                    "dark": "resources/dark/arrow_up.svg"
+                }
+            },
+            {
+                "command": "unotes.moveDown",
+                "title": "Move Down",
+                "icon": {
+                    "light": "resources/light/arrow_down.svg",
+                    "dark": "resources/dark/arrow_down.svg"
+                }
+            },
+            {
+                "command": "unotes.orderingOn",
+                "title": "Manual Ordering",
+                "icon": {
+                    "light": "resources/light/folder.svg",
+                    "dark": "resources/dark/folder.svg"
+                }
+            },
+            {
+                "command": "unotes.orderingOff",
+                "title": "A-Z Ordering",
+                "icon": {
+                    "light": "resources/light/folder_alpha.svg",
+                    "dark": "resources/dark/folder_alpha.svg"
+                }
+            },
+            {
+                "command": "unotes.convertImages",
+                "title": "Convert Images",
+                "icon": {
+                    "light": "resources/light/convert_images.svg",
+                    "dark": "resources/dark/convert_images.svg"
+                }
+            },
+            {
+                "command": "unotes.renameNote",
+                "title": "Rename Note",
+                "icon": {
+                    "light": "resources/light/refresh.svg",
+                    "dark": "resources/dark/refresh.svg"
+                }
+            },
+            {
+                "command": "unotes.renameFolder",
+                "title": "Rename Folder",
+                "icon": {
+                    "light": "resources/light/refresh.svg",
+                    "dark": "resources/dark/refresh.svg"
+                }
+            }
+        ],
+        "menus": {
+            "view/title": [
+                {
+                    "command": "unotes.refreshTree",
+                    "when": "view == unoteFiles",
+                    "group": "navigation@1"
+                },
+                {
+                    "command": "unotes.addFolder",
+                    "when": "view == unoteFiles",
+                    "group": "navigation@2"
+                },
+                {
+                    "command": "unotes.addNote",
+                    "when": "view == unoteFiles",
+                    "group": "navigation@3"
+                }
+            ],
+            "view/item/context": [
+                {
+                    "command": "unotes.addNoteHere",
+                    "when": "view == unoteFiles",
+                    "group": "unotesAdd@1"
+                },
+                {
+                    "command": "unotes.addFolderHere",
+                    "when": "view == unoteFiles",
+                    "group": "unotesAdd@2"
+                },
+                {
+                    "command": "unotes.renameNote",
+                    "when": "viewItem =~ /(uNoteFile)/",
+                    "group": "unotesChange@1"
+                },
+                {
+                    "command": "unotes.deleteNote",
+                    "when": "viewItem =~ /(uNoteFile)/",
+                    "group": "unotesChange@2"
+                },
+                {
+                    "command": "unotes.convertImages",
+                    "when": "viewItem =~ /(uNoteFile)/",
+                    "group": "unotesProcess@1"
+                },
+                {
+                    "command": "unotes.renameFolder",
+                    "when": "viewItem =~ /(uNoteFolder)/",
+                    "group": "unotesFolder@1"
+                },
+                {
+                    "command": "unotes.deleteFolder",
+                    "when": "viewItem =~ /(uNoteFolder)/",
+                    "group": "unotesFolder@1"
+                },
+                {
+                    "command": "unotes.moveDown",
+                    "when": "viewItem =~ /(uNoteFile:ord)/",
+                    "group": "inline@2"
+                },
+                {
+                    "command": "unotes.moveUp",
+                    "when": "viewItem =~ /(uNoteFile:ord)/",
+                    "group": "inline@1"
+                },
+                {
+                    "command": "unotes.orderingOff",
+                    "when": "viewItem =~ /(uNoteFolder:ord)/",
+                    "group": "unotesFolder@2"
+                },
+                {
+                    "command": "unotes.orderingOn",
+                    "when": "viewItem =~ /(uNoteFolder:uord)/",
+                    "group": "unotesFolder@2"
+                }
+            ]
+        },
+        "keybindings": [
+            {
+                "command": "unotes.heading.1",
+                "key": "ctrl+alt+1",
+                "mac": "cmd+alt+1"
+            },
+            {
+                "command": "unotes.heading.2",
+                "key": "ctrl+alt+2",
+                "mac": "cmd+alt+2"
+            },
+            {
+                "command": "unotes.heading.3",
+                "key": "ctrl+alt+3",
+                "mac": "cmd+alt+3"
+            },
+            {
+                "command": "unotes.heading.4",
+                "key": "ctrl+alt+4",
+                "mac": "cmd+alt+4"
+            },
+            {
+                "command": "unotes.heading.5",
+                "key": "ctrl+alt+5",
+                "mac": "cmd+alt+5"
+            },
+            {
+                "command": "unotes.heading.6",
+                "key": "ctrl+alt+6",
+                "mac": "cmd+alt+6"
+            },
+            {
+                "command": "unotes.normal",
+                "key": "ctrl+alt+0",
+                "mac": "cmd+alt+0"
+            },
+            {
+                "command": "unotes.bold",
+                "key": "ctrl+alt+b",
+                "mac": "cmd+alt+b"
+            },
+            {
+                "command": "unotes.italic",
+                "key": "ctrl+alt+i",
+                "mac": "cmd+alt+i"
+            },
+            {
+                "command": "unotes.strike",
+                "key": "ctrl+alt+s",
+                "mac": "cmd+alt+s"
+            },
+            {
+                "command": "unotes.task",
+                "key": "ctrl+alt+t",
+                "mac": "cmd+alt+t"
+            },
+            {
+                "command": "unotes.ul",
+                "key": "ctrl+alt+u",
+                "mac": "cmd+alt+u"
+            },
+            {
+                "command": "unotes.ol",
+                "key": "ctrl+alt+o",
+                "mac": "cmd+alt+o"
+            },
+            {
+                "command": "unotes.blockquote",
+                "key": "ctrl+alt+q",
+                "mac": "cmd+alt+q"
+            },
+            {
+                "command": "unotes.code",
+                "key": "ctrl+alt+h",
+                "mac": "cmd+alt+h"
+            },
+            {
+                "command": "unotes.codeblock",
+                "key": "ctrl+alt+c",
+                "mac": "cmd+alt+c"
+            },
+            {
+                "command": "unotes.indent",
+                "key": "",
+                "mac": ""
+            },
+            {
+                "command": "unotes.outdent",
+                "key": "",
+                "mac": ""
+            },
+            {
+                "command": "unotes.hr",
+                "key": "ctrl+alt+l",
+                "mac": "cmd+alt+l"
+            }
+        ],
+        "viewsContainers": {
+            "activitybar": [
+                {
+                    "id": "unotes",
+                    "title": "Unotes",
+                    "icon": "unotes.svg"
+                }
+            ]
+        },
+        "views": {
+            "unotes": [
+                {
+                    "id": "unoteFiles",
+                    "name": ""
+                }
+            ]
         }
-      ]
-    }
-  },
-  "dependencies": {
-    "debounce": "^1.2.0",
-    "fast-glob": "^2.2.6"
-  },
-  "devDependencies": {
-    "@types/node": "^10.12.18",
-    "ts-loader": "^5.3.3",
-    "typescript": "^3.2.4",
-    "vscode": "^1.1.25",
-    "webpack": "^4.29.6",
-    "webpack-cli": "^3.3.0"
-  },
-  "scripts": {
-    "vscode:prepublish": "npm run build-editor && npm run bundle",
-    "build": "webpack --mode development",
-    "build-editor": "rmdir /s /q build && cd editor && node build-non-split.js && move build .. && cd ..",
-    "bundle": "webpack --mode production",
-    "postinstall": "node ./node_modules/vscode/bin/install",
-    "pack": "vsce package",
-    "pub": "vsce publish",
-    "compile": "webpack --mode none",
-    "watch": "webpack --watch --development --info-verbosity verbose"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ]
+    },
+    "dependencies": {
+        "debounce": "^1.2.0",
+        "fast-glob": "^2.2.6"
+    },
+    "devDependencies": {
+        "@types/node": "^10.12.18",
+        "ts-loader": "^5.3.3",
+        "typescript": "^3.2.4",
+        "vscode": "^1.1.25",
+        "webpack": "^4.29.6",
+        "webpack-cli": "^3.3.0"
+    },
+    "scripts": {
+        "vscode:prepublish": "npm run build-editor && npm run bundle",
+        "build": "webpack --mode development",
+        "build-editor": "IF EXIST ./build\\NUL (rmdir /s /q build && npm run _build-editor) ELSE (echo ...) && npm run _build-editor",
+        "_build-editor": "cd editor && node build-non-split.js && move build .. && cd ..",
+        "bundle": "webpack --mode production",
+        "postinstall": "node ./node_modules/vscode/bin/install",
+        "pack": "vsce package",
+        "pub": "vsce publish",
+        "compile": "webpack --mode none",
+        "watch": "webpack --watch --development --info-verbosity verbose"
+    },
+    "eslintConfig": {
+        "extends": "react-app"
+    },
+    "browserslist": [
+        ">0.2%",
+        "not dead",
+        "not ie <= 11",
+        "not op_mini all"
+    ]
 }
