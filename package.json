@@ -530,7 +530,7 @@
                 {
                     "command": "unotes.deleteFolder",
                     "when": "viewItem =~ /(uNoteFolder)/",
-                    "group": "unotesFolder@1"
+                    "group": "unotesFolder@2"
                 },
                 {
                     "command": "unotes.moveDown",
