@@ -1,7 +1,7 @@
 {
     "name": "Unotes",
     "displayName": "UNOTES - Markdown Notes WYSIWYG",
-    "version": "1.1.0",
+    "version": "1.0.18",
     "author": {
         "name": "Ryan McAlister",
         "email": "rymc26@gmail.com"
@@ -530,7 +530,7 @@
                 {
                     "command": "unotes.deleteFolder",
                     "when": "viewItem =~ /(uNoteFolder)/",
-                    "group": "unotesFolder@1"
+                    "group": "unotesFolder@2"
                 },
                 {
                     "command": "unotes.moveDown",
