@@ -1,5 +1,11 @@
 # Updates
 
+## [1.1.1] - 2019-10-08
+
+### Fixed
+
+- Bug when auto-converting pasted images
+
 ## [1.1.0] - 2019-10-03
 
 ### Fixed
