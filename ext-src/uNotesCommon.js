@@ -41,12 +41,12 @@ exports.Utils = {
         }
         const paths = fg.sync([`${mediaPath}/${imgPrefix}*.*`], { deep: 0, onlyFiles: true, nocase: true });
         for(let i = 0; i < paths.length; ++i){
-            var re = new RegExp(`.*${imgPrefix}(\\d*).*$`, "g");
+            var re = new RegExp(`.*${imgPrefix}(\\d*)\\..*$`, "g");
             let match = re.exec(paths[i]);
             if(match){
                 let val = parseInt(match[1]);
                 if (index <= val){
-                    index++;
+                    index = val + 1;
                 }
             }
         }
