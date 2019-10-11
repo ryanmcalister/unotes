@@ -10,7 +10,7 @@ const { Config, Utils } = require("./uNotesCommon");
 
 class UNote extends vscode.TreeItem {
   constructor(file, collapsibleState, isFolder, folderPath) {
-    const label = Utils.stripMD(file);
+    const label = Utils.stripExt(file);
     super(label, collapsibleState);
     this.file = file;
     this.label = label;

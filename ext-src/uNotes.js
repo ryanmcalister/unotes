@@ -174,7 +174,7 @@ class UNotes {
 
     setupFSWatcher() {
         // Setup the File System Watcher for file events
-        const fswatcher = vscode.workspace.createFileSystemWatcher("**/*.md", false, false, false);
+        const fswatcher = vscode.workspace.createFileSystemWatcher(`**/*${Config.noteFileExtension}`, false, false, false);
 
         fswatcher.onDidChange((e) => {
             //console.log("onDidChange");
@@ -325,12 +325,12 @@ class UNotes {
             vscode.window.showWarningMessage("Please open a note file before running command.");
             return;
         } 
-        const origName = Utils.stripMD(note.file);  
+        const origName = Utils.stripExt(note.file);  
         vscode.window.showInputBox({ value: origName })
             .then(value => {
                 if(!value) return;
                 if(value === origName) return;
-                const newFileName = Utils.stripMD(value) + '.md';
+                const newFileName = Utils.stripExt(value) + Config.noteFileExtension;
 
                 // make sure there isn't a name collision
                 const newFilePath = path.join(Config.rootPath, note.folderPath, newFileName);
@@ -394,7 +394,7 @@ class UNotes {
         vscode.window.showInputBox({ placeHolder: 'Enter new note name' })
             .then(value => {
                 if (!value) return;
-                const newFileName = Utils.stripMD(value) + '.md';
+                const newFileName = Utils.stripExt(value) + Config.noteFileExtension;
                 paths.push(newFileName);
                 const newFilePath = path.join(...paths);
                 if (this.addNewNote(newFilePath)) {

@@ -10,7 +10,7 @@ const fg = require('fast-glob');
 const debounce = require("debounce");
 const { UNoteTree } = require("./uNoteTree");
 const { UNote } = require("./uNote");
-const { Utils } = require("./uNotesCommon");
+const { Utils, Config } = require("./uNotesCommon");
 
 
 class UNoteProvider {
@@ -93,7 +93,7 @@ class UNoteProvider {
     renameNote(note, newFileName) {
         const paths = this.getPaths(note);
         const noteFolder = this.noteTree.getFolder(paths);
-        return noteFolder.renameNote(note.label, Utils.stripMD(newFileName));
+        return noteFolder.renameNote(note.label, Utils.stripExt(newFileName));
     }
 
     renameFolder(folder, newFolderName) {
@@ -162,7 +162,7 @@ class UNoteProvider {
             const folderPath = path.join(this.workspaceRoot, relativePath);
 
             const folders = fg.sync([`${folderPath}/*`, '!**/node_modules/**', '!**/^\.*/**'], { deep: 0, onlyDirectories: true }).map(toFolder);
-            const notes = fg.sync([`${folderPath}/*.md`], { deep: 0, onlyFiles: true, nocase: true }).map(toNote);
+            const notes = fg.sync([`${folderPath}/*${Config.noteFileExtension}`], { deep: 0, onlyFiles: true, nocase: true }).map(toNote);
             // get the relative path in a list
             const paths = path.join(relativePath).split(path.sep);
             paths.shift();  // cut off the root path

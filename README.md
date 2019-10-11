@@ -131,6 +131,7 @@ project directory. All [remark-stringify](https://github.com/remarkjs/remark/tre
 | ----------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | unotes.editor.display2X | Display the button toolbar at twice the size                                                                                                                                     |
 | unotes.editor.convertPastedImages | Automatically convert pasted images to local image files in a .media folder                                                                                            |
+| unotes.noteFileExtension | The file extension used to filter and save note files. Default = '.md'                                                                                                          |
 | unotes.rootPath         | The root folder path for the note files.<br>Setting this value will turn off auto-tracking of external file changes.<br>If needed you can click the 'Refresh' button on the notes tree. |
 
 ## Custom Colors
@@ -188,7 +189,7 @@ You can set options in the vscode workspace settings.json file:
 
 ## Syncing Note Files
 
-- All note files are stored as `.md` files
+- All note files are stored as `.md` files by default. This is [configurable.](#workspace-configuration-options) 
 - Sync to a repository using `Git` or other version control system
 - Folder and Note settings are stored in `.unotes/unotes_meta.json`
     - **Be sure to sync this file** to preserve note orderings
