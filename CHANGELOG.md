@@ -1,5 +1,11 @@
 # Updates
 
+## [1.1.2] - 2019-10-11
+
+### Added
+
+- New 'noteFileExtension' configuration option for setting how notes are filtered and saved
+
 ## [1.1.1] - 2019-10-08
 
 ### Fixed
