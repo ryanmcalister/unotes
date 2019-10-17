@@ -180,6 +180,9 @@ class UNotesPanel {
             this.disposables.push(vscode.commands.registerCommand("unotes.hr", () => {
                 this.hotkeyExec(['HR']);
             }));
+            this.disposables.push(vscode.commands.registerCommand("unotes.toggleMode", () => {
+                this.toggleEditorMode();
+            }));
 
             Utils.context.subscriptions.push(Config.onDidChange_editor_settings(this.updateEditorSettings.bind(this)));
             this.updateEditorSettings();
@@ -224,6 +227,12 @@ class UNotesPanel {
     hotkeyExec(args) {
         if (this.panel._active) {
             this.panel.webview.postMessage({ command: 'exec', args });
+        }
+    }
+
+    toggleEditorMode() {
+        if (this.panel._active) {
+            this.panel.webview.postMessage({ command: 'toggleMode'});
         }
     }
 
@@ -282,7 +291,7 @@ class UNotesPanel {
 
                     if(match){
                         // write the file
-                        const fname = Utils.saveMediaImage(noteFolder, new Buffer(match[2], 'base64'), index++, match[1]);
+                        const fname = Utils.saveMediaImage(noteFolder, new Buffer.alloc(match[2].length, match[2], 'base64'), index++, match[1]);
 
                         found++;
                         // replace the content with the the relative path
@@ -360,15 +369,14 @@ class UNotesPanel {
     }
 
     getWebviewContent() {
-        const vsScheme = { scheme: 'vscode-resource' };
         const mainScript = '/static/js/main.js';
         const mainStyle = '/static/css/main.css';
 
         const scriptPathOnDisk = vscode.Uri.file(path.join(this.extensionPath, 'build', mainScript));
-        const scriptUri = scriptPathOnDisk.with(vsScheme);
+        const scriptUri = this.panel.webview.asWebviewUri(scriptPathOnDisk);
         const stylePathOnDisk = vscode.Uri.file(path.join(this.extensionPath, 'build', mainStyle));
-        const styleUri = stylePathOnDisk.with(vsScheme);
-        const baseUri = vscode.Uri.file(path.join(this.extensionPath, 'build')).with(vsScheme);
+        const styleUri = this.panel.webview.asWebviewUri(stylePathOnDisk);
+        const baseUri = this.panel.webview.asWebviewUri(vscode.Uri.file(path.join(this.extensionPath, 'build')));
 
         // Use a nonce to whitelist which scripts can be run
         const nonce = this.getNonce();

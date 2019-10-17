@@ -1,5 +1,18 @@
 # Updates
 
+## [1.1.2] - 2019-10-17
+
+### Fixed
+
+- Virtual folder paths not working in Windows
+
+### Added
+
+- New 'noteFileExtension' configuration option for setting how notes are filtered and saved
+- New 'toggleMode' command and hotkey
+- Updated tui-editor to v1.4.7
+- Dependency on glob package 
+
 ## [1.1.1] - 2019-10-08
 
 ### Fixed

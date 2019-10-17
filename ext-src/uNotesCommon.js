@@ -7,7 +7,7 @@ Object.defineProperty(exports, "__esModule", {
 const path = require("path");
 const vscode = require("vscode");
 const fs = require("fs");
-const fg = require('fast-glob');
+const gl = require('glob')
 const extId = 'unotes';
 const mediaFolder = '.media';
 const imgPrefix = 'img_';
@@ -18,12 +18,61 @@ exports.GlobalState = {
     UnotesVersion: 'Unotes.Version'
 }
 
+class UnotesConfig {
+    constructor() {
+        if (!vscode.workspace.rootPath) {
+            return;
+        }
+
+        this.settings = vscode.workspace.getConfiguration(extId);
+        this.rootPath = this.settings.get('rootPath', vscode.workspace.rootPath);
+        if (!this.rootPath) {
+            this.rootPath = vscode.workspace.rootPath;
+        }
+        this.folderPath = path.join(this.rootPath, './.unotes');
+
+        // note file extension config
+        const defaultNoteFileExt = '.md';
+        this.noteFileExtension = this.settings.get('noteFileExtension');
+        if(!this.noteFileExtension){
+            this.noteFileExtension = defaultNoteFileExt;
+
+        } else if(!this.noteFileExtension.startsWith('.')){
+            this.noteFileExtension = '.' + this.noteFileExtension;
+        } 
+        this.noteFileExtension = this.noteFileExtension;
+
+        // setting change events
+        this._onDidChange_editor_settings = new vscode.EventEmitter();
+        this.onDidChange_editor_settings = this._onDidChange_editor_settings.event;
+    }
+
+    onChange(e) {
+        if (e.affectsConfiguration(extId)) {
+            this.settings = vscode.workspace.getConfiguration(extId);
+            // fire events
+            const editorPath = extId + '.editor';
+            if (e.affectsConfiguration(editorPath)) {
+                this._onDidChange_editor_settings.fire();
+                if (e.affectsConfiguration(editorPath + '.display2X')) {
+                    //console.log(this.settings.get('editor'));
+                    //console.log(`display2X==${this.settings.get('editor.display2X')}`);
+                }
+            }
+        }
+    }
+
+} // UnotesConfig
+
+var Config = new UnotesConfig();
+exports.Config = Config;
+
 exports.Utils = {
 
     context: null,
 
-    stripMD(str) {
-        const pos = str.toUpperCase().lastIndexOf('.MD');
+    stripExt(str) {
+        const pos = str.toUpperCase().lastIndexOf(Config.noteFileExtension.toUpperCase());
         if (pos < 0) {
             return str;
         }
@@ -39,7 +88,7 @@ exports.Utils = {
         if(!fs.existsSync(mediaPath)){
             return 0;
         }
-        const paths = fg.sync([`${mediaPath}/${imgPrefix}*.*`], { deep: 0, onlyFiles: true, nocase: true });
+        const paths = gl.sync(`${imgPrefix}*.*`, { cwd: mediaPath, nodir: true, nocase: true });
         for(let i = 0; i < paths.length; ++i){
             var re = new RegExp(`.*${imgPrefix}(\\d*)\\..*$`, "g");
             let match = re.exec(paths[i]);
@@ -100,42 +149,3 @@ exports.Utils = {
         return `${mediaFolder}/${imgName}`;
     } 
 } // Utils
-
-class UnotesConfig {
-    constructor() {
-        if (!vscode.workspace.rootPath) {
-            return;
-        }
-
-        this.settings = vscode.workspace.getConfiguration(extId);
-        this.rootPath = this.settings.get('rootPath', vscode.workspace.rootPath);
-        if (!this.rootPath) {
-            this.rootPath = vscode.workspace.rootPath;
-        }
-        this.folderPath = path.join(this.rootPath, './.unotes');
-
-        // setting change events
-        this._onDidChange_editor_settings = new vscode.EventEmitter();
-        this.onDidChange_editor_settings = this._onDidChange_editor_settings.event;
-    }
-
-
-
-    onChange(e) {
-        if (e.affectsConfiguration(extId)) {
-            this.settings = vscode.workspace.getConfiguration(extId);
-            // fire events
-            const editorPath = extId + '.editor';
-            if (e.affectsConfiguration(editorPath)) {
-                this._onDidChange_editor_settings.fire();
-                if (e.affectsConfiguration(editorPath + '.display2X')) {
-                    //console.log(this.settings.get('editor'));
-                    //console.log(`display2X==${this.settings.get('editor.display2X')}`);
-                }
-            }
-        }
-    }
-
-} // UnotesConfig
-
-exports.Config = new UnotesConfig();

@@ -58,3 +58,10 @@ npm run build
 // to build in release mode
 npm run pack
 ```
+
+## Pull Requests
+
+- Start by opening an issue or requesting assignment to an existing issue
+- Although there is currently no coding style enforced, please try to make the coding style to be consistent with existing files
+- Clearly describe the changes made in the pull request
+- Add notes on how to test and also on all testing that was performed
