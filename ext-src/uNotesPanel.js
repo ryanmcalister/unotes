@@ -369,15 +369,14 @@ class UNotesPanel {
     }
 
     getWebviewContent() {
-        const vsScheme = { scheme: 'vscode-resource' };
         const mainScript = '/static/js/main.js';
         const mainStyle = '/static/css/main.css';
 
         const scriptPathOnDisk = vscode.Uri.file(path.join(this.extensionPath, 'build', mainScript));
-        const scriptUri = scriptPathOnDisk.with(vsScheme);
+        const scriptUri = this.panel.webview.asWebviewUri(scriptPathOnDisk);
         const stylePathOnDisk = vscode.Uri.file(path.join(this.extensionPath, 'build', mainStyle));
-        const styleUri = stylePathOnDisk.with(vsScheme);
-        const baseUri = vscode.Uri.file(path.join(this.extensionPath, 'build')).with(vsScheme);
+        const styleUri = this.panel.webview.asWebviewUri(stylePathOnDisk);
+        const baseUri = this.panel.webview.asWebviewUri(vscode.Uri.file(path.join(this.extensionPath, 'build')));
 
         // Use a nonce to whitelist which scripts can be run
         const nonce = this.getNonce();
