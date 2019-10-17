@@ -481,6 +481,10 @@
                     "light": "resources/light/refresh.svg",
                     "dark": "resources/dark/refresh.svg"
                 }
+            },
+            {
+                "command": "unotes.toggleMode",
+                "title": "Toggle Editor Mode"
             }
         ],
         "menus": {
@@ -654,6 +658,10 @@
                 "command": "unotes.hr",
                 "key": "ctrl+alt+l",
                 "mac": "cmd+alt+l"
+            },
+            {
+                "command": "unotes.toggleMode",
+                "key": "ctrl+alt+m"
             }
         ],
         "viewsContainers": {
@@ -676,15 +684,15 @@
     },
     "dependencies": {
         "debounce": "^1.2.0",
-        "fast-glob": "^2.2.6"
+        "glob": "^7.1.4"
     },
     "devDependencies": {
-        "@types/node": "^10.12.18",
-        "ts-loader": "^5.3.3",
-        "typescript": "^3.2.4",
-        "vscode": "^1.1.25",
-        "webpack": "^4.29.6",
-        "webpack-cli": "^3.3.0"
+        "@types/node": "^10.14.22",
+        "ts-loader": "^5.4.5",
+        "typescript": "^3.6.4",
+        "vscode": "^1.1.36",
+        "webpack": "^4.41.2",
+        "webpack-cli": "^3.3.9"
     },
     "scripts": {
         "vscode:prepublish": "npm run build-editor && npm run bundle",

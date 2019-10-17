@@ -7,7 +7,7 @@ Object.defineProperty(exports, "__esModule", {
 const path = require("path");
 const vscode = require("vscode");
 const fs = require("fs");
-const fg = require('fast-glob');
+const gl = require('glob')
 const extId = 'unotes';
 const mediaFolder = '.media';
 const imgPrefix = 'img_';
@@ -41,7 +41,6 @@ class UnotesConfig {
             this.noteFileExtension = '.' + this.noteFileExtension;
         } 
         this.noteFileExtension = this.noteFileExtension;
-        console.log("Setting ext " + this.noteFileExtension);
 
         // setting change events
         this._onDidChange_editor_settings = new vscode.EventEmitter();
@@ -89,7 +88,7 @@ exports.Utils = {
         if(!fs.existsSync(mediaPath)){
             return 0;
         }
-        const paths = fg.sync([`${mediaPath}/${imgPrefix}*.*`], { deep: 0, onlyFiles: true, nocase: true });
+        const paths = gl.sync(`${imgPrefix}*.*`, { cwd: mediaPath, nodir: true, nocase: true });
         for(let i = 0; i < paths.length; ++i){
             var re = new RegExp(`.*${imgPrefix}(\\d*)\\..*$`, "g");
             let match = re.exec(paths[i]);

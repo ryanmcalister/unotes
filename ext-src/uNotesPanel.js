@@ -180,6 +180,9 @@ class UNotesPanel {
             this.disposables.push(vscode.commands.registerCommand("unotes.hr", () => {
                 this.hotkeyExec(['HR']);
             }));
+            this.disposables.push(vscode.commands.registerCommand("unotes.toggleMode", () => {
+                this.toggleEditorMode();
+            }));
 
             Utils.context.subscriptions.push(Config.onDidChange_editor_settings(this.updateEditorSettings.bind(this)));
             this.updateEditorSettings();
@@ -224,6 +227,12 @@ class UNotesPanel {
     hotkeyExec(args) {
         if (this.panel._active) {
             this.panel.webview.postMessage({ command: 'exec', args });
+        }
+    }
+
+    toggleEditorMode() {
+        if (this.panel._active) {
+            this.panel.webview.postMessage({ command: 'toggleMode'});
         }
     }
 
@@ -282,7 +291,7 @@ class UNotesPanel {
 
                     if(match){
                         // write the file
-                        const fname = Utils.saveMediaImage(noteFolder, new Buffer(match[2], 'base64'), index++, match[1]);
+                        const fname = Utils.saveMediaImage(noteFolder, new Buffer.alloc(match[2].length, match[2], 'base64'), index++, match[1]);
 
                         found++;
                         // replace the content with the the relative path

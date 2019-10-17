@@ -17,6 +17,7 @@ If you find Unotes useful, please [write a review](https://marketplace.visualstu
 - Note/Folder renaming commands added to context menu
 - Improved document scroll position management
 - New command to convert embedded note images to files
+- New command/hotkey to toggle between wysiwyg and markdown modes
 - [New configuration setting to auto-convert pasted images](#workspace-configuration-options)
 - [Markdown formatting options](#formatting-options-experimental)
 
@@ -84,6 +85,7 @@ Local Image Example
 | Inline Code (highlight) | Ctrl + Alt + h |
 | Code Block              | Ctrl + Alt + c |
 | Horizontal Line         | Ctrl + Alt + l |
+| Toggle Mode             | Ctrl + Alt + m |
 
 ### Formatting Options (Experimental)
 

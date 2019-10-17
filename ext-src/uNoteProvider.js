@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 
 const vscode = require("vscode");
 const path = require("path");
-const fg = require('fast-glob');
+const gl = require("glob")
 const debounce = require("debounce");
 const { UNoteTree } = require("./uNoteTree");
 const { UNote } = require("./uNote");
@@ -161,8 +161,8 @@ class UNoteProvider {
             }
             const folderPath = path.join(this.workspaceRoot, relativePath);
 
-            const folders = fg.sync([`${folderPath}/*`, '!**/node_modules/**', '!**/^\.*/**'], { deep: 0, onlyDirectories: true }).map(toFolder);
-            const notes = fg.sync([`${folderPath}/*${Config.noteFileExtension}`], { deep: 0, onlyFiles: true, nocase: true }).map(toNote);
+            const folders = gl.sync(`*/`, { cwd: folderPath, ignore: ['**/node_modules/**', '**/^\.*/**'] }).map(toFolder);
+            const notes = gl.sync(`*${Config.noteFileExtension}`, { cwd: folderPath, nodir: true, nocase: true }).map(toNote);
             // get the relative path in a list
             const paths = path.join(relativePath).split(path.sep);
             paths.shift();  // cut off the root path

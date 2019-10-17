@@ -263,7 +263,7 @@ class UNotes {
                     imgType = match[1];
                 }
                 // write the file
-                const fname = Utils.saveMediaImage(noteFolder, new Buffer(img, 'base64'), index++, imgType);
+                const fname = Utils.saveMediaImage(noteFolder, new Buffer.alloc(img.length, img, 'base64'), index++, imgType);
 
                 found++;
                 // replace the content with the the relative path
