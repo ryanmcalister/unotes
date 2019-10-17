@@ -2,6 +2,9 @@
   <br />
   <a title="Learn more about Unotes" href="https://github.com/ryanmcalister/unotes"><img src="https://raw.githubusercontent.com/ryanmcalister/unotes/master/resources/unotes-icon.png" alt="Unotes Logo" /></a></p>
 
+[![https://marketplace.visualstudio.com/items?itemName=ryanmcalister.Unotes](https://vsmarketplacebadge.apphb.com/version/ryanmcalister.unotes.svg)](https://marketplace.visualstudio.com/items?itemName=ryanmcalister.Unotes)
+[![](https://vsmarketplacebadge.apphb.com/installs-short/ryanmcalister.unotes.svg)](https://marketplace.visualstudio.com/items?itemName=ryanmcalister.Unotes)
+
 # ᑌᑎotes Markdown WYSIWYG
 
 > Unotes gives you a `markdown` note editor right inside Visual Studio Code. Don't get distracted with noisy markdown syntax. **Enjoy your notes** with a rich **WYSIWYG** editor. Take full control of the markdown when needed. Start taking notes in **_style_**!
