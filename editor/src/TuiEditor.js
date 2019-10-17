@@ -240,7 +240,7 @@ class TuiEditor extends Component {
                 this.remarkPlugin = unotesRemarkPlugin(this.remarkSettings);
                 break;
             case 'toggleMode':
-                if(!this.editor.isWysiwygMode()){
+                if(!this.state.editor.isWysiwygMode()){
                     this.state.editor.getUI().getModeSwitch()._changeWysiwyg();
                 } else {
                     this.state.editor.getUI().getModeSwitch()._changeMarkdown();
