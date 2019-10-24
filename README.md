@@ -159,11 +159,11 @@ You can set options in the vscode workspace settings.json file:
 | Color Name             | Description                              |
 | ---------------------- | ---------------------------------------- |
 | wysText                | Unotes wysiwyg text                      |
-| wsyH1                  | Unotes wysiwyg heading 1                 |
-| wsyH2                  | Unotes wysiwyg heading 2                 |
-| wsyH3H4                | Unotes wysiwyg heading 3 and 4           |
-| wsyH5H6                | Unotes wysiwyg heading 5 and 6           |
-| wsyBlockquote          | Unotes wysiwyg blockquote                |
+| wysH1                  | Unotes wysiwyg heading 1                 |
+| wysH2                  | Unotes wysiwyg heading 2                 |
+| wysH3H4                | Unotes wysiwyg heading 3 and 4           |
+| wysH5H6                | Unotes wysiwyg heading 5 and 6           |
+| wysBlockquote          | Unotes wysiwyg blockquote                |
 | wysCodeBlockBackground | Unotes wysiwyg code block background     |
 | wysCodeBlockText       | Unotes wysiwyg code block text           |
 | wysHighlight           | Unotes wysiwyg highlight / inline code   |
