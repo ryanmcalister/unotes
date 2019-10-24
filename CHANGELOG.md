@@ -1,5 +1,11 @@
 # Updates
 
+## [1.1.4] - 2019-10-24
+
+### Fixed
+
+- Incorrect wysiwyg color configuration option names (contributed by nitsuj33)
+
 ## [1.1.3] - 2019-10-17
 
 ### Fixed
@@ -11,7 +17,7 @@
 - New 'noteFileExtension' configuration option for setting how notes are filtered and saved
 - New 'toggleMode' command and hotkey
 - Updated tui-editor to v1.4.7
-- Dependency on glob package 
+- Dependency on glob package
 
 ## [1.1.1] - 2019-10-08
 
