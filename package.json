@@ -1,7 +1,7 @@
 {
     "name": "Unotes",
     "displayName": "UNOTES - Markdown Notes WYSIWYG",
-    "version": "1.1.4",
+    "version": "1.1.5",
     "author": {
         "name": "Ryan McAlister",
         "email": "rymc26@gmail.com"
@@ -263,6 +263,15 @@
                     "dark": "descriptionForeground",
                     "light": "descriptionForeground",
                     "highContrast": "descriptionForeground"
+                }
+            },
+            {
+                "id": "unotes.mdListSub3",
+                "description": "Unotes markdown list sub item 3",
+                "defaults": {
+                    "dark": "#BB96C0",
+                    "light": "#BB96C0",
+                    "highContrast": "#BB96C0"
                 }
             },
             {
