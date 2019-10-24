@@ -77,7 +77,7 @@
                 }
             },
             {
-                "id": "unotes.wsyH1",
+                "id": "unotes.wysH1",
                 "description": "Unotes wysiwyg heading 1",
                 "defaults": {
                     "dark": "#fff",
@@ -86,7 +86,7 @@
                 }
             },
             {
-                "id": "unotes.wsyH2",
+                "id": "unotes.wysH2",
                 "description": "Unotes wysiwyg heading 2",
                 "defaults": {
                     "dark": "titleBar.activeForeground",
@@ -95,7 +95,7 @@
                 }
             },
             {
-                "id": "unotes.wsyH3H4",
+                "id": "unotes.wysH3H4",
                 "description": "Unotes wysiwyg heading 3 and 4",
                 "defaults": {
                     "dark": "titleBar.inactiveForeground",
@@ -104,7 +104,7 @@
                 }
             },
             {
-                "id": "unotes.wsyH5H6",
+                "id": "unotes.wysH5H6",
                 "description": "Unotes wysiwyg heading 5 and 6",
                 "defaults": {
                     "dark": "titleBar.inactiveForeground",
@@ -113,7 +113,7 @@
                 }
             },
             {
-                "id": "unotes.wsyBlockquote",
+                "id": "unotes.wysBlockquote",
                 "description": "Unotes wysiwyg blockquote",
                 "defaults": {
                     "dark": "editorGutter.commentRangeForeground",
