@@ -494,6 +494,10 @@
             {
                 "command": "unotes.toggleMode",
                 "title": "Toggle Editor Mode"
+            },
+            {
+                "command": "unotes.noteToPDF",
+                "title": "Note to PDF"
             }
         ],
         "menus": {
@@ -693,7 +697,9 @@
     },
     "dependencies": {
         "debounce": "^1.2.0",
-        "glob": "^7.1.4"
+        "glob": "^7.1.4",
+        "markdown-pdf": "^10.0.0",
+        "phantomjs": "^2.1.7"
     },
     "devDependencies": {
         "@types/node": "^10.14.22",

@@ -7,6 +7,8 @@ Object.defineProperty(exports, "__esModule", {
 const vscode = require("vscode");
 const path = require("path");
 const fs = require("fs");
+const markdownpdf = require("markdown-pdf")
+
 const { UNotesPanel } = require("./uNotesPanel");
 const { UNoteProvider } = require("./uNoteProvider");
 const { UNote } = require("./uNote");
@@ -163,6 +165,10 @@ class UNotes {
             vscode.commands.registerCommand('unotes.convertImages', this.onConvertImages.bind(this))
         );
 
+        this.disposables.push(
+            vscode.commands.registerCommand('unotes.noteToPDF', this.onNoteToPDF.bind(this))
+        );
+
         if (Config.rootPath === vscode.workspace.rootPath) {
             // Can't watch folders outside of workspace
             this.setupFSWatcher();
@@ -230,6 +236,31 @@ class UNotes {
             }
         }
         return paths;
+    }
+
+    onNoteToPDF(note) {
+        if(!note){
+            const panel = UNotesPanel.instance();
+            if(panel){
+                note = panel.currentNote;
+            }
+        }
+        if(!note){
+            vscode.window.showWarningMessage("Please open a note file before converting images.");
+            return;
+        }
+        try {
+            markdownpdf({ phantomPath: "S:/BrainGrapes/Unotes/unotes-react/node_modules/phantomjs/lib/phantom/bin/phantomjs.exe"
+                     })
+                .from(path.join(Config.rootPath, note.folderPath, note.file))
+                .to(path.join(Config.rootPath, note.folderPath, Utils.stripExt(note.file) + '.pdf'), function() {
+                    vscode.window.showInformationMessage("PDF generated.");
+                });
+            
+
+        } catch(e){
+            console.log(e);
+        }
     }
 
     onConvertImages(note) {
