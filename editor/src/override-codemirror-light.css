@@ -86,7 +86,7 @@ body.vscode-light .cm-em {font-style: italic;}
 body.vscode-light .cm-link {text-decoration: underline;}
 body.vscode-light .cm-strikethrough {text-decoration: line-through;}
 
-body.vscode-light .cm-s-default .cm-keyword {color: var(--vscode-unotes-mdHeader);}
+body.vscode-light .cm-s-default .cm-keyword {color: var(--vscode-unotes-mdListSub3);}
 body.vscode-light .cm-s-default .cm-atom {color: rgb(109, 95, 201);}
 body.vscode-light .cm-s-default .cm-number {color: rgb(95, 138, 146);}
 body.vscode-light .cm-s-default .cm-def {color: rgb(243, 241, 125);}

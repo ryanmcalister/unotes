@@ -86,7 +86,7 @@ body.vscode-dark .cm-em {font-style: italic;}
 body.vscode-dark .cm-link {text-decoration: underline;}
 body.vscode-dark .cm-strikethrough {text-decoration: line-through;}
 
-body.vscode-dark .cm-s-default .cm-keyword {color: rgb(187, 150, 192);}
+body.vscode-dark .cm-s-default .cm-keyword {color: var(--vscode-unotes-mdListSub3);}
 body.vscode-dark .cm-s-default .cm-atom {color: rgb(109, 95, 201);}
 body.vscode-dark .cm-s-default .cm-number {color: rgb(95, 138, 146);}
 body.vscode-dark .cm-s-default .cm-def {color: rgb(243, 241, 125);}

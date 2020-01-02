@@ -1,5 +1,11 @@
 # Updates
 
+## [1.1.5] - 2019-10-25
+
+### Added
+
+- New color configuration option for markdown list sub item level 3
+
 ## [1.1.4] - 2019-10-24
 
 ### Fixed
