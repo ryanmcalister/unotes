@@ -61,6 +61,7 @@ By default images are embedded as base64 text objects. Images can optionally be 
 ### Local, Embedded and URL Images
 
 Local Image Example
+
 ```md
 ![my picture](.media/test.png)
 ```
@@ -132,12 +133,13 @@ project directory. All [remark-stringify](https://github.com/remarkjs/remark/tre
 
 ## Workspace Configuration Options
 
-| Setting                 | Description                                                                                                                                                                      |
-| ----------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| unotes.editor.display2X | Display the button toolbar at twice the size                                                                                                                                     |
-| unotes.editor.convertPastedImages | Automatically convert pasted images to local image files in a .media folder                                                                                            |
-| unotes.noteFileExtension | The file extension used to filter and save note files. Default = '.md'                                                                                                          |
-| unotes.rootPath         | The root folder path for the note files.<br>Setting this value will turn off auto-tracking of external file changes.<br>If needed you can click the 'Refresh' button on the notes tree. |
+| Setting                           | Description                                                                                                                                                                             |
+| --------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| unotes.editor.display2X           | Display the button toolbar at twice the size                                                                                                                                            |
+| unotes.editor.convertPastedImages | Automatically convert pasted images to local image files in a .media folder                                                                                                             |
+| unotes.mediaFolder                | The folder where pasted or converted images will be saved. Relative to the note.                                                                                                        |
+| unotes.noteFileExtension          | The file extension used to filter and save note files. Default = '.md'                                                                                                                  |
+| unotes.rootPath                   | The root folder path for the note files.<br>Setting this value will turn off auto-tracking of external file changes.<br>If needed you can click the 'Refresh' button on the notes tree. |
 
 ## Custom Colors
 
@@ -180,6 +182,7 @@ You can set options in the vscode workspace settings.json file:
 | mdHeader               | Unotes markdown header                   |
 | mdListSub1             | Unotes markdown list sub item 1          |
 | mdListSub2             | Unotes markdown list sub item 2          |
+| mdListSub3             | Unotes markdown list sub item 3          |
 | mdCodeBlockText        | Unotes markdown codeblock text           |
 | mdLink                 | Unotes markdown link                     |
 | pvCodeComment          | Unotes preview code comment              |
