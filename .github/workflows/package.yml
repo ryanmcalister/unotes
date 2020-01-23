@@ -20,12 +20,16 @@ jobs:
     - name: npm install, build
       run: |
         npm ci
+        cd editor
+        npm ci
+        cd ..
         npm install -g vsce
         npm run pack
+        mv Unotes-*.vsix Unotes-latest.vsix
         
       env:
         CI: true
     - uses: actions/upload-artifact@v1
       with:
         name: Unotes-latest.vsix
-        path: Unotes-*.vsix
+        path: Unotes-latest.vsix
