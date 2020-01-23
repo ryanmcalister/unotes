@@ -7,7 +7,7 @@
     "react-dom": "^16.10.2",
     "react-scripts": "^2.1.8",
     "remark": "^10.0.1",
-    "tui-editor": "^1.4.7"
+    "tui-editor": "^1.4.10"
   },
   "devDependencies": {
     "rewire": "^4.0.1"

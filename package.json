@@ -63,6 +63,11 @@
                     "type": "string",
                     "default": ".md",
                     "markdownDescription": "The file extension used to filter and save note files. Default: .md"
+                },
+                "unotes.mediaFolder": {
+                    "type": "string",
+                    "default": ".media",
+                    "markdownDescription": "The folder where images are saved relative to the note"
                 }
             }
         },

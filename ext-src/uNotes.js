@@ -10,7 +10,7 @@ const fs = require("fs");
 const { UNotesPanel } = require("./uNotesPanel");
 const { UNoteProvider } = require("./uNoteProvider");
 const { UNote } = require("./uNote");
-const { Utils, Config, ExtId, GlobalState } = require("./uNotesCommon");
+const { Config, Utils, ExtId, GlobalState } = require("./uNotesCommon");
 
 /**
  * Helper to remove a directory tree
@@ -82,7 +82,7 @@ class UNotes {
         this.currentNote = null;
         this.selectAfterRefresh = null;
 
-        if (!vscode.workspace.rootPath) {
+        if (!vscode.workspace.workspaceFolders) {
             vscode.window.showWarningMessage("Please open a folder BEFORE using unotes.");
             return;
         }
@@ -163,7 +163,7 @@ class UNotes {
             vscode.commands.registerCommand('unotes.convertImages', this.onConvertImages.bind(this))
         );
 
-        if (Config.rootPath === vscode.workspace.rootPath) {
+        if (Config.rootPath === vscode.workspace.workspaceFolders[0].uri.fsPath) {
             // Can't watch folders outside of workspace
             this.setupFSWatcher();
         }
