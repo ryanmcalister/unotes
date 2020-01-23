@@ -20,6 +20,9 @@ jobs:
     - name: npm install, build
       run: |
         npm ci
+        cd editor
+        npm ci
+        cd ..
         npm install -g vsce
         npm run pack
         
