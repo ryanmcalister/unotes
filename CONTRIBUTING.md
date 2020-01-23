@@ -21,15 +21,15 @@ This project wraps [tui-editor](https://github.com/nhn/tui.editor) in a React pr
 
 In the `editor`directory run...
 
-```
+```bash
 npm install
 ```
 
 #### Building
 
-Make sure that a `build` directory exists in the `root` folder. In the `root` folder (not editor) run...
+In the `root` folder (not editor) run...
 
-```
+```bash
 npm run build-editor
 ```
 
@@ -41,7 +41,7 @@ This is the root folder project. The extension code is in the `ext-src` folder. 
 
 In the root folder run...
 
-```
+```bash
 npm install -g vsce
 npm install
 ```
@@ -50,12 +50,12 @@ npm install
 
 First you must install and build the Unotes Editor (see above) and then run...
 
-```
-// to build in debug mode
+```bash
+# to build in debug mode
 npm run build
-// you can now run it in VS Code by hitting F5
+# you can now run it in VS Code by hitting F5
 
-// to build in release mode
+# to build in release mode
 npm run pack
 ```
 
