@@ -63,6 +63,11 @@
                     "type": "string",
                     "default": ".md",
                     "markdownDescription": "The file extension used to filter and save note files. Default: .md"
+                },
+                "unotes.mediaFolder": {
+                    "type": "string",
+                    "default": ".media",
+                    "markdownDescription": "The folder where images are saved relative to the note"
                 }
             }
         },
@@ -697,6 +702,7 @@
     },
     "devDependencies": {
         "@types/node": "^10.14.22",
+        "run-script-os": "^1.0.7",
         "ts-loader": "^5.4.5",
         "typescript": "^3.6.4",
         "vscode": "^1.1.36",
@@ -706,8 +712,15 @@
     "scripts": {
         "vscode:prepublish": "npm run build-editor && npm run bundle",
         "build": "webpack --mode development",
-        "build-editor": "IF EXIST ./build\\NUL (rmdir /s /q build && npm run _build-editor) ELSE (echo ...) && npm run _build-editor",
-        "_build-editor": "cd editor && node build-non-split.js && move build .. && cd ..",
+        "remove-build": "run-script-os",
+        "remove-build:win32": "IF EXIST ./build\\NUL (rmdir /s /q build)",
+        "remove-build:nix": "if [ -d \"build\" ]; then rm -r build; fi;",
+        "prebuild-editor": "npm run remove-build",
+        "build-editor": "cd editor && node build-non-split.js",
+        "postbuild-editor": "npm run move-build",
+        "move-build": "run-script-os",
+        "move-build:win32": "cd editor && move build .. && cd ..",
+        "move-build:nix": "cd editor && mv build ../build && cd ..",
         "bundle": "webpack --mode production",
         "postinstall": "node ./node_modules/vscode/bin/install",
         "pack": "vsce package",

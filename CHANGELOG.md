@@ -2,9 +2,15 @@
 
 ## [1.1.5] - 2019-10-25
 
+### Fixed
+
+- Removed deprecated use of vscode rootPath
+
 ### Added
 
 - New color configuration option for markdown list sub item level 3
+- New 'mediaFolder' configuration option for setting where images are saved
+- Updated tui-editor to v1.4.10
 
 ## [1.1.4] - 2019-10-24
 

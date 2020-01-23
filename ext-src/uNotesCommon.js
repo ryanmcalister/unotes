@@ -7,9 +7,8 @@ Object.defineProperty(exports, "__esModule", {
 const path = require("path");
 const vscode = require("vscode");
 const fs = require("fs");
-const gl = require('glob')
+const gl = require('glob');
 const extId = 'unotes';
-const mediaFolder = '.media';
 const imgPrefix = 'img_';
 
 exports.ExtId = extId;
@@ -20,14 +19,16 @@ exports.GlobalState = {
 
 class UnotesConfig {
     constructor() {
-        if (!vscode.workspace.rootPath) {
-            return;
-        }
-
+        
         this.settings = vscode.workspace.getConfiguration(extId);
-        this.rootPath = this.settings.get('rootPath', vscode.workspace.rootPath);
+        
+        // root path setup
+        if (!vscode.workspace.workspaceFolders || vscode.workspace.workspaceFolders.length == 0) {
+            return;
+        }        
+        this.rootPath = this.settings.get('rootPath', '');
         if (!this.rootPath) {
-            this.rootPath = vscode.workspace.rootPath;
+            this.rootPath = vscode.workspace.workspaceFolders[0].uri.fsPath;
         }
         this.folderPath = path.join(this.rootPath, './.unotes');
 
@@ -42,9 +43,17 @@ class UnotesConfig {
         } 
         this.noteFileExtension = this.noteFileExtension;
 
+        // media folder
+        const defaultMediaFolder = '.media';
+        this.mediaFolder = this.settings.get('mediaFolder', defaultMediaFolder);
+        if (!this.mediaFolder) {
+            this.mediafolder = defaultMediaFolder;
+        }
+
         // setting change events
         this._onDidChange_editor_settings = new vscode.EventEmitter();
         this.onDidChange_editor_settings = this._onDidChange_editor_settings.event;
+        
     }
 
     onChange(e) {
@@ -84,7 +93,7 @@ exports.Utils = {
      */
     getNextImageIndex(folderPath) {
         let index = 0;
-        const mediaPath = path.join(folderPath, mediaFolder);
+        const mediaPath = path.join(folderPath, Config.mediaFolder);
         if(!fs.existsSync(mediaPath)){
             return 0;
         }
@@ -111,7 +120,7 @@ exports.Utils = {
      */
     saveMediaImage(folderPath, imgBuffer, index, imgType) {
         let newIndex = index;
-        const mediaPath = path.join(folderPath, mediaFolder);
+        const mediaPath = path.join(folderPath, Config.mediaFolder);
 
         // create the folder if needed
         if(!fs.existsSync(mediaPath)){
@@ -146,6 +155,6 @@ exports.Utils = {
     },    
     
     getImageTagUrl(imgName){
-        return `${mediaFolder}/${imgName}`;
+        return `${Config.mediaFolder}/${imgName}`;
     } 
 } // Utils
