@@ -1,5 +1,11 @@
 # Updates
 
+## [1.1.6] - 2020-04-20
+
+### Fixed
+
+- Hotkeys not working in editor with new VSCode
+
 ## [1.1.5] - 2020-01-24
 
 ### Fixed

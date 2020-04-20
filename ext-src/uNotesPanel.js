@@ -110,7 +110,7 @@ class UNotesPanel {
             }, null, this.disposables);
 
             this.panel.onDidChangeViewState(e => {
-                if (e.webviewPanel._active) {
+                if (e.webviewPanel.active) {
                     if (this.reloadContentNeeded) {
                         this.updateContents();
                         this.reloadContentNeeded = false;
@@ -196,7 +196,7 @@ class UNotesPanel {
     }
 
     updateEditorSettings() {
-        if (this.panel._active) {
+        if (this.panel.active) {
             this.panel.webview.postMessage({ command: 'settings', settings: Config.settings.get('editor') });
 
         } else {
@@ -225,13 +225,13 @@ class UNotesPanel {
     }
 
     hotkeyExec(args) {
-        if (this.panel._active) {
+        if (this.panel.active) {
             this.panel.webview.postMessage({ command: 'exec', args });
         }
     }
 
     toggleEditorMode() {
-        if (this.panel._active) {
+        if (this.panel.active) {
             this.panel.webview.postMessage({ command: 'toggleMode'});
         }
     }
@@ -316,7 +316,7 @@ class UNotesPanel {
         // update our view if an external change happens
         if ((this.currentPath == filePath) && (filePath != this.writingFile)) {
             // if the view is active then load now else flag to reload on showing
-            if (this.panel._active) {
+            if (this.panel.active) {
                 this.updateContents();
             } else {
                 this.reloadContentNeeded = true;
