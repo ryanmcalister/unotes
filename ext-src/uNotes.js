@@ -12,28 +12,6 @@ const { UNoteProvider } = require("./uNoteProvider");
 const { UNote } = require("./uNote");
 const { Config, Utils, ExtId, GlobalState } = require("./uNotesCommon");
 
-/**
- * Helper to remove a directory tree
- * @param {string} dirPath the root dir 
- */
-const deleteFolderRecursive = function (dirPath) {
-    try {
-        if (fs.existsSync(dirPath)) {
-            fs.readdirSync(dirPath).forEach(function (file, index) {
-                const curPath = path.join(dirPath, file);
-                if (fs.lstatSync(curPath).isDirectory()) { // recurse
-                    deleteFolderRecursive(curPath);
-                } else { // delete file
-                    fs.unlinkSync(curPath);
-                }
-            });
-            fs.rmdirSync(dirPath);
-        }
-    }
-    catch (e) {
-        console.log(e);
-    }
-};
 
 const getVersion = function (val) {
     const m = val.match(/^([0-9]*)\.([0-9]*)\..*$/);
@@ -181,22 +159,22 @@ class UNotes {
             if (UNotesPanel.instance()) {
                 const panel = UNotesPanel.instance();
                 if (panel && panel.updateFileIfOpen(e.fsPath)) {
-                    uNoteProvider.refresh();
+                    this.uNoteProvider.refresh();
                 }
 
             } else {
-                uNoteProvider.refresh();
+                this.uNoteProvider.refresh();
             }
         }, null, this.disposables);
 
         fswatcher.onDidCreate((e) => {
             //console.log("onDidCreate");
-            uNoteProvider.refresh();
+            this.uNoteProvider.refresh();
         }, null, this.disposables);
 
         fswatcher.onDidDelete((e) => {
             //console.log("onDidDelete");
-            uNoteProvider.refresh();
+            this.uNoteProvider.refresh();
             const panel = UNotesPanel.instance();
             if (panel) {
                 panel.closeIfOpen(e.fsPath);
@@ -294,27 +272,28 @@ class UNotes {
         }
     }
 
-    onDeleteNote(note) {
-        return vscode.window.showWarningMessage(`Delete '${note.file}'?`, 'Yes', 'No')
-            .then(result => {
-                if (result == 'Yes') {
-                    fs.unlinkSync(path.join(Config.rootPath, note.folderPath, note.file));
-                    this.uNoteProvider.refresh();
-                }
-            });
+    async onDeleteNote(note) {
+        let result = await vscode.window.showWarningMessage(`Delete '${note.file}'?`, 'Yes', 'No');
+        if (result == 'Yes'){
+            await vscode.workspace.fs.delete(vscode.Uri.file(path.join(Config.rootPath, note.folderPath, note.file)), { useTrash: true });
+            this.uNoteProvider.refresh();
+        }
     }
 
-    onDeleteFolder(folder) {
-        return vscode.window.showWarningMessage(`Delete '${folder.file}' and all its contents?`, 'Yes', 'No')
-            .then(result => {
-                if (result == 'Yes') {
-                    deleteFolderRecursive(path.join(Config.rootPath, folder.folderPath, folder.file));
-                    this.uNoteProvider.refresh();
-                }
-            });
+    async onDeleteFolder(folder) {
+        let result = await vscode.window.showWarningMessage(`Delete '${folder.file}' and all its contents including non-note files?`, 'Yes', 'No');
+        if (result == 'Yes') {
+            try {
+                await vscode.workspace.fs.delete(vscode.Uri.file(path.join(Config.rootPath, folder.folderPath, folder.file)), { useTrash: true, recursive: true });
+            
+            } catch(e) {
+                await vscode.window.showWarningMessage(e.message);
+            }
+            this.uNoteProvider.refresh();
+        }
     }
 
-    onRenameNote(note) {
+    async onRenameNote(note) {
         if(!note){
             const panel = UNotesPanel.instance();
             if(panel){
@@ -322,72 +301,94 @@ class UNotes {
             }
         }
         if(!note){
-            vscode.window.showWarningMessage("Please open a note file before running command.");
+            await vscode.window.showWarningMessage("Please open a note file before running command.");
             return;
         } 
         const origName = Utils.stripExt(note.file);  
-        vscode.window.showInputBox({ value: origName })
-            .then(value => {
-                if(!value) return;
-                if(value === origName) return;
-                const newFileName = Utils.stripExt(value) + Config.noteFileExtension;
+        let value = await vscode.window.showInputBox({ value: origName });
+           
+        if(!value) return;
+        if(value === origName) return;
+        const newFileName = Utils.stripExt(value) + Config.noteFileExtension;
 
-                // make sure there isn't a name collision
-                const newFilePath = path.join(Config.rootPath, note.folderPath, newFileName);
-                if(fs.existsSync(newFilePath)){
-                    vscode.window.showWarningMessage(`'${newFileName}' already exists.`);
-                    return;
-                }
+        // make sure there isn't a name collision
+        const newFilePath = path.join(Config.rootPath, note.folderPath, newFileName);
+        if(fs.existsSync(newFilePath)){
+            await vscode.window.showWarningMessage(`'${newFileName}' already exists.`);
+            return;
+        }
 
-                // update the tree value
-                if(!this.uNoteProvider.renameNote(note, newFileName)){
-                    console.log("Failed to rename note in uNoteProvider.");
-                    return;
-                }
+        // update the tree value
+        if(!this.uNoteProvider.renameNote(note, newFileName)){
+            console.log("Failed to rename note in uNoteProvider.");
+            return;
+        }
 
-                // save the file
-                fs.renameSync(note.fullPath(), newFilePath);
+        // save the file
+        try {
+            await vscode.workspace.fs.rename(vscode.Uri.file(note.fullPath()), vscode.Uri.file(newFilePath), { overwrite: false });
+        
+        } catch (e) {
+            await vscode.window.showWarningMessage(e.message);
+        }
 
-                // open the new file if the old one is showing
-                this.uNoteProvider.refresh();
-                const panel = UNotesPanel.instance();
-                if (panel){
-                    panel.switchIfOpen(note, UNote.noteFromPath(newFilePath));
-                }
-            });
+        // open the new file if the old one is showing
+        this.uNoteProvider.refresh();
+        const panel = UNotesPanel.instance();
+        if (panel){
+            panel.switchIfOpen(note, UNote.noteFromPath(newFilePath));
+        }
+
+    }
+
+    async exists(filePath) {
+        try {
+            let stat = await vscode.workspace.fs.stat(vscode.Uri.file(filePath));
+            if(stat){
+                return true;
+            }
+            return false;
+        
+        } catch(e) {
+            return false;
+        }
     }
     
-    onRenameFolder(folder) {
+    async onRenameFolder(folder) {
         if(!folder){
             return;
         }
-        vscode.window.showInputBox({ value: folder.file})
-            .then(value => {
-                if(!value) return;
-                if(value === folder.file) return;   // no change
+        let value = await vscode.window.showInputBox({ value: folder.file});
+            
+        if(!value) return;
+        if(value === folder.file) return;   // no change
 
-                const newFolderPath = path.join(Config.rootPath, folder.folderPath, value);
-                if(fs.existsSync(newFolderPath)){
-                    vscode.window.showWarningMessage(`'${value}' already exists.`);
-                    return;
-                }
+        const newFolderPath = path.join(Config.rootPath, folder.folderPath, value);
+        if(fs.existsSync(newFolderPath)){
+            await vscode.window.showWarningMessage(`'${value}' already exists.`);
+            return;
+        }
 
-                // update the tree value
-                if(!this.uNoteProvider.renameFolder(folder, value)){
-                    console.log("Failed to rename folder in uNoteProvider.");
-                    return;
-                }
+        // update the tree value
+        if(!this.uNoteProvider.renameFolder(folder, value)){
+            console.log("Failed to rename folder in uNoteProvider.");
+            return;
+        }
 
-                // rename the folder
-                fs.renameSync(folder.fullPath(), newFolderPath);
+        // rename the folder
+        try {
+            await vscode.workspace.fs.rename(vscode.Uri.file(folder.fullPath()), vscode.Uri.file(newFolderPath), { overwrite: false });
+        
+        } catch (e) {
+            await vscode.window.showWarningMessage(e.message);
+        }
 
-                this.uNoteProvider.refresh();
+        this.uNoteProvider.refresh();
 
-                const panel = UNotesPanel.instance();
-                if (panel){
-                    panel.checkCurrentFile();
-                }
-            });
+        const panel = UNotesPanel.instance();
+        if (panel){
+            panel.checkCurrentFile();
+        }
     }
 
     addNoteCommon(paths) {

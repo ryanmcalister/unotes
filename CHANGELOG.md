@@ -1,5 +1,15 @@
 # Updates
 
+## [1.1.7] - 2020-04-23
+
+### Fixed
+
+- Editor to auto-close when note in editor deleted
+
+### Added
+
+- Files and folders sent to system trash instead of hard deletes
+
 ## [1.1.6] - 2020-04-20
 
 ### Fixed
