@@ -1,5 +1,11 @@
 # Updates
 
+## [1.1.8] - 2020-08-11
+
+### Fixed
+
+- Broken local image display on Linux/Mac [(issue: #26)](https://github.com/ryanmcalister/unotes/issues/82)
+
 ## [1.1.7] - 2020-04-23
 
 ### Fixed

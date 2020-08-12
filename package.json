@@ -1,7 +1,7 @@
 {
     "name": "Unotes",
     "displayName": "UNOTES - Markdown Notes WYSIWYG",
-    "version": "1.1.7",
+    "version": "1.1.8",
     "author": {
         "name": "Ryan McAlister",
         "email": "rymc26@gmail.com"
@@ -17,7 +17,7 @@
         "url": "https://github.com/ryanmcalister/unotes.git"
     },
     "engines": {
-        "vscode": "^1.30.0"
+        "vscode": "^1.47.0"
     },
     "categories": [
         "Other"
@@ -702,10 +702,10 @@
     },
     "devDependencies": {
         "@types/node": "^10.14.22",
+        "@types/vscode": "^1.47.0",
         "run-script-os": "^1.0.7",
         "ts-loader": "^5.4.5",
         "typescript": "^3.6.4",
-        "vscode": "^1.1.36",
         "webpack": "^4.41.2",
         "webpack-cli": "^3.3.9"
     },
@@ -722,7 +722,6 @@
         "move-build:win32": "cd editor && move build .. && cd ..",
         "move-build:nix": "cd editor && mv build ../build && cd ..",
         "bundle": "webpack --mode production",
-        "postinstall": "node ./node_modules/vscode/bin/install",
         "pack": "vsce package",
         "pub": "vsce publish",
         "compile": "webpack --mode none",
