@@ -722,7 +722,6 @@
         "move-build:win32": "cd editor && move build .. && cd ..",
         "move-build:nix": "cd editor && mv build ../build && cd ..",
         "bundle": "webpack --mode production",
-        "postinstall": "node ./node_modules/vscode/bin/install",
         "pack": "vsce package",
         "pub": "vsce publish",
         "compile": "webpack --mode none",
