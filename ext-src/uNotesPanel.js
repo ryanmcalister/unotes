@@ -262,7 +262,7 @@ class UNotesPanel {
         try {
             if(this.currentNote){
                 const content = fs.readFileSync(this.currentPath, 'utf8');
-                const folderPath = vscode.Uri.file(path.join(Config.rootPath, this.currentNote.folderPath)).path;
+                const folderPath = this.panel.webview.asWebviewUri(vscode.Uri.file(path.join(Config.rootPath, this.currentNote.folderPath))).path;
                 this.panel.webview.postMessage({ command: 'setContent', content, folderPath, contentPath: this.currentPath });
             }
         }
@@ -390,7 +390,7 @@ class UNotesPanel {
 				<meta name="theme-color" content="#000000">
 				<title>UNotes</title>
 				<link rel="stylesheet" type="text/css" href="${styleUri}">
-				<meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src vscode-resource: http: https: data:; script-src 'unsafe-inline' 'unsafe-eval' vscode-resource: data:;style-src vscode-resource: 'unsafe-inline' http: https: data:;">
+				<meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src vscode-resource: vscode-webview-resource: ${this.panel.webview.cspSoure} http: https: data:; script-src 'unsafe-inline' 'unsafe-eval' vscode-resource: data:; style-src vscode-resource: 'unsafe-inline' http: https: data:;">
 				<base href="${baseUri}/">
 			</head>
 
