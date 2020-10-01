@@ -29,31 +29,6 @@ function replaceAll(str, find, replace) {
     return str.replace(new RegExp(escapeRegExp(find), 'g'), replace);
 }
 
-function unotes() {
-    // const defaultRenderer = Editor.markdownit.renderer.rules.image;
-    // const httpRE = /^https?:\/\/|^data:/;
-    // const imgFunc = function (tokens, idx, options, env, self) {
-    //     const token = tokens[idx]
-    //     const srcIndex = token.attrIndex('src');
-    //     const altIndex = token.attrIndex('alt');
-    //     const ttlIndex = token.attrIndex('title');
-    //     if (srcIndex < 0 || httpRE.test(token.attrs[srcIndex][1])) {
-    //         return defaultRenderer(tokens, idx, options, env, self);
-    //     }
-    //     const src = ' src="' + img_root + token.attrs[srcIndex][1] + '"';
-    //     // check for empty alt but a content string
-    //     let altstr = altIndex >= 0 ? token.attrs[altIndex][1] : ''
-    //     if (!altstr && token.content)
-    //         altstr = token.content;   // replace with content
-    //     const alt = ' alt="' + altstr + '"';
-    //     const ttl = ' title="' + (ttlIndex >= 0 ? token.attrs[ttlIndex][1] : '') + '"';
-    //     const img = `<img${src}${alt}${ttl} />`;
-    //     return img;
-    // };
-
-    // Editor.markdownit.renderer.rules.image = imgFunc;
-    // Editor.markdownitHighlight.renderer.rules.image = imgFunc;
-}
 
 class TuiEditor extends Component {
 
@@ -84,13 +59,14 @@ class TuiEditor extends Component {
             el: this.el.current,
             initialEditType: 'wysiwyg',
             previewStyle: 'vertical',
+            frontMatter: true,
             height: window.innerHeight - 20,
             events: {
                 change: debounce(this.onChange.bind(this), 400)
             },
             usageStatistics: false,
             useCommandShortcut: false,
-            plugins: [chart, uml, [codeSyntaxHighlight, { hljs }], unotes],
+            plugins: [chart, uml, [codeSyntaxHighlight, { hljs }]],
             toolbarItems: [
                 'heading',
                 'bold',
@@ -112,7 +88,22 @@ class TuiEditor extends Component {
                 'divider',
                 'code',
                 'codeblock'
-            ]
+            ],
+            customHTMLRenderer: {
+                // For local images to work
+                image(node, context) {
+                    const { origin, entering } = context;
+                    const result = origin();
+                    const httpRE = /^https?:\/\/|^data:/;
+                    if (httpRE.test(node.destination)){
+                        return result;
+                    }
+                    if (entering) {
+                        result.attributes.src = img_root + node.destination;
+                    }
+                    return result;
+                }
+            }
             
         });
 
@@ -262,7 +253,7 @@ class TuiEditor extends Component {
         }
         window.vscode.postMessage({
             command: 'applyChanges',
-            content: this.state.editor.getValue()
+            content: this.state.editor.getMarkdown()
         });
     }
 
