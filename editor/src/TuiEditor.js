@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
-import Editor from 'tui-editor/dist/tui-editor-Editor-all';
-import 'tui-editor/dist/tui-editor.css';
-import 'tui-editor/dist/tui-editor-contents.css';
+import Editor from '@toast-ui/editor/dist/toastui-editor';
+import chart from '@toast-ui/editor-plugin-code-syntax-highlight';
+import uml from '@toast-ui/editor-plugin-uml';
+import codeSyntaxHighlight from '@toast-ui/editor-plugin-code-syntax-highlight';
+import hljs from 'highlight.js/lib/highlight'
+import '@toast-ui/editor/dist/toastui-editor.css';
 import 'codemirror/lib/codemirror.css';
 import 'highlight.js/styles/github.css';
 import './override-light.css';
@@ -26,31 +29,6 @@ function replaceAll(str, find, replace) {
     return str.replace(new RegExp(escapeRegExp(find), 'g'), replace);
 }
 
-Editor.defineExtension('unotes', function () {
-    const defaultRenderer = Editor.markdownit.renderer.rules.image;
-    const httpRE = /^https?:\/\/|^data:/;
-    const imgFunc = function (tokens, idx, options, env, self) {
-        const token = tokens[idx]
-        const srcIndex = token.attrIndex('src');
-        const altIndex = token.attrIndex('alt');
-        const ttlIndex = token.attrIndex('title');
-        if (srcIndex < 0 || httpRE.test(token.attrs[srcIndex][1])) {
-            return defaultRenderer(tokens, idx, options, env, self);
-        }
-        const src = ' src="' + img_root + token.attrs[srcIndex][1] + '"';
-        // check for empty alt but a content string
-        let altstr = altIndex >= 0 ? token.attrs[altIndex][1] : ''
-        if (!altstr && token.content)
-            altstr = token.content;   // replace with content
-        const alt = ' alt="' + altstr + '"';
-        const ttl = ' title="' + (ttlIndex >= 0 ? token.attrs[ttlIndex][1] : '') + '"';
-        const img = `<img${src}${alt}${ttl} />`;
-        return img;
-    };
-
-    Editor.markdownit.renderer.rules.image = imgFunc;
-    Editor.markdownitHighlight.renderer.rules.image = imgFunc;
-});
 
 class TuiEditor extends Component {
 
@@ -81,13 +59,14 @@ class TuiEditor extends Component {
             el: this.el.current,
             initialEditType: 'wysiwyg',
             previewStyle: 'vertical',
+            frontMatter: true,
             height: window.innerHeight - 20,
             events: {
                 change: debounce(this.onChange.bind(this), 400)
             },
             usageStatistics: false,
             useCommandShortcut: false,
-            exts: ['scrollSync', 'chart', 'uml', 'unotes'],
+            plugins: [chart, uml, [codeSyntaxHighlight, { hljs }]],
             toolbarItems: [
                 'heading',
                 'bold',
@@ -109,7 +88,22 @@ class TuiEditor extends Component {
                 'divider',
                 'code',
                 'codeblock'
-            ]
+            ],
+            customHTMLRenderer: {
+                // For local images to work
+                image(node, context) {
+                    const { origin, entering } = context;
+                    const result = origin();
+                    const httpRE = /^https?:\/\/|^data:/;
+                    if (httpRE.test(node.destination)){
+                        return result;
+                    }
+                    if (entering) {
+                        result.attributes.src = img_root + node.destination;
+                    }
+                    return result;
+                }
+            }
             
         });
 
@@ -259,7 +253,7 @@ class TuiEditor extends Component {
         }
         window.vscode.postMessage({
             command: 'applyChanges',
-            content: this.state.editor.getValue()
+            content: this.state.editor.getMarkdown()
         });
     }
 

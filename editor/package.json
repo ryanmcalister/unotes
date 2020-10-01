@@ -2,12 +2,15 @@
   "name": "UNotesEditor",
   "version": "0.1.0",
   "dependencies": {
+    "@toast-ui/editor": "^2.4.0",
+    "@toast-ui/editor-plugin-chart": "^1.0.0",
+    "@toast-ui/editor-plugin-code-syntax-highlight": "^1.0.0",
+    "@toast-ui/editor-plugin-uml": "^1.0.0",
     "debounce": "^1.2.0",
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
     "react-scripts": "^2.1.8",
-    "remark": "^10.0.1",
-    "tui-editor": "^1.4.10"
+    "remark": "^10.0.1"
   },
   "devDependencies": {
     "rewire": "^4.0.1"

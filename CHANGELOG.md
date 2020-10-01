@@ -1,10 +1,17 @@
 # Updates
 
+## [1.2.0] - 2020-10-01
+
+### Added
+
+- Support for YAML front matter [(issue: #67)](https://github.com/ryanmcalister/unotes/issues/67)
+- Update tui-editor to v2.4.0
+
 ## [1.1.8] - 2020-08-11
 
 ### Fixed
 
-- Broken local image display on Linux/Mac [(issue: #26)](https://github.com/ryanmcalister/unotes/issues/82)
+- Broken local image display on Linux/Mac [(issue: #82)](https://github.com/ryanmcalister/unotes/issues/82)
 
 ## [1.1.7] - 2020-04-23
 
