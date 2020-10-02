@@ -17,7 +17,7 @@ If you find Unotes useful, please [write a review](https://marketplace.visualstu
 
 # What's new in Unotes 1.2
 
-- [Support for YAML front matter](#yaml_front_matter_support)
+- [Support for YAML front matter](#yaml-front-matter-support)
 
 # ᑌᑎotes
 
