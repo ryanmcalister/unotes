@@ -15,14 +15,9 @@
 
 If you find Unotes useful, please [write a review](https://marketplace.visualstudio.com/items?itemName=ryanmcalister.Unotes&ssr=false#review-details).
 
-# What's new in Unotes 1.1
+# What's new in Unotes 1.2
 
-- Note/Folder renaming commands added to context menu
-- Improved document scroll position management
-- New command to convert embedded note images to files
-- New command/hotkey to toggle between wysiwyg and markdown modes
-- [New configuration setting to auto-convert pasted images](#workspace-configuration-options)
-- [Markdown formatting options](#formatting-options-experimental)
+- [Support for YAML front matter](#yaml_front_matter_support)
 
 # ᑌᑎotes
 
@@ -31,6 +26,14 @@ Unotes is an [open-source](https://github.com/ryanmcalister/unotes "Open Unotes 
 Unotes helps you visualize and manage your markdown notes. Organize your notes in nested folders and edit them with a rich WYSIWYG editor.
 
 Use Visual Studio Code's built-in search and version control features for all your notes.
+
+# FAIR WARNING
+
+- Unotes *will reformat* your markdown without warning.
+- It will not preserve special formatting.
+- It auto-saves all edits.
+
+It is *highly recommended* to use unotes with *source control* to revert any unwanted changes.
 
 # Features
 
@@ -129,6 +132,18 @@ project directory. All [remark-stringify](https://github.com/remarkjs/remark/tre
         "strong": "*",
         "emphasis": "_"
     }
+```
+
+### YAML Front Matter Support
+
+Unotes now supports the YAML front matter sections in tui-editor 2.0. Note this will not work when using markdown reformatting with `remark` (see above).
+
+#### Example
+
+```yaml
+---
+title: title
+---
 ```
 
 ## Workspace Configuration Options
