@@ -29,11 +29,11 @@ Use Visual Studio Code's built-in search and version control features for all yo
 
 # FAIR WARNING
 
-- Unotes *will reformat* your markdown without warning.
+- Unotes **will reformat** your markdown without warning.
 - It will not preserve special formatting.
 - It auto-saves all edits.
 
-It is *highly recommended* to use unotes with *source control* to revert any unwanted changes.
+It is **highly recommended** to use unotes with **source control** to revert any unwanted changes.
 
 # Features
 
