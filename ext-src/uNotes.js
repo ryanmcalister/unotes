@@ -44,7 +44,7 @@ const checkWhatsNew = function (context) {
 
         ).then(value => {
             if (value == actions[0]) {
-                vscode.commands.executeCommand('vscode.open', vscode.Uri.parse("https://github.com/ryanmcalister/unotes/blob/master/README.md#whats-new-in-unotes-11"));
+                vscode.commands.executeCommand('vscode.open', vscode.Uri.parse("https://github.com/ryanmcalister/unotes/blob/master/README.md#whats-new-in-unotes-12"));
 
             }
             else if (value === actions[1]) {
