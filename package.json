@@ -711,7 +711,7 @@
     },
     "scripts": {
         "vscode:prepublish": "npm run build-editor && npm run bundle",
-        "build-all": "npm run build && npm run build-editor",
+        "build-all": "npm run build-editor && npm run build",
         "build": "webpack --mode development",
         "remove-build": "run-script-os",
         "remove-build:win32": "IF EXIST ./build\\NUL (rmdir /s /q build)",

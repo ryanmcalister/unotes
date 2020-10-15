@@ -35,7 +35,6 @@ class TuiEditor extends Component {
     constructor(props) {
         super(props);
         this.el = React.createRef();
-        this.handleResizeMessage = debounce(this.handleResizeMessage.bind(this), 1000);
         this.onHtmlBefore = this.onHtmlBefore.bind(this);
         this.onAfterMarkdown = this.onAfterMarkdown.bind(this);
         this.onPreviewBeforeHook = this.onPreviewBeforeHook.bind(this);
