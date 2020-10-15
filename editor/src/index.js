@@ -5,7 +5,7 @@ import TuiEditor from './TuiEditor';
 
 
 ReactDOM.render(
-  <div><TuiEditor /></div>, 
+  <TuiEditor />, 
   document.getElementById('root')
 );
 
