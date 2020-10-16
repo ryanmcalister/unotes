@@ -35,7 +35,6 @@ class TuiEditor extends Component {
     constructor(props) {
         super(props);
         this.el = React.createRef();
-        this.handleResizeMessage = debounce(this.handleResizeMessage.bind(this), 1000);
         this.onHtmlBefore = this.onHtmlBefore.bind(this);
         this.onAfterMarkdown = this.onAfterMarkdown.bind(this);
         this.onPreviewBeforeHook = this.onPreviewBeforeHook.bind(this);
@@ -60,7 +59,8 @@ class TuiEditor extends Component {
             initialEditType: 'wysiwyg',
             previewStyle: 'vertical',
             frontMatter: true,
-            height: window.innerHeight - 20,
+            minHeight: '100vh',
+            height: '100vh',
             events: {
                 change: debounce(this.onChange.bind(this), 400)
             },
@@ -119,7 +119,6 @@ class TuiEditor extends Component {
 
         window.addEventListener('message', this.handleMessage);
 
-        window.addEventListener('resize', this.handleResizeMessage);
 
         this.setState({ editor });
 
@@ -192,13 +191,6 @@ class TuiEditor extends Component {
 
     componentWillUnmount() {
         window.removeEventListener('message', this.handleMessage.bind(this));
-        window.removeEventListener('resize', this.handleResizeMessage);
-    }
-
-    handleResizeMessage(e) {
-        window.vscode.postMessage({
-            command: 'resized'
-        });
     }
 
     setContent(data){
@@ -259,7 +251,7 @@ class TuiEditor extends Component {
 
     render() {
         return (
-            <div className={(this.state.settings.display2X) ? "display2X" : "display1X"} id="editor" ref={this.el} />
+            <div className={".tui-doc-contents " + ((this.state.settings.display2X) ? "display2X" : "display1X")} id="editor" ref={this.el} />
         );
     }
 }

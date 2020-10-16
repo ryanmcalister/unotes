@@ -1,7 +1,7 @@
 {
     "name": "Unotes",
     "displayName": "UNOTES - Markdown Notes WYSIWYG",
-    "version": "1.2.0",
+    "version": "1.2.1",
     "author": {
         "name": "Ryan McAlister",
         "email": "rymc26@gmail.com"
@@ -286,6 +286,42 @@
                     "dark": "#e0a161",
                     "light": "#206020",
                     "highContrast": "#e0a161"
+                }
+            },
+            {
+                "id": "unotes.mdCodeBlockBackground",
+                "description": "Unotes markdown codeblock background",
+                "defaults": {
+                    "dark": "textBlockQuote.background",
+                    "light": "textBlockQuote.background",
+                    "highContrast": "textBlockQuote.background"
+                }
+            },
+            {
+                "id": "unotes.mdHighlightText",
+                "description": "Unotes markdown highlight text",
+                "defaults": {
+                    "dark": "textPreformat.foreground",
+                    "light": "textPreformat.foreground",
+                    "highContrast": "textBlockQuote.background"
+                }
+            },
+            {
+                "id": "unotes.mdTableText",
+                "description": "Unotes markdown table text",
+                "defaults": {
+                    "dark": "textPreformat.foreground",
+                    "light": "textPreformat.foreground",
+                    "highContrast": "textPreformat.foreground"
+                }
+            },
+            {
+                "id": "unotes.mdTableDelimiter",
+                "description": "Unotes markdown table delimiter",
+                "defaults": {
+                    "dark": "textPreformat.foreground",
+                    "light": "textPreformat.foreground",
+                    "highContrast": "textPreformat.foreground"
                 }
             },
             {
@@ -711,6 +747,7 @@
     },
     "scripts": {
         "vscode:prepublish": "npm run build-editor && npm run bundle",
+        "build-all": "npm run build-editor && npm run build",
         "build": "webpack --mode development",
         "remove-build": "run-script-os",
         "remove-build:win32": "IF EXIST ./build\\NUL (rmdir /s /q build)",

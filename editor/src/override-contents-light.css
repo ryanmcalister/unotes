@@ -39,6 +39,7 @@ body.vscode-light .tui-editor-contents pre {
 }
 
 body.vscode-light .tui-editor-contents code {
+    background-color: var(--vscode-unotes-wysCodeBlockBackground);
     color: var(--vscode-unotes-wysHighlight);
 }
 
