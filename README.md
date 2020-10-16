@@ -199,7 +199,10 @@ You can set options in the vscode workspace settings.json file:
 | mdListSub2             | Unotes markdown list sub item 2          |
 | mdListSub3             | Unotes markdown list sub item 3          |
 | mdCodeBlockText        | Unotes markdown codeblock text           |
-| mdLink                 | Unotes markdown link                     |
+| mdCodeBlockBackground  | Unotes markdown codeblock background     |
+| mdHighlightText        | Unotes markdown highlight text           |
+| mdCodeBlockText        | Unotes markdown codeblock text           |
+| mdTableText            | Unotes markdown table text               |
 | pvCodeComment          | Unotes preview code comment              |
 | pvCodeText             | Unotes preview code text                 |
 | pvCodeKeyword          | Unotes preview code keyword              |

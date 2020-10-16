@@ -289,6 +289,42 @@
                 }
             },
             {
+                "id": "unotes.mdCodeBlockBackground",
+                "description": "Unotes markdown codeblock background",
+                "defaults": {
+                    "dark": "textBlockQuote.background",
+                    "light": "textBlockQuote.background",
+                    "highContrast": "textBlockQuote.background"
+                }
+            },
+            {
+                "id": "unotes.mdHighlightText",
+                "description": "Unotes markdown highlight text",
+                "defaults": {
+                    "dark": "textPreformat.foreground",
+                    "light": "textPreformat.foreground",
+                    "highContrast": "textBlockQuote.background"
+                }
+            },
+            {
+                "id": "unotes.mdTableText",
+                "description": "Unotes markdown table text",
+                "defaults": {
+                    "dark": "textPreformat.foreground",
+                    "light": "textPreformat.foreground",
+                    "highContrast": "textPreformat.foreground"
+                }
+            },
+            {
+                "id": "unotes.mdTableDelimiter",
+                "description": "Unotes markdown table delimiter",
+                "defaults": {
+                    "dark": "textPreformat.foreground",
+                    "light": "textPreformat.foreground",
+                    "highContrast": "textPreformat.foreground"
+                }
+            },
+            {
                 "id": "unotes.mdLink",
                 "description": "Unotes markdown link",
                 "defaults": {

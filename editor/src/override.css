@@ -660,3 +660,49 @@ body.vscode-dark .tui-toolbar-icons.tui-more {
 body.vscode-dark .tui-toolbar-icons.tui-more:disabled {
   background-position: -193px -92px;
 }
+
+body.vscode-dark .tui-md-delimiter,
+.tui-md-thematic-break,
+.tui-md-link,
+.tui-md-table,
+.tui-md-block-quote {
+  color: var(--vscode-unotes-mdTableDelimiter);
+}
+
+body.vscode-dark .tui-md-code-block.CodeMirror-linebackground {
+    left: 2px;
+    right: 2px;
+    background-color: var(--vscode-unotes-mdCodeBlockBackground);
+}
+
+body.vscode-dark .tui-md-meta,
+body.vscode-dark .tui-md-html,
+body.vscode-dark .tui-md-link.tui-md-link-url.tui-md-marked-text {
+  color: #999;
+}
+
+body.vscode-dark .tui-md-block-quote.tui-md-marked-text,
+body.vscode-dark .tui-md-list-item.tui-md-meta {
+  color: #555;
+}
+
+body.vscode-dark .tui-md-table.tui-md-marked-text {
+  color: var(--vscode-unotes-mdTableText);
+}
+
+body.vscode-dark .tui-md-link.tui-md-link-desc.tui-md-marked-text,
+body.vscode-dark .tui-md-list-item-odd.tui-md-list-item-bullet {
+  color: #4b96e6;
+}
+
+body.vscode-dark .tui-md-list-item-even.tui-md-list-item-bullet {
+  color: #cb4848;
+}
+
+body.vscode-dark .tui-md-code.tui-md-marked-text {
+  color: var(--vscode-unotes-mdHighlightText);
+}
+
+body.vscode-dark .tui-md-code {
+  background-color: var(--vscode-unotes-mdCodeBlockBackground);
+}

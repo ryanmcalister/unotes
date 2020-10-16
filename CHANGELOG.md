@@ -1,5 +1,15 @@
 # Updates
 
+## [1.2.1] - 2020-10-16
+
+### Added
+
+- `mdCodeBlockBackground`, `mdHighlightText`, `mdTableText` theme colors
+
+### Fixed
+
+- Startup / resizing flickering window
+
 ## [1.2.0] - 2020-10-01
 
 ### Added
