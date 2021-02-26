@@ -23,11 +23,11 @@ class UnotesConfig {
         this.settings = vscode.workspace.getConfiguration(extId);
         
         // root path setup
-        if (!vscode.workspace.workspaceFolders || vscode.workspace.workspaceFolders.length == 0) {
-            return;
-        }        
         this.rootPath = this.settings.get('rootPath', '');
         if (!this.rootPath) {
+            if (!vscode.workspace.workspaceFolders || vscode.workspace.workspaceFolders.length == 0) {
+                return;
+            }
             this.rootPath = vscode.workspace.workspaceFolders[0].uri.fsPath;
         }
         this.folderPath = path.join(this.rootPath, './.unotes');

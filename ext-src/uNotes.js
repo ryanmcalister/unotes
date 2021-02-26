@@ -60,12 +60,13 @@ class UNotes {
         this.currentNote = null;
         this.selectAfterRefresh = null;
 
-        if (!vscode.workspace.workspaceFolders) {
+        this.rootPath = vscode.workspace.getConfiguration('unotes').get('rootPath', '');
+        if (!this.rootPath && !vscode.workspace.workspaceFolders) {
             vscode.window.showWarningMessage("Please open a folder BEFORE using unotes.");
             return;
         }
 
-        if (vscode.workspace.workspaceFolders.length > 1) {
+        if (!this.rootPath && vscode.workspace.workspaceFolders.length > 1) {
             vscode.window.showWarningMessage("Warning: unotes currently does not support multiple workspaces.");
         }
 
@@ -141,7 +142,7 @@ class UNotes {
             vscode.commands.registerCommand('unotes.convertImages', this.onConvertImages.bind(this))
         );
 
-        if (Config.rootPath === vscode.workspace.workspaceFolders[0].uri.fsPath) {
+        if (vscode.workspace.workspaceFolders && Config.rootPath === vscode.workspace.workspaceFolders[0].uri.fsPath) {
             // Can't watch folders outside of workspace
             this.setupFSWatcher();
         }
