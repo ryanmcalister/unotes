@@ -1,5 +1,16 @@
 # Updates
 
+## [1.2.2] - 2021-02-27
+
+### Added
+
+- Updated tui-editor to v2.5.1
+
+### Fixed
+
+- Unotes works without open folder if root folder setting set [(issue: #8)](https://github.com/ryanmcalister/unotes/issues/8) (contributed by ReshefElisha)
+- Unotes uses first folder if multiple project folders open (contributed by ReshefElisha)
+
 ## [1.2.1] - 2020-10-16
 
 ### Added
