@@ -1,5 +1,12 @@
 # Updates
 
+## [1.3.0] - 2021-03-04
+
+### Added
+
+- KaTeX math code block rendering [(issue: #7)](https://github.com/ryanmcalister/unotes/issues/7)
+- VSCode editor font settings now supported [(issue: #98)](https://github.com/ryanmcalister/unotes/issues/98)
+
 ## [1.2.2] - 2021-02-27
 
 ### Added

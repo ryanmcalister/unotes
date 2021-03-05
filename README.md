@@ -15,9 +15,10 @@
 
 If you find Unotes useful, please [write a review](https://marketplace.visualstudio.com/items?itemName=ryanmcalister.Unotes&ssr=false#review-details).
 
-# What's new in Unotes 1.2
+# What's new in Unotes 1.3
 
-- [Support for YAML front matter](#yaml-front-matter-support)
+- [Support for Katex math typesetting](#math-typesetting)
+- [Font customization](#font-customization)
 
 # ᑌᑎotes
 
@@ -70,6 +71,23 @@ Local Image Example
 ```
 
 ### Table Support
+
+Use the table toolbar button to insert a table. Right-click on the table to open the table editing menu.
+
+![TableMenu](https://raw.githubusercontent.com/ryanmcalister/unotes/master/resources/screenshots/tables.gif)
+
+### Math Typesetting
+
+- Only [KaTeX](https://katex.org) currently supported
+
+#### KaTeX Example
+
+```katex
+\begin{aligned}
+\int_0^12\frac{x^3(1-x)^3}{10+x^2}\,dx &=\frac{22}{17}-\pi\\ \\
+\int_{-\infty}^\infty e^{-x^2}\,dx &=\sqrt{\pi}
+\end{aligned}
+```
 
 ### Customizable Hotkeys
 
@@ -155,6 +173,10 @@ title: title
 | unotes.mediaFolder                | The folder where pasted or converted images will be saved. Relative to the note.                                                                                                        |
 | unotes.noteFileExtension          | The file extension used to filter and save note files. Default = '.md'                                                                                                                  |
 | unotes.rootPath                   | The root folder path for the note files.<br>Setting this value will turn off auto-tracking of external file changes.<br>If needed you can click the 'Refresh' button on the notes tree. |
+
+## Font Customization
+
+Unotes now uses the VSCode `editor.font-size`, `editor.font-family` and `editor.font-weight` settings.
 
 ## Custom Colors
 
