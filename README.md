@@ -89,6 +89,9 @@ Use the table toolbar button to insert a table. Right-click on the table to open
 \end{aligned}
 ```
 
+![KaTeX](https://raw.githubusercontent.com/ryanmcalister/unotes/master/resources/screenshots/katex.png)
+
+
 ### Customizable Hotkeys
 
 | Command                 | Default        |
