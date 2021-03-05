@@ -17,6 +17,9 @@ import './override-hljs.css';
 import remark from 'remark';
 import unotesRemarkPlugin from './unotesRemarkPlugin';
 import { debounce } from 'debounce';
+import katex from 'katex'
+import 'katex/dist/katex.min.css'
+import './override-katex.css'
 
 // root for local images
 var img_root = '';
@@ -28,6 +31,30 @@ function escapeRegExp(str) {
 function replaceAll(str, find, replace) {
     return str.replace(new RegExp(escapeRegExp(find), 'g'), replace);
 }
+
+/**
+ * KATEX code block replacer
+ */
+function katexReplacer(code) {
+    let newHTML;
+
+    try {
+        const katex_options = {
+            throwOnError: false
+        };
+        newHTML = katex.renderToString(code, katex_options);
+
+    } catch (err) {
+        newHTML = `Error occurred rendering katex: ${err.message}`;
+    }
+
+    return newHTML;
+}
+
+function katexPlugin() {
+    Editor.codeBlockManager.setReplacer('katex', katexReplacer);
+}
+
 
 
 class TuiEditor extends Component {
@@ -66,7 +93,7 @@ class TuiEditor extends Component {
             },
             usageStatistics: false,
             useCommandShortcut: false,
-            plugins: [chart, uml, [codeSyntaxHighlight, { hljs }]],
+            plugins: [chart, uml, [codeSyntaxHighlight, { hljs }], katexPlugin],
             toolbarItems: [
                 'heading',
                 'bold',

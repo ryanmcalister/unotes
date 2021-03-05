@@ -7,6 +7,7 @@
     "@toast-ui/editor-plugin-code-syntax-highlight": "^1.0.0",
     "@toast-ui/editor-plugin-uml": "^1.0.0",
     "debounce": "^1.2.0",
+    "katex": "^0.12.0",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
     "react-scripts": "^2.1.8",

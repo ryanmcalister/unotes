@@ -3,6 +3,9 @@
 body.vscode-light .CodeMirror {
   /* Set height, width, borders, and global font properties here */
   color: var(--vscode-unotes-mdText);
+  font-size: 1em;
+  font-family: var(--vscode-editor-font-family);
+  font-weight: var(--vscode-editor-font-weight);
 }
 
 body.vscode-light .CodeMirror-scrollbar-filler, .CodeMirror-gutter-filler {

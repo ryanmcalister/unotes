@@ -3,6 +3,11 @@
 * @fileoverview style for content
 * @author NHN Ent. FE Development Lab <dl_javascript@nhnent.com>
 */
+body.vscode-light .tui-editor-contents {
+    font-size: 1em;
+    font-family: var(--vscode-editor-font-family);
+    font-weight: var(--vscode-editor-font-weight);
+}
 
 body.vscode-light .tui-editor-contents p {
     color: #777;
