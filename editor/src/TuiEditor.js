@@ -15,6 +15,8 @@ import './override-codemirror.css';
 import './override-codemirror-light.css';
 import './override-hljs.css';
 import remark from 'remark';
+import gfm from 'remark-gfm';
+import frontmatter from 'remark-frontmatter';
 import unotesRemarkPlugin from './unotesRemarkPlugin';
 import { debounce } from 'debounce';
 import katex from 'katex'
@@ -163,10 +165,14 @@ class TuiEditor extends Component {
             // Reformat markdown
             // console.log("from...")
             // console.log(e);
-            const md = remark().use({
+            let md = remark().use({
                     settings: this.remarkSettings
                 })
-                .use(this.remarkPlugin)
+            if(this.remarkSettings && this.remarkSettings.gfm){
+                md = md.use(gfm, this.remarkSettings)
+            }
+            md = md.use(frontmatter, ['yaml', 'toml'])
+                // .use(this.remarkPlugin)
                 .processSync(e).contents;
             // console.log("to...")
             // console.log(md);
