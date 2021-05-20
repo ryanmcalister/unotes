@@ -11,7 +11,9 @@
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
     "react-scripts": "^2.1.8",
-    "remark": "^10.0.1"
+    "remark": "^13.0.0",
+    "remark-frontmatter": "^3.0.0",
+    "remark-gfm": "^1.0.0"
   },
   "devDependencies": {
     "rewire": "^4.0.1"
