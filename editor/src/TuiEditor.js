@@ -168,7 +168,7 @@ class TuiEditor extends Component {
             let md = remark().use({
                     settings: this.remarkSettings
                 })
-            if(this.remarkSettings && this.remarkSettings.gfm){
+            if(this.remarkSettings.gfm){
                 md = md.use(gfm, this.remarkSettings)
             }
             md = md.use(frontmatter, ['yaml', 'toml'])
