@@ -1,5 +1,11 @@
 # Updates
 
+## [1.3.1] - 2021-05-21
+
+### Updated
+
+- Remark updated to v13 and support added for front matter (contributed by codeofpi)
+
 ## [1.3.0] - 2021-03-04
 
 ### Added
