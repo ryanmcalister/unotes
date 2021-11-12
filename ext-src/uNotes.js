@@ -111,6 +111,14 @@ class UNotes {
         );
 
         this.disposables.push(
+            vscode.commands.registerCommand('unotes.addTemplateNote', this.onAddNewTemplateNote.bind(this))
+        );
+
+        this.disposables.push(
+            vscode.commands.registerCommand('unotes.addTemplateNoteHere', this.onAddNewTemplateNoteHere.bind(this))
+        );
+
+        this.disposables.push(
             vscode.commands.registerCommand('unotes.refreshTree', this.onRefreshTree.bind(this))
         );
 
@@ -392,14 +400,22 @@ class UNotes {
         }
     }
 
-    addNoteCommon(paths) {
-        vscode.window.showInputBox({ placeHolder: 'Enter new note name' })
+    addNoteCommon(paths, template) {
+        return vscode.window.showInputBox({ placeHolder: 'Enter new note name' })
             .then(value => {
                 if (!value) return;
-                const newFileName = Utils.stripExt(value) + Config.noteFileExtension;
+                const title = Utils.stripExt(value);
+                const newFileName = title + Config.noteFileExtension;
                 paths.push(newFileName);
                 const newFilePath = path.join(...paths);
-                if (this.addNewNote(newFilePath)) {
+                const data = {
+                    title,
+                    date: new Date()
+                };
+                return Utils.getTemplate(template, data);
+            })
+            .then(template_data => {
+                if (this.addNewNote(newFilePath, template_data)) {
                     this.selectAfterRefresh = newFilePath;
                 }
                 this.uNoteProvider.refresh();
@@ -414,27 +430,63 @@ class UNotes {
                         }
                     }, 500);
                 }
+                return newFilePath;
             })
             .catch(err => {
                 console.log(err);
             });
     }
 
-    onAddNewNoteHere(item) {
-        if (!item) {
-            return;
-        }
+    addNewNoteHere(item) {
         const paths = [Config.rootPath];
         paths.push(item.folderPath);
         if (item.isFolder) {
             // add parent folder name
             paths.push(item.file);
         }
-        this.addNoteCommon(paths);
+        return this.addNoteCommon(paths, null);
+    }
+
+    onAddNewNoteHere(item) {
+        if (!item) {
+            return;
+        }
+        this.addNewNoteHere(item);
     }
 
     onAddNewNote() {
-        this.addNoteCommon(this.getSelectedPaths());
+        this.addNoteCommon(this.getSelectedPaths(), null);
+    }
+
+    getTemplates() {
+        // grab the list of templates
+        const p = Utils.getTemplateList()
+            .then(results => {
+                return results;
+
+            }).then(templates => {
+                // show a picklist
+                return vscode.window.showQuickPick(
+                    templates,
+                    { title: "Unote Templates" }
+                );
+            });
+
+        return p;        
+    }
+
+    onAddNewTemplateNoteHere(item) {
+        this.getTemplates()
+            .then(result => {
+                this.addNewNoteHere(item, result);
+            });
+    }
+
+    onAddNewTemplateNote() {
+        this.getTemplates()
+            .then(result => {
+                this.addNoteCommon(this.getSelectedPaths(), result);
+            });        
     }
 
     onRefreshTree() {
@@ -479,10 +531,11 @@ class UNotes {
         this.addFolderCommon(this.getSelectedPaths());
     }
 
-    addNewNote(notePath) {
+    addNewNote(notePath, data) {
         if (!fs.existsSync(notePath)) {
             try {
-                fs.writeFileSync(notePath, '');
+                if (!data) data = '';
+                fs.writeFileSync(notePath, data);
                 return true;
 
             } catch (e) {

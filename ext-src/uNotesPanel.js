@@ -183,6 +183,9 @@ class UNotesPanel {
             this.disposables.push(vscode.commands.registerCommand("unotes.toggleMode", () => {
                 this.toggleEditorMode();
             }));
+            this.disposables.push(vscode.command.registerCommand("unotes.insertTemplate", () => {
+                this.insertTemplate();
+            }));
 
             Utils.context.subscriptions.push(Config.onDidChange_editor_settings(this.updateEditorSettings.bind(this)));
             this.updateEditorSettings();
@@ -234,6 +237,10 @@ class UNotesPanel {
         if (this.panel.active) {
             this.panel.webview.postMessage({ command: 'toggleMode'});
         }
+    }
+
+    insertTemplate() {
+        // todo
     }
 
     saveChanges(content) {

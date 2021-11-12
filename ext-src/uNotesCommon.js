@@ -8,8 +8,12 @@ const path = require("path");
 const vscode = require("vscode");
 const fs = require("fs");
 const gl = require('glob');
+const Handlebars = require("express-handlebars");
+const moment = require("moment")
 const extId = 'unotes';
 const imgPrefix = 'img_';
+const templateExt = '.hbs';
+const templateDir = 'templates';
 
 exports.ExtId = extId;
 
@@ -53,6 +57,11 @@ class UnotesConfig {
         // setting change events
         this._onDidChange_editor_settings = new vscode.EventEmitter();
         this.onDidChange_editor_settings = this._onDidChange_editor_settings.event;
+
+        // handlebars helpers
+        Handlebars.registerHelper('formatDate', function (dtFormat) {
+            return moment().format(dtFormat);
+        });
         
     }
 
@@ -82,6 +91,14 @@ exports.Utils = {
 
     stripExt(str) {
         const pos = str.toUpperCase().lastIndexOf(Config.noteFileExtension.toUpperCase());
+        if (pos < 0) {
+            return str;
+        }
+        return str.substring(0, pos);
+    },
+
+    stripTemplateExt(str) {
+        const pos = str.toUpperCase().lastIndexOf(templateExt.toUpperCase());
         if (pos < 0) {
             return str;
         }
@@ -156,5 +173,47 @@ exports.Utils = {
     
     getImageTagUrl(imgName){
         return `${Config.mediaFolder}/${imgName}`;
-    } 
+    },
+
+    /**
+     * Get the sorted list of available template names in a workspace
+     */
+    getTemplateList(){
+        if (!vscode.workspace.workspaceFolders || vscode.workspace.workspaceFolders.length == 0) {
+            return new Promise();
+        }
+        const include = new vscode.RelativePattern(Config.rootPath, `.unotes/${templateDir}/*${templateExt}`);
+        const p = vscode.workspace.findFiles(include, null, 100)
+            .then(results => {
+                const list = [];
+                results.forEach(r => {
+                    list.push(path.basename(r.path, templateExt));
+                });
+                return list.sort();
+            });
+        return p;
+    },
+
+    /**
+     * Get the template data or the default template
+     */
+    getTemplate(name, data){
+        let temp_name = name;
+        if (!temp_name){
+            temp_name = Config.settings.get('newNoteTemplate');
+        }
+        const temp_path = path.join(Config.rootPath, '.unotes', templateDir, `${temp_name}${templateExt}`);
+        return vscode.workspace.fs.readFile(temp_path)
+            .then(d => {
+                const template = Handlebars.compile(d);
+                const result = template(data);
+                return result;
+            })
+            .catch(err => {
+                console.log(err);
+                return '';
+            });
+    }
+
+
 } // Utils

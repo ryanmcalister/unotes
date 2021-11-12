@@ -22,7 +22,10 @@ const config = {
   },
   resolve: {
     // support reading TypeScript and JavaScript files, 📖 -> https://github.com/TypeStrong/ts-loader
-    extensions: ['.ts', '.js']
+    extensions: ['.ts', '.js'],
+    alias: {
+        'express-handlebars': 'handlebars/dist/handlebars.js'
+    }
   },
   module: {
     rules: [
