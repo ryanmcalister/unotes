@@ -59,10 +59,19 @@ class UnotesConfig {
         this.onDidChange_editor_settings = this._onDidChange_editor_settings.event;
 
         // handlebars helpers
-        Handlebars.registerHelper('formatDate', function (dtFormat) {
-            return moment().format(dtFormat);
+        Handlebars.registerHelper('formatDate', function (dt, dtFormat) {
+            return moment(dt).format(dtFormat);
         });
         
+    }
+
+    async checkDefaultTemplate() {
+        try {
+            // todo
+
+        } catch (e) {
+
+        }
     }
 
     onChange(e) {
@@ -177,42 +186,47 @@ exports.Utils = {
 
     /**
      * Get the sorted list of available template names in a workspace
+     * @returns string array
      */
-    getTemplateList(){
-        if (!vscode.workspace.workspaceFolders || vscode.workspace.workspaceFolders.length == 0) {
-            return new Promise();
-        }
+    async getTemplateList(){
+        const list = []
         const include = new vscode.RelativePattern(Config.rootPath, `.unotes/${templateDir}/*${templateExt}`);
-        const p = vscode.workspace.findFiles(include, null, 100)
-            .then(results => {
-                const list = [];
-                results.forEach(r => {
-                    list.push(path.basename(r.path, templateExt));
-                });
-                return list.sort();
-            });
-        return p;
+        const results = await vscode.workspace.findFiles(include, null, 100)
+           
+        results.forEach(r => {
+            list.push(path.basename(r.path, templateExt));
+        });
+
+        return list.sort();
     },
 
     /**
      * Get the template data or the default template
+     * @param name the name of the template
+     * @param data the context data for handlebars
+     * @returns the formatted string
      */
-    getTemplate(name, data){
+    async getTemplate(name, data){
         let temp_name = name;
         if (!temp_name){
             temp_name = Config.settings.get('newNoteTemplate');
         }
+        if (!temp_name) return '';
+
         const temp_path = path.join(Config.rootPath, '.unotes', templateDir, `${temp_name}${templateExt}`);
-        return vscode.workspace.fs.readFile(temp_path)
-            .then(d => {
-                const template = Handlebars.compile(d);
-                const result = template(data);
-                return result;
-            })
-            .catch(err => {
-                console.log(err);
-                return '';
-            });
+            
+        try {
+            const d = await vscode.workspace.fs.readFile(vscode.Uri.file(temp_path));
+            const decoded = new TextDecoder().decode(d);
+            const template = Handlebars.compile(decoded);
+            const result = template(data);
+            return result;
+        
+        } catch(e) {
+            console.log(e.message);
+            await vscode.window.showWarningMessage(e.message);
+        }
+        return '';
     }
 
 
