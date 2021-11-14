@@ -74,7 +74,7 @@
                 },
                 "unotes.newNoteTemplate": {
                     "type": "string",
-                    "default": "title_date.hbs",
+                    "default": "title_date",
                     "markdownDescription": "The template used for new notes"
                 }
             }
