@@ -159,6 +159,10 @@ class UNotes {
 
     }
 
+    async initialize() {
+        await Config.checkDefaultTemplate();
+    }
+
     setupFSWatcher() {
         // Setup the File System Watcher for file events
         const fswatcher = vscode.workspace.createFileSystemWatcher(`**/*${Config.noteFileExtension}`, false, false, false);
@@ -403,7 +407,7 @@ class UNotes {
     async addNoteCommon(paths, template) {
         try {
             const note_name = await vscode.window.showInputBox({ placeHolder: 'Enter new note name' });
-            if (!note_name) return new Promise();
+            if (!note_name) return;
 
             const title = Utils.stripExt(note_name);
             const newFileName = title + Config.noteFileExtension;

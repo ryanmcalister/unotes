@@ -65,12 +65,35 @@ class UnotesConfig {
         
     }
 
+    /**
+     * Makes sure than the default template file and directory are in place
+     */
     async checkDefaultTemplate() {
+        
+        const default_template = "title_date.hbs"
+        const default_data = `# {{title}}\n\n{{formatDate date "llll"}}\n\n`
+        const temp_path = path.join(this.rootPath, '.unotes', templateDir, `${default_template}`);           
+           
         try {
-            // todo
+            await vscode.workspace.fs.stat(vscode.Uri.file(temp_path));
+            return;
 
         } catch (e) {
+            if (e instanceof vscode.FileSystemError && e.code == 'FileNotFound') {
+                console.log("Creating default template...");
+            } else {
+                console.log(`Failed to check template file: ${e.message}`);
+                return;
+            }
+        }
 
+        // create the default template
+        try {
+            const encoder = new TextEncoder();
+            await vscode.workspace.fs.writeFile(vscode.Uri.file(temp_path), encoder.encode(default_data));
+        
+        } catch (e) {
+            console.log(e.message);
         }
     }
 
@@ -212,6 +235,7 @@ exports.Utils = {
             temp_name = Config.settings.get('newNoteTemplate');
         }
         if (!temp_name) return '';
+        temp_name = this.stripTemplateExt(temp_name);
 
         const temp_path = path.join(Config.rootPath, '.unotes', templateDir, `${temp_name}${templateExt}`);
             

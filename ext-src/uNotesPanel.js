@@ -183,7 +183,7 @@ class UNotesPanel {
             this.disposables.push(vscode.commands.registerCommand("unotes.toggleMode", () => {
                 this.toggleEditorMode();
             }));
-            this.disposables.push(vscode.command.registerCommand("unotes.insertTemplate", () => {
+            this.disposables.push(vscode.commands.registerCommand("unotes.insertTemplate", () => {
                 this.insertTemplate();
             }));
 
