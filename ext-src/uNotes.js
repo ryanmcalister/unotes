@@ -6,11 +6,11 @@ Object.defineProperty(exports, "__esModule", {
 
 const vscode = require("vscode");
 const path = require("path");
-const fs = require("fs");
 const { UNotesPanel } = require("./uNotesPanel");
 const { UNoteProvider } = require("./uNoteProvider");
 const { UNote } = require("./uNote");
 const { Config, Utils, ExtId, GlobalState } = require("./uNotesCommon");
+
 
 
 const getVersion = function (val) {
@@ -72,10 +72,8 @@ class UNotes {
 
         Utils.context = context;
 
-        this.initUnotesFolder();
-
-        context.subscriptions.push(vscode.commands.registerCommand('unotes.start', function () {
-            UNotesPanel.createOrShow(context.extensionPath);
+        context.subscriptions.push(vscode.commands.registerCommand('unotes.start', async function () {
+            await UNotesPanel.createOrShow(context.extensionPath);
         }));
 
         context.subscriptions.push(vscode.workspace.onDidChangeConfiguration(Config.onChange.bind(Config)));
@@ -87,14 +85,14 @@ class UNotes {
         const view = vscode.window.createTreeView('unoteFiles', { treeDataProvider: uNoteProvider });
         this.view = view;
 
-        view.onDidChangeSelection((e) => {
+        view.onDidChangeSelection(async (e) => {
             if (e.selection.length > 0) {
                 console.log("selection change.");
                 this.currentNote = e.selection[0];
                 if (!e.selection[0].isFolder) {
-                    UNotesPanel.createOrShow(context.extensionPath);
+                    await UNotesPanel.createOrShow(context.extensionPath);
                     const panel = UNotesPanel.instance();
-                    panel.showUNote(e.selection[0]);
+                    await panel.showUNote(e.selection[0]);
                 }
             } else {
                 console.log("selection cleared.");
@@ -150,10 +148,6 @@ class UNotes {
             vscode.commands.registerCommand('unotes.convertImages', this.onConvertImages.bind(this))
         );
 
-        if (vscode.workspace.workspaceFolders && Config.rootPath === vscode.workspace.workspaceFolders[0].uri.fsPath) {
-            // Can't watch folders outside of workspace
-            this.setupFSWatcher();
-        }
 
         checkWhatsNew(context);
 
@@ -161,17 +155,26 @@ class UNotes {
 
     async initialize() {
         await Config.checkDefaultTemplate();
+
+        await this.initUnotesFolder();
+        
+        if (vscode.workspace.workspaceFolders && Config.rootPath === vscode.workspace.workspaceFolders[0].uri.fsPath) {
+            // Can't watch folders outside of workspace
+            await this.setupFSWatcher();
+        }
+
+        await this.uNoteProvider.initialize();
     }
 
-    setupFSWatcher() {
+    async setupFSWatcher() {
         // Setup the File System Watcher for file events
         const fswatcher = vscode.workspace.createFileSystemWatcher(`**/*${Config.noteFileExtension}`, false, false, false);
 
-        fswatcher.onDidChange((e) => {
+        fswatcher.onDidChange(async (e) => {
             //console.log("onDidChange");
             if (UNotesPanel.instance()) {
                 const panel = UNotesPanel.instance();
-                if (panel && panel.updateFileIfOpen(e.fsPath)) {
+                if (panel && await panel.updateFileIfOpen(e.fsPath)) {
                     this.uNoteProvider.refresh();
                 }
 
@@ -195,17 +198,23 @@ class UNotes {
         }, null, this.disposables);
     }
 
-    initUnotesFolder() {
+    async initUnotesFolder() {
         try {
-            if (fs.existsSync(Config.folderPath) && !fs.lstatSync(Config.folderPath).isDirectory()) {
-                fs.unlinkSync(Config.folderPath);
+            const exists = await Utils.fileExists(Config.folderPath)
+            if(exists){
+                // get the stats and check if directory
+                const stat = await vscode.workspace.fs.stat(vscode.Uri.file(Config.folderPath));
+                if (stat.type == vscode.FileType.Directory) {
+                    return;
+                }
+                
+                // remove if not a directory
+                await vscode.workspace.fs.delete(vscode.Uri.file(Config.folderPath));
             }
-            if (!fs.existsSync(Config.folderPath)) {
-                fs.mkdirSync(Config.folderPath);
-            }
+            await vscode.workspace.fs.createDirectory(vscode.Uri.file(Config.folderPath));
 
         } catch (e) {
-            vscode.window.showWarningMessage("Failed to create .unotes folder.");
+            await vscode.window.showWarningMessage("Failed to initialize .unotes folder.");
         }
     }
 
@@ -223,7 +232,7 @@ class UNotes {
         return paths;
     }
 
-    onConvertImages(note) {
+    async onConvertImages(note) {
         if(!note){
             const panel = UNotesPanel.instance();
             if(panel){
@@ -231,7 +240,7 @@ class UNotes {
             }
         }
         if(!note){
-            vscode.window.showWarningMessage("Please open a note file before converting images.");
+            await vscode.window.showWarningMessage("Please open a note file before converting images.");
             return;
         }
         // open the file and convert
@@ -242,11 +251,13 @@ class UNotes {
         let imgType = 'png';
 
         try {
-
-            const content = fs.readFileSync(notePath, 'utf8');
+            const decoder = new TextDecoder();
+            const content = decoder.decode( await vscode.workspace.fs.readFile(vscode.Uri.file(notePath)));
 
             // get a unique image index
-            let index = Utils.getNextImageIndex(noteFolder);
+            let index = await Utils.getNextImageIndex(noteFolder);
+
+            const imgBuffersTypes = [];  // buffer, index, type
 
             let newContent = content.replace(re, (full_match, img) => {
                 let match = /image\/(.*);/g.exec(full_match);
@@ -254,19 +265,25 @@ class UNotes {
                     imgType = match[1];
                 }
                 // write the file
-                const fname = Utils.saveMediaImage(noteFolder, new Buffer.alloc(img.length, img, 'base64'), index++, imgType);
+                const fname = Utils.getImageName(index, imgType);
+                imgBuffersTypes.push([new Buffer.from(img, 'base64'), index++, imgType]);
 
                 found++;
                 // replace the content with the the relative path
                 return Utils.getImageTag(fname);
             });
 
+            for (const img of imgBuffersTypes){
+                await Utils.saveMediaImage(noteFolder, img[0], img[1], img[2]);
+            }
+
             if (found > 0) {
                 // save the new content
-                fs.writeFileSync(notePath, newContent, 'utf8');
+                const encoder = new TextEncoder();
+                await vscode.workspace.fs.writeFile(vscode.Uri.file(notePath), encoder.encode(newContent));
                 if (UNotesPanel.instance()) {
                     const panel = UNotesPanel.instance();
-                    if (panel && panel.updateFileIfOpen(notePath)) {
+                    if (panel && await panel.updateFileIfOpen(notePath)) {
                         this.uNoteProvider.refresh();
                     }
 
@@ -274,10 +291,10 @@ class UNotes {
                     this.uNoteProvider.refresh();
                 }
 
-                vscode.window.showInformationMessage(`Converted and saved ${found} image files.`);
+                await vscode.window.showInformationMessage(`Converted and saved ${found} image files.`);
             
             } else {
-                vscode.window.showInformationMessage(`No embedded images found.`);
+                await vscode.window.showInformationMessage(`No embedded images found.`);
             }
         }
         catch (e) {
@@ -326,7 +343,7 @@ class UNotes {
 
         // make sure there isn't a name collision
         const newFilePath = path.join(Config.rootPath, note.folderPath, newFileName);
-        if(fs.existsSync(newFilePath)){
+        if(await Utils.fileExists(newFilePath)){
             await vscode.window.showWarningMessage(`'${newFileName}' already exists.`);
             return;
         }
@@ -349,22 +366,9 @@ class UNotes {
         this.uNoteProvider.refresh();
         const panel = UNotesPanel.instance();
         if (panel){
-            panel.switchIfOpen(note, UNote.noteFromPath(newFilePath));
+            await panel.switchIfOpen(note, UNote.noteFromPath(newFilePath));
         }
 
-    }
-
-    async exists(filePath) {
-        try {
-            let stat = await vscode.workspace.fs.stat(vscode.Uri.file(filePath));
-            if(stat){
-                return true;
-            }
-            return false;
-        
-        } catch(e) {
-            return false;
-        }
     }
     
     async onRenameFolder(folder) {
@@ -377,7 +381,7 @@ class UNotes {
         if(value === folder.file) return;   // no change
 
         const newFolderPath = path.join(Config.rootPath, folder.folderPath, value);
-        if(fs.existsSync(newFolderPath)){
+        if(await Utils.fileExists(newFolderPath)){
             await vscode.window.showWarningMessage(`'${value}' already exists.`);
             return;
         }
@@ -421,7 +425,7 @@ class UNotes {
             const template_data = await Utils.getTemplate(template, data);
             
             // create the note file
-            if (this.addNewNote(newFilePath, template_data)) {
+            if (await this.addNewNote(newFilePath, template_data)) {
                 this.selectAfterRefresh = newFilePath;
             }
             this.uNoteProvider.refresh();
@@ -451,18 +455,18 @@ class UNotes {
             // add parent folder name
             paths.push(item.file);
         }
-        return this.addNoteCommon(paths, template);
+        return await this.addNoteCommon(paths, template);
     }
 
     async onAddNewNoteHere(item) {
         if (!item) {
             return;
         }
-        this.addNewNoteHere(item, null);
+        await this.addNewNoteHere(item, null);
     }
 
     async onAddNewNote() {
-        this.addNoteCommon(this.getSelectedPaths(), null);
+        await this.addNoteCommon(this.getSelectedPaths(), null);
     }
 
     async selectTemplate() {
@@ -479,41 +483,40 @@ class UNotes {
     async onAddNewTemplateNoteHere(item) {
         const template = await this.selectTemplate();
 
-        this.addNewNoteHere(item, template);
+        await this.addNewNoteHere(item, template);
     }
 
     async onAddNewTemplateNote() {
         const template = await this.selectTemplate();
 
-        this.addNoteCommon(this.getSelectedPaths(), template);
+        await this.addNoteCommon(this.getSelectedPaths(), template);
     }
 
     onRefreshTree() {
         this.uNoteProvider.refresh();
     }
 
-    addFolderCommon(paths) {
-        vscode.window.showInputBox({ placeHolder: 'Enter new folder name' })
-            .then(value => {
-                if (!value) return;
-
-                paths.push(value);    // add folder name        
-                const newFolderPath = path.join(...paths);
-                if (this.addNewFolder(newFolderPath)) {
-                    this.uNoteProvider.refresh();
-                    const relPath = path.relative(Config.rootPath, newFolderPath);
-                    const newFolder = UNote.folderFromPath(relPath);
-                    setTimeout(() => {
-                        this.view.reveal(newFolder, { expand: 3 });
-                    }, 500);
-                }
-            })
-            .catch(err => {
-                console.log(err);
-            });
+    async addFolderCommon(paths) {
+        const value = await vscode.window.showInputBox({ placeHolder: 'Enter new folder name' });
+    
+        if (!value) return;
+        try {
+            paths.push(value);    // add folder name        
+            const newFolderPath = path.join(...paths);
+            if (await this.addNewFolder(newFolderPath)) {
+                this.uNoteProvider.refresh();
+                const relPath = path.relative(Config.rootPath, newFolderPath);
+                const newFolder = UNote.folderFromPath(relPath);
+                setTimeout(() => {
+                    this.view.reveal(newFolder, { expand: 3 });
+                }, 500);
+            }
+        } catch(e) {
+            console.log(e.message);
+        }            
     }
 
-    onAddNewFolderHere(item) {
+    async onAddNewFolderHere(item) {
         if (!item) {
             return;
         }
@@ -523,41 +526,42 @@ class UNotes {
             // add parent folder name
             paths.push(item.file);
         }
-        this.addFolderCommon(paths);
+        await this.addFolderCommon(paths);
     }
 
-    onAddNewFolder() {
-        this.addFolderCommon(this.getSelectedPaths());
+    async onAddNewFolder() {
+        await this.addFolderCommon(this.getSelectedPaths());
     }
 
-    addNewNote(notePath, data) {
-        if (!fs.existsSync(notePath)) {
+    async addNewNote(notePath, data) {
+        if (!await Utils.fileExists(notePath)) {
             try {
                 if (!data) data = '';
-                fs.writeFileSync(notePath, data);
+                const encoder = new TextEncoder();
+                await vscode.workspace.fs.writeFile(vscode.Uri.file(notePath), encoder.encode(data));
                 return true;
 
             } catch (e) {
-                vscode.window.showErrorMessage("Failed to create file.");
+                await vscode.window.showErrorMessage("Failed to create file.");
                 console.log(e);
             }
         } else {
-            vscode.window.showWarningMessage("Note file already exists.");
+            await vscode.window.showWarningMessage("Note file already exists.");
         }
         return false;
     }
 
-    addNewFolder(folderPath) {
-        if (!fs.existsSync(folderPath)) {
+    async addNewFolder(folderPath) {
+        if (! await Utils.fileExists(folderPath)) {
             try {
-                fs.mkdirSync(folderPath);
+                vscode.workspace.fs.createDirectory(folderPath);
                 return true;
             } catch (e) {
-                vscode.window.showErrorMessage("Failed to create folder.");
-                console.log(e);
+                await vscode.window.showErrorMessage("Failed to create folder.");
+                console.log(e.message);
             }
         } else {
-            vscode.window.showWarningMessage("Folder already exists.");
+            await vscode.window.showWarningMessage("Folder already exists.");
         }
         return false;
     }

@@ -23,9 +23,6 @@ class UNoteProvider {
         this.refresh = debounce(this.refresh.bind(this), 200, true);
         this.saveNoteTree = debounce(this.saveNoteTree.bind(this), 1000);
 
-        this.noteTree = new UNoteTree("");
-        this.noteTree.load();
-
         this.disposables.push(
             vscode.commands.registerCommand('unotes.moveUp', this.onMoveUp.bind(this))
         );
@@ -42,6 +39,15 @@ class UNoteProvider {
             vscode.commands.registerCommand('unotes.orderingOn', this.onOrderingOn.bind(this))
         );
 
+        this.noteTree = null;
+
+    }
+
+    async initialize() {
+        this.noteTree = new UNoteTree("");
+        await this.noteTree.load();
+        console.log("Tree initialized.");
+        this.refresh();
     }
 
     dispose() {
@@ -106,8 +112,9 @@ class UNoteProvider {
         return noteFolder.renameFolder(folder.file, newFolderName);
     }
 
-    saveNoteTree() {
-        this.noteTree.save();
+    async saveNoteTree() {
+        console.log("Saving note tree...");
+        await this.noteTree.save();
     }
 
     refresh() {
@@ -139,19 +146,22 @@ class UNoteProvider {
         }
         if (element) {
             if (element.isFolder) {
-                return Promise.resolve(this.getItemsFromFolder(element.folderPath + '/' + element.file));
+                return this.getItemsFromFolder(element.folderPath + '/' + element.file);
             }
             return Promise.resolve([]);
 
         } else {
-            return Promise.resolve(this.getItemsFromFolder(''));
+            return this.getItemsFromFolder('');
         }
     }
     /**
      * Given the path find all notes (.md) files and folders
      */
-    getItemsFromFolder(relativePath) {
+    async getItemsFromFolder(relativePath) {
         try {
+            if (!this.noteTree){
+                return [];
+            }
             // return a Promise that resolves to a list of UNotes
             const toFolder = (item) => {
                 return new UNote(path.basename(item), vscode.TreeItemCollapsibleState.Collapsed, true, relativePath);

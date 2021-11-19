@@ -6,7 +6,6 @@ Object.defineProperty(exports, "__esModule", {
 
 const path = require("path");
 const vscode = require("vscode");
-const fs = require("fs");
 const gl = require('glob');
 const Handlebars = require("express-handlebars");
 const moment = require("moment")
@@ -62,6 +61,23 @@ class UnotesConfig {
         Handlebars.registerHelper('formatDate', function (dt, dtFormat) {
             return moment(dt).format(dtFormat);
         });
+
+        Handlebars.registerHelper('capitalize', function (str) {
+            if (str.length == 0) return str;
+            return str.charAt(0).toUpperCase() + str.slice(1);
+        });
+
+        Handlebars.registerHelper('capitalizeAll', function (str) {
+            if (str.length == 0) return str;
+            const words = str.split(" ");
+            for(let i = 0; i < words.length; i++) {
+                words[i] = words[i][0].toUpperCase() + words[i].slice(1);
+            }
+
+            return words.join(" ");
+        });
+
+
         
     }
 
@@ -71,7 +87,7 @@ class UnotesConfig {
     async checkDefaultTemplate() {
         
         const default_template = "title_date.hbs"
-        const default_data = `# {{title}}\n\n{{formatDate date "llll"}}\n\n`
+        const default_data = `# {{capitalizeAll title}}\n\n{{formatDate date "llll"}}\n\n`
         const temp_path = path.join(this.rootPath, '.unotes', templateDir, `${default_template}`);           
            
         try {
@@ -140,10 +156,10 @@ exports.Utils = {
     /**
      * Returns the next image index in the media folder for the document folder
      */
-    getNextImageIndex(folderPath) {
+    async getNextImageIndex(folderPath) {
         let index = 0;
         const mediaPath = path.join(folderPath, Config.mediaFolder);
-        if(!fs.existsSync(mediaPath)){
+        if(!await this.fileExists(mediaPath)){
             return 0;
         }
         const paths = gl.sync(`${imgPrefix}*.*`, { cwd: mediaPath, nodir: true, nocase: true });
@@ -167,36 +183,41 @@ exports.Utils = {
      * @param index optional param for the suffix index number
      * @param imgType optional param for the image type
      */
-    saveMediaImage(folderPath, imgBuffer, index, imgType) {
+    async saveMediaImage(folderPath, imgBuffer, index, imgType) {
         let newIndex = index;
         const mediaPath = path.join(folderPath, Config.mediaFolder);
 
         // create the folder if needed
-        if(!fs.existsSync(mediaPath)){
+        if(!await this.fileExists(mediaPath)){
             try {
-                fs.mkdirSync(mediaPath);
+                await vscode.workspace.fs.CreateDirectory(vscode.Uri.file(mediaPath));
             }
             catch(e) {
-                vscode.window.showWarningMessage("Failed to create media folder.");
+                await vscode.window.showWarningMessage("Failed to create media folder.");
+                console.log(e.message);
                 return;
             }
         }
         if(index === undefined){
-            newIndex = this.getNextImageIndex(folderPath);
+            newIndex = await this.getNextImageIndex(folderPath);
         }
         if(imgType===undefined){
             imgType = 'png';
         }
-        const imgName = `${imgPrefix}${newIndex}.${imgType}`;
+        const imgName = this.getImageName(newIndex, imgType);
         try {
-
-            fs.writeFileSync(path.join(mediaPath, imgName), imgBuffer, 'base64');
+            await vscode.workspace.fs.writeFile(vscode.Uri.file(path.join(mediaPath, imgName)), imgBuffer);
         }
         catch(e){
-            vscode.window.showWarningMessage("Failed to save new media image.");
+            await vscode.window.showWarningMessage("Failed to save new media image.");
+            console.log(e.message);
             return '';
         }
         return imgName;
+    },
+
+    getImageName(index, imgType) {
+        return `${imgPrefix}${index}.${imgType}`;
     },
     
     getImageTag(imgName){
@@ -251,6 +272,21 @@ exports.Utils = {
             await vscode.window.showWarningMessage(e.message);
         }
         return '';
+    },
+
+    async fileExists(fpath){
+        try {
+            await vscode.workspace.fs.stat(vscode.Uri.file(fpath));
+            return true;
+
+        } catch (e) {
+            if (e instanceof vscode.FileSystemError && e.code == 'FileNotFound') {
+                // doesn't exist
+            } else {
+                console.log(`Failed to check file exists for ${fpath}:\n${e.message}`);
+            }
+        }
+        return false;
     }
 
 
