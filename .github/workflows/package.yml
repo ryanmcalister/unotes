@@ -25,7 +25,7 @@ jobs:
         cd ..
         npm install -g vsce
         npm run pack
-        mv Unotes-*.vsix Unotes-latest.vsix
+        mv unotes-*.vsix Unotes-latest.vsix
         
       env:
         CI: true
