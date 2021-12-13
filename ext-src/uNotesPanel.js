@@ -16,7 +16,7 @@ class UNotesPanel {
         const column = vscode.window.activeTextEditor ? vscode.window.activeTextEditor.viewColumn : undefined;
 
         if (_currentPanel) {
-            _currentPanel.panel.reveal(column);
+            _currentPanel.panel.reveal(column, false);
         } else {
             _currentPanel = new UNotesPanel(extensionPath, column || vscode.ViewColumn.One);
             await _currentPanel.initialize();
@@ -58,7 +58,7 @@ class UNotesPanel {
             this.currentNote = null;
             this.imageToConvert = null;
 
-            this.panel = vscode.window.createWebviewPanel('unotes', "UNotes", column, {
+            this.panel = vscode.window.createWebviewPanel('unotes', "UNotes", { viewColumn: vscode.ViewColumn.column, preserveFocus: false }, {
                 enableScripts: true,
                 retainContextWhenHidden: true,
                 enableFindWidget: true,
@@ -410,7 +410,7 @@ class UNotesPanel {
 				<meta name="theme-color" content="#000000">
 				<title>UNotes</title>
 				<link rel="stylesheet" type="text/css" href="${styleUri}">
-				<meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src vscode-resource: vscode-webview-resource: ${this.panel.webview.cspSoure} http: https: data:; script-src 'unsafe-inline' 'unsafe-eval' vscode-resource: data:; style-src vscode-resource: 'unsafe-inline' http: https: data:;">
+				<meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src vscode-resource: vscode-webview-resource: ${this.panel.webview.cspSoure} http: https: data:; script-src 'unsafe-inline' 'unsafe-eval' vscode-resource: data:; font-src 'self' data:; style-src vscode-resource: 'unsafe-inline' http: https: data:;">
 				<base href="${baseUri}/">
 			</head>
 

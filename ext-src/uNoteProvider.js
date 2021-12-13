@@ -6,7 +6,6 @@ Object.defineProperty(exports, "__esModule", {
 
 const vscode = require("vscode");
 const path = require("path");
-const gl = require("glob")
 const debounce = require("debounce");
 const { UNoteTree } = require("./uNoteTree");
 const { UNote } = require("./uNote");
@@ -164,15 +163,34 @@ class UNoteProvider {
             }
             // return a Promise that resolves to a list of UNotes
             const toFolder = (item) => {
-                return new UNote(path.basename(item), vscode.TreeItemCollapsibleState.Collapsed, true, relativePath);
+                return new UNote(item, vscode.TreeItemCollapsibleState.Collapsed, true, relativePath);
             }
             const toNote = (item) => {
-                return new UNote(path.basename(item), vscode.TreeItemCollapsibleState.None, false, relativePath);
+                return new UNote(item, vscode.TreeItemCollapsibleState.None, false, relativePath);
             }
             const folderPath = path.join(this.workspaceRoot, relativePath);
 
-            const folders = gl.sync(`*/`, { cwd: folderPath, ignore: ['**/node_modules/**', '**/^\.*/**'] }).map(toFolder);
-            const notes = gl.sync(`*${Config.noteFileExtension}`, { cwd: folderPath, nodir: true, nocase: true }).map(toNote);
+            const folders = [];
+            const notes = [];
+
+            const entries = await vscode.workspace.fs.readDirectory(vscode.Uri.file(folderPath));
+
+            for (const entry of entries) {
+                if (entry[1] == vscode.FileType.Directory) { 
+                    // filter out excluded folders and hidden folders
+                    if (Config.excludedFolders.has(entry[0]) || entry[0][0] == '.') {
+                        continue;
+                    }
+                    folders.push(toFolder(entry[0]));
+                }
+                else if (entry[1] == vscode.FileType.File) {
+                    // choose note files
+                    if (entry[0].endsWith(Config.noteFileExtension.toLowerCase()) || entry[0].endsWith(Config.noteFileExtension.toUpperCase())) {
+                        notes.push(toNote(entry[0]));
+                    }
+                }
+            }
+            
             // get the relative path in a list
             const paths = path.join(relativePath).split(path.sep);
             paths.shift();  // cut off the root path

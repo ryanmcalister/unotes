@@ -777,7 +777,6 @@
     },
     "dependencies": {
         "debounce": "^1.2.0",
-        "glob": "^7.1.4",
         "handlebars": "^4.7.7",
         "moment": "^2.29.1"
     },

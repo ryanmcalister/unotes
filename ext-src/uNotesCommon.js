@@ -6,7 +6,6 @@ Object.defineProperty(exports, "__esModule", {
 
 const path = require("path");
 const vscode = require("vscode");
-const gl = require('glob');
 const Handlebars = require("express-handlebars");
 const moment = require("moment")
 const extId = 'unotes';
@@ -52,6 +51,10 @@ class UnotesConfig {
         if (!this.mediaFolder) {
             this.mediafolder = defaultMediaFolder;
         }
+
+        // excluded folders
+        this.excludedFolders = new Set();
+        this.excludedFolders.add("node_modules");
 
         // setting change events
         this._onDidChange_editor_settings = new vscode.EventEmitter();
@@ -162,10 +165,13 @@ exports.Utils = {
         if(!await this.fileExists(mediaPath)){
             return 0;
         }
-        const paths = gl.sync(`${imgPrefix}*.*`, { cwd: mediaPath, nodir: true, nocase: true });
-        for(let i = 0; i < paths.length; ++i){
+        const entries = await vscode.workspace.fs.readDirectory(vscode.Uri.file(mediaPath));
+        for (const entry of entries) {
+            if (entry[1] != vscode.FileType.File || !entry[0].toLowerCase().startsWith(imgPrefix.toLowerCase())){
+                continue;
+            }
             var re = new RegExp(`.*${imgPrefix}(\\d*)\\..*$`, "g");
-            let match = re.exec(paths[i]);
+            let match = re.exec(entry[0]);
             if(match){
                 let val = parseInt(match[1]);
                 if (index <= val){
