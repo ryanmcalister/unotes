@@ -554,7 +554,7 @@ class UNotes {
     async addNewFolder(folderPath) {
         if (! await Utils.fileExists(folderPath)) {
             try {
-                vscode.workspace.fs.createDirectory(folderPath);
+                await vscode.workspace.fs.createDirectory(vscode.Uri.file(folderPath));
                 return true;
             } catch (e) {
                 await vscode.window.showErrorMessage("Failed to create folder.");
