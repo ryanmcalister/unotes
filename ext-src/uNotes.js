@@ -158,7 +158,9 @@ class UNotes {
 
         await this.initUnotesFolder();
         
-        if (vscode.workspace.workspaceFolders && Config.rootPath === vscode.workspace.workspaceFolders[0].uri.fsPath) {
+        if (vscode.workspace.workspaceFolders 
+            && vscode.workspace.workspaceFolders[0].uri.scheme == 'file' 
+            && Config.rootPath === vscode.workspace.workspaceFolders[0].uri.fsPath) {
             // Can't watch folders outside of workspace
             await this.setupFSWatcher();
         }

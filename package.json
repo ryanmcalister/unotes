@@ -20,7 +20,8 @@
         "vscode": "^1.52.0"
     },
     "capabilities": {
-        "virtualWorkspaces": false
+        "virtualWorkspaces": true,
+        "descriptions": "In virtual workspaces, not all functionality may be available with UNotes."
     },
     "categories": [
         "Other"

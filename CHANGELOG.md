@@ -1,5 +1,12 @@
 # Updates
 
+## [1.4.0] - 2022-01-20
+
+### Added
+
+- Template notes
+- Better support for remote/virtual usage (WSL, SSH)
+
 ## [1.3.1] - 2021-05-21
 
 ### Updated
