@@ -291,6 +291,7 @@ No markdown WYSIWYG is perfect and Unotes has its share of issues. Some issues h
 #### Copy and Paste
 
 - You may not always get the desired results when pasting directly into the WYSIWYG editor. In some cases it may be best to paste into the raw markdown view.
+- You can paste into the WYSIWYG editor as plain text if the shift key is down. This can be done by adding an additional keybinding in `vscode` for `paste`. (e.g. '`CTRL + SHIFT + v`')
 
 #### CodeBlocks
 
