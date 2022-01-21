@@ -1,8 +1,9 @@
 const uNotes = require('./uNotes');
 
 
-function activate(context){
-	new uNotes.UNotes(context);
+async function activate(context){
+	const unotes = new uNotes.UNotes(context);
+    await unotes.initialize();
 }
 exports.activate = activate;
 

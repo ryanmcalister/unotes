@@ -6,8 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 
 const vscode = require("vscode");
 const path = require("path");
-const fs = require("fs");
-const { Config } = require("./uNotesCommon");
+const { Config, Utils } = require("./uNotesCommon");
 
 class UNoteTree {
 
@@ -174,24 +173,26 @@ class UNoteTree {
         }
     }
 
-    load() {
+    async load() {
         try {
             const fp = this.getTreeFilePath();
-            if (fs.existsSync(fp)) {
-                const data = fs.readFileSync(fp, { encoding: 'utf8' });
+            if (await Utils.fileExists(fp)) {
+                const decoder = new TextDecoder();
+                const data = decoder.decode(await vscode.workspace.fs.readFile(vscode.Uri.file(fp)));
                 const obj = JSON.parse(data);
                 this.loadFromObject(obj);
             }
         } catch (e) {
             const msg = e.message;
             console.log(msg);
-            vscode.window.showWarningMessage("Failed to load Unotes meta information. \nNote ordering may be lost.");
+            await vscode.window.showWarningMessage("Failed to load Unotes meta information. \nNote ordering may be lost.");
         }
     }
 
-    save() {
+    async save() {
         try {
-            fs.writeFileSync(this.getTreeFilePath(), JSON.stringify(this, null, 2));
+            const encoder = new TextEncoder();
+            await vscode.workspace.fs.writeFile(vscode.Uri.file(this.getTreeFilePath()), encoder.encode(JSON.stringify(this, null, 2)));
         } catch (e) {
             const msg = e.message;
             console.log(msg);

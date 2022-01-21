@@ -15,10 +15,15 @@
 
 If you find Unotes useful, please [write a review](https://marketplace.visualstudio.com/items?itemName=ryanmcalister.Unotes&ssr=false#review-details).
 
-# What's new in Unotes 1.3
+or
 
-- [Support for Katex math typesetting](#math-typesetting)
-- [Font customization](#font-customization)
+[Donate](https://www.buymeacoffee.com/ryanmcalister)
+
+
+# What's new in Unotes 1.4
+
+- [Templates Notes!](#template-notes)
+- Better support for remote file connections. (WSL/SSH)
 
 # ᑌᑎotes
 
@@ -75,6 +80,30 @@ Local Image Example
 Use the table toolbar button to insert a table. Right-click on the table to open the table editing menu.
 
 ![TableMenu](https://raw.githubusercontent.com/ryanmcalister/unotes/master/resources/screenshots/tables.gif)
+
+### Template Notes
+
+Templates notes allow you to create a new note using a customizable template. Right-click in the note sidebar and select '`Add Template Note`' to choose from the available templates.
+
+- Template files can be added to the `.unotes/templates` directory as `.hbs` ([handlebars](https://handlebarsjs.com/)) files.
+- Template variables:
+  - `title`
+  - `date`
+- Template helper functions:
+  - `formatDate` - see [momentjs](https://momentjs.com/) for format options.
+  - `capitalize`
+  - `capitalizeAll`
+
+A default template can also be set using the `newNoteTemplate` setting. This will apply the template by default without having to select from the list.
+
+Template Example
+```markdown
+# {{capitalizeAll title}}
+
+{{formatDate date "llll"}}
+
+```
+
 
 ### Math Typesetting
 
@@ -174,6 +203,7 @@ title: title
 | unotes.editor.display2X           | Display the button toolbar at twice the size                                                                                                                                            |
 | unotes.editor.convertPastedImages | Automatically convert pasted images to local image files in a .media folder                                                                                                             |
 | unotes.mediaFolder                | The folder where pasted or converted images will be saved. Relative to the note.                                                                                                        |
+| unotes.newNoteTemplate               | The template used for new notes. Set to empty for no note template.               |
 | unotes.noteFileExtension          | The file extension used to filter and save note files. Default = '.md'                                                                                                                  |
 | unotes.rootPath                   | The root folder path for the note files.<br>Setting this value will turn off auto-tracking of external file changes.<br>If needed you can click the 'Refresh' button on the notes tree. |
 
@@ -261,6 +291,7 @@ No markdown WYSIWYG is perfect and Unotes has its share of issues. Some issues h
 #### Copy and Paste
 
 - You may not always get the desired results when pasting directly into the WYSIWYG editor. In some cases it may be best to paste into the raw markdown view.
+- You can paste into the WYSIWYG editor as plain text if the shift key is down. This can be done by adding an additional keybinding in `vscode` for `paste`. (e.g. '`CTRL + SHIFT + v`')
 
 #### CodeBlocks
 
