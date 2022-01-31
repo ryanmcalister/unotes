@@ -196,7 +196,7 @@ exports.Utils = {
         // create the folder if needed
         if(!await this.fileExists(mediaPath)){
             try {
-                await vscode.workspace.fs.CreateDirectory(vscode.Uri.file(mediaPath));
+                await vscode.workspace.fs.createDirectory(vscode.Uri.file(mediaPath));
             }
             catch(e) {
                 await vscode.window.showWarningMessage("Failed to create media folder.");
