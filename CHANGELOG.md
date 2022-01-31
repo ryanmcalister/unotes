@@ -1,5 +1,11 @@
 # Updates
 
+## [1.4.1] - 2022-01-31
+
+### Fixed
+
+- Media folder creating when pasting images
+
 ## [1.4.0] - 2022-01-20
 
 ### Added
