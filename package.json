@@ -1,7 +1,7 @@
 {
     "name": "unotes",
     "displayName": "UNOTES - Markdown Notes WYSIWYG",
-    "version": "1.4.1",
+    "version": "1.4.2",
     "author": {
         "name": "Ryan McAlister",
         "email": "rymc26@gmail.com"
@@ -38,7 +38,8 @@
         "wysiwyg"
     ],
     "activationEvents": [
-        "onView:unoteFiles"
+        "onView:unoteFiles",
+        "onCommand:unotes.openWith"
     ],
     "main": "./dist/extension.js",
     "icon": "resources/unotes-icon.png",
@@ -566,6 +567,14 @@
                 }
             },
             {
+                "command": "unotes.openWith",
+                "title": "Open with Unotes",
+                "icon": {
+                    "light": "resources/light/refresh.svg",
+                    "dark": "resources/dark/refresh.svg"
+                }
+            },
+            {
                 "command": "unotes.toggleMode",
                 "title": "Toggle Editor Mode"
             }
@@ -648,6 +657,13 @@
                     "command": "unotes.orderingOn",
                     "when": "viewItem =~ /(uNoteFolder:uord)/",
                     "group": "unotesFolder@2"
+                }
+            ],
+            "explorer/context": [
+                {
+                    "command": "unotes.openWith",
+                    "when": "resourceExtname == .md",
+                    "group": "unotes"
                 }
             ]
         },
