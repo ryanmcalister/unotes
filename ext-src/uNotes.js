@@ -148,6 +148,10 @@ class UNotes {
             vscode.commands.registerCommand('unotes.convertImages', this.onConvertImages.bind(this))
         );
 
+        this.disposables.push(
+            vscode.commands.registerCommand('unotes.openWith', this.onOpenWithUnotes.bind(this))
+        );
+
 
         checkWhatsNew(context);
 
@@ -232,6 +236,24 @@ class UNotes {
             }
         }
         return paths;
+    }
+
+    async onOpenWithUnotes(file) {
+        const note = UNote.noteFromPath(file.fsPath);
+        await UNotesPanel.createOrShow(Utils.context.extensionPath);
+        const panel = UNotesPanel.instance();
+        await panel.showUNote(note);
+
+        // open the panel
+        // setTimeout(async () => {
+        //     try {
+        //         await this.view.reveal(note, { expand: 3 });
+        //         this.selectAfterRefresh = null;
+        //     } catch (e) {
+        //         console.log(e.message)
+        //     }
+        // }, 500);
+
     }
 
     async onConvertImages(note) {
