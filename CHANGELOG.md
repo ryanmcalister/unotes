@@ -1,5 +1,11 @@
 # Updates
 
+## [1.4.2] - 2022-04-28
+
+### Added
+
+- Open markdown file in Unotes menu item
+
 ## [1.4.1] - 2022-01-31
 
 ### Fixed
