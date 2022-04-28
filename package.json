@@ -663,7 +663,7 @@
                 {
                     "command": "unotes.openWith",
                     "when": "resourceExtname == .md",
-                    "group": "unotes"
+                    "group": "navigation"
                 }
             ]
         },
@@ -772,6 +772,11 @@
                 "command": "unotes.insertTemplate",
                 "key": "ctrl+alt+n",
                 "mac": "cmd+alt+n"
+            },
+            {
+                "command": "unotes.openWith",
+                "key": "ctrl+alt+y",
+                "mac": "cmd+alt+y"
             }
         ],
         "viewsContainers": {
