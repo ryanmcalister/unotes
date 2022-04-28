@@ -239,6 +239,25 @@ class UNotes {
     }
 
     async onOpenWithUnotes(file) {
+
+        if (file === undefined){
+            // so triggered by a keybinding
+
+            // get the browser selection
+            // this is a hack (https://github.com/Microsoft/vscode/issues/3553)
+            const originalClipboard = await vscode.env.clipboard.readText();
+            await vscode.commands.executeCommand('copyFilePath');
+            const filepath = await vscode.env.clipboard.readText();  // returns a string
+            // preserve the clipboard state
+            await vscode.env.clipboard.writeText(originalClipboard);
+
+            if(!await Utils.fileExists(filepath)) return;
+            
+            // make it a Uri 
+            file = await vscode.Uri.file(filepath);
+            
+        }
+
         const note = UNote.noteFromPath(file.fsPath);
         await UNotesPanel.createOrShow(Utils.context.extensionPath);
         const panel = UNotesPanel.instance();
