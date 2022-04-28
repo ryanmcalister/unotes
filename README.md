@@ -22,8 +22,9 @@ or
 
 # What's new in Unotes 1.4
 
-- [Templates Notes!](#template-notes)
+- [Template Notes!](#template-notes)
 - Better support for remote file connections. (WSL/SSH)
+- '`Open In Unotes`' right-click menu option added
 
 # ᑌᑎotes
 
