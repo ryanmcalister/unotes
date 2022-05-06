@@ -39,7 +39,8 @@
     ],
     "activationEvents": [
         "onView:unoteFiles",
-        "onCommand:unotes.openWith"
+        "onCommand:unotes.openWith",
+        "onCustomEditor:unotes.markdown"
     ],
     "main": "./dist/extension.js",
     "icon": "resources/unotes-icon.png",
@@ -81,6 +82,18 @@
                 }
             }
         },
+        "customEditors": [
+            {
+                "viewType": "unotes.markdown",
+                "displayName": "Unotes Markdown",
+                "selector": [
+                    {
+                        "filenamePattern": "*.md"
+                    }
+                ],
+                "priority": "default"
+            }
+        ],
         "colors": [
             {
                 "id": "unotes.wysText",

@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 
 const vscode = require('vscode');
 const path = require('path');
+const { UNote } = require("./uNote");
 const { Config, Utils } = require("./uNotesCommon");
 
 let _currentPanel = null;
@@ -19,6 +20,7 @@ class UNotesPanel {
             _currentPanel.panel.reveal(column, false);
         } else {
             _currentPanel = new UNotesPanel(extensionPath, column || vscode.ViewColumn.One);
+            _currentPanel.createNewWebviewPanel();
             await _currentPanel.initialize();
         }
     }
@@ -32,33 +34,47 @@ class UNotesPanel {
         }
     }
 
-    static async recreate(extensionPath, currentNote) {
-        try {
-            UNotesPanel.close();
-            await UNotesPanel.createOrShow(extensionPath);
-            if (currentNote) {
-                await _currentPanel.showUNote(currentNote);
-            }
-        } catch (e) {
-            console.log(e);
-        }
-    }
-
     static instance() {
         return _currentPanel;
     }
 
-    constructor(extensionPath, column) {
-        try {
-            this.extensionPath = extensionPath;
-            this.disposables = [];
-            this.reloadContentNeeded = false;
-            this.updateSettingsNeeded = false;
-            this.currentPath = '';
-            this.currentNote = null;
-            this.imageToConvert = null;
 
-            this.panel = vscode.window.createWebviewPanel('unotes', "UNotes", { viewColumn: vscode.ViewColumn.column, preserveFocus: false }, {
+    constructor(extensionPath, column) {
+        this.extensionPath = extensionPath;
+        this.disposables = [];
+        this.reloadContentNeeded = false;
+        this.updateSettingsNeeded = false;
+        this.currentPath = '';
+        this.currentNote = null;
+        this.imageToConvert = null;
+        this.lastContent = '';
+        this.id = Utils.getUniqueId("panel");
+    }
+
+    createNewWebviewPanel() {
+        const panel = vscode.window.createWebviewPanel('unotes', "UNotes", { viewColumn: vscode.ViewColumn.column, preserveFocus: false }, {
+            enableScripts: true,
+            retainContextWhenHidden: true,
+            enableFindWidget: true,
+            localResourceRoots: [
+                vscode.Uri.file(path.join(Config.rootPath)),
+                vscode.Uri.file(path.join(this.extensionPath, 'build'))
+            ]
+        });
+
+        // listen for environment events on documents
+        
+
+        this.initializeWebPanel(panel, null);
+    }
+
+    initializeWebPanel(panel, document) {
+        try {
+            Utils.panels[this.id] = this;
+            this.panel = panel;             // the panel might be from a custom editor
+            this.document = document;       // only custom editors have documents
+
+            this.panel.webview.options = {
                 enableScripts: true,
                 retainContextWhenHidden: true,
                 enableFindWidget: true,
@@ -66,10 +82,25 @@ class UNotesPanel {
                     vscode.Uri.file(path.join(Config.rootPath)),
                     vscode.Uri.file(path.join(this.extensionPath, 'build'))
                 ]
-            });
+            };
 
             // Set the webview's initial html content
             this.panel.webview.html = this.getWebviewContent();
+
+            if(this.document){
+                // Hook up event handlers so that we can synchronize the webview with the text document.
+        
+                // The text document acts as our model, so we have to sync change in the document to our
+                // editor and sync changes in the editor back to the document.
+                this.currentNote = UNote.noteFromPath(this.document.uri.fsPath);
+                this.currentPath = this.document.uri.fsPath;
+
+                this.disposables.push(vscode.workspace.onDidChangeTextDocument(e => {
+                    if (e.document.uri.toString() === this.document.uri.toString()) {
+                        this.updateContents();
+                    }
+                }));
+            }
 
             // Listen for when the panel is disposed
             // This happens when the user closes the panel or when the panel is closed programatically
@@ -89,16 +120,13 @@ class UNotesPanel {
                         await this.saveChanges(message.content);
                         if (this.imageToConvert){
                             this.imageToConvert = null;  
-                            await this.updateContents();
+                            await this.updateContents(true);
                         }
                         break;
                     case 'editorOpened':
                         await this.updateContents();
                         this.updateEditorSettings();
                         await this.updateRemarkSettings();
-                        break;
-                    case 'resized':
-                        await UNotesPanel.recreate(this.extensionPath, this.currentNote)
                         break;
                     case 'convertImage':
                         this.imageToConvert = message.data;
@@ -111,8 +139,8 @@ class UNotesPanel {
 
             this.panel.onDidChangeViewState(async e => {
                 if (e.webviewPanel.active) {
-                    if (this.reloadContentNeeded) {
-                        await this.updateContents();
+                    if (this.reloadContentNeeded || this.document) {
+                        await this.updateContents(true);
                         this.reloadContentNeeded = false;
                     }
                     if (this.updateSettingsNeeded) {
@@ -121,79 +149,15 @@ class UNotesPanel {
                     }
                 }
             }, null, this.disposables);
-
-            // Register commands
-            this.disposables.push(vscode.commands.registerCommand("unotes.heading.1", () => {
-                this.hotkeyExec(['Heading', 1]);
-            }));
-            this.disposables.push(vscode.commands.registerCommand("unotes.heading.2", () => {
-                this.hotkeyExec(['Heading', 2]);
-            }));
-            this.disposables.push(vscode.commands.registerCommand("unotes.heading.3", () => {
-                this.hotkeyExec(['Heading', 3]);
-            }));
-            this.disposables.push(vscode.commands.registerCommand("unotes.heading.4", () => {
-                this.hotkeyExec(['Heading', 4]);
-            }));
-            this.disposables.push(vscode.commands.registerCommand("unotes.heading.5", () => {
-                this.hotkeyExec(['Heading', 5]);
-            }));
-            this.disposables.push(vscode.commands.registerCommand("unotes.heading.6", () => {
-                this.hotkeyExec(['Heading', 6]);
-            }));
-            this.disposables.push(vscode.commands.registerCommand("unotes.normal", () => {
-                this.hotkeyExec(['Paragraph']);
-            }));
-            this.disposables.push(vscode.commands.registerCommand("unotes.bold", () => {
-                this.hotkeyExec(['Bold']);
-            }));
-            this.disposables.push(vscode.commands.registerCommand("unotes.italic", () => {
-                this.hotkeyExec(['Italic']);
-            }));
-            this.disposables.push(vscode.commands.registerCommand("unotes.strike", () => {
-                this.hotkeyExec(['Strike']);
-            }));
-            this.disposables.push(vscode.commands.registerCommand("unotes.task", () => {
-                this.hotkeyExec(['Task']);
-            }));
-            this.disposables.push(vscode.commands.registerCommand("unotes.ul", () => {
-                this.hotkeyExec(['UL']);
-            }));
-            this.disposables.push(vscode.commands.registerCommand("unotes.ol", () => {
-                this.hotkeyExec(['OL']);
-            }));
-            this.disposables.push(vscode.commands.registerCommand("unotes.blockquote", () => {
-                this.hotkeyExec(['Blockquote']);
-            }));
-            this.disposables.push(vscode.commands.registerCommand("unotes.code", () => {
-                this.hotkeyExec(['Code']);
-            }));
-            this.disposables.push(vscode.commands.registerCommand("unotes.codeblock", () => {
-                this.hotkeyExec(['CodeBlock']);
-            }));
-            this.disposables.push(vscode.commands.registerCommand("unotes.indent", () => {
-                this.hotkeyExec(['Indent']);
-            }));
-            this.disposables.push(vscode.commands.registerCommand("unotes.outdent", () => {
-                this.hotkeyExec(['Outdent']);
-            }));
-            this.disposables.push(vscode.commands.registerCommand("unotes.hr", () => {
-                this.hotkeyExec(['HR']);
-            }));
-            this.disposables.push(vscode.commands.registerCommand("unotes.toggleMode", () => {
-                this.toggleEditorMode();
-            }));
-            this.disposables.push(vscode.commands.registerCommand("unotes.insertTemplate", () => {
-                this.insertTemplate();
-            }));
-
-            Utils.context.subscriptions.push(Config.onDidChange_editor_settings(this.updateEditorSettings.bind(this)));
+            
+            this.disposables.push(Config.onDidChange_editor_settings(this.updateEditorSettings.bind(this)));
             this.updateEditorSettings();
 
         }
         catch (e) {
-            console.log(e);
+            console.log(`Failed to initialize Webview: ${e}`);
         }
+
 
     }
 
@@ -248,11 +212,26 @@ class UNotesPanel {
     }
 
     async saveChanges(content) {
-        
-        if (this.currentPath) {
+        if (this.writingFile) return;
+        if(content == this.lastContent) return;
+
+        if (this.document) {
+            const edit = new vscode.WorkspaceEdit();
+            // Just replace the entire document every time for this example extension.
+            // A more complete extension should compute minimal edits instead.
+            this.writingFile = this.currentPath;
+            edit.replace(this.document.uri, new vscode.Range(0, 0, this.document.lineCount, 0), content);
+            this.lastContent = content;
+            await vscode.workspace.applyEdit(edit);
+            this.writingFile = "";
+
+        } else if (this.currentPath) {
+            
             this.writingFile = this.currentPath;
             const encoder = new TextEncoder();
+            this.lastContent = content;
             await vscode.workspace.fs.writeFile(vscode.Uri.file(this.currentPath), encoder.encode(content));
+            this.writingFile = "";
         }
     }
 
@@ -270,12 +249,23 @@ class UNotesPanel {
         }
     }
 
-    async updateContents() {
+    async updateContents(force) {
         try {
-            if(this.currentNote){
+            if(this.document){
+                const content = this.document.getText();
+                if(content == this.lastContent && !force)
+                    return;
+                const folderPath = this.panel.webview.asWebviewUri(vscode.Uri.file(path.join(Config.rootPath, this.currentNote.folderPath))).path;
+                this.lastContent = content
+                this.panel.webview.postMessage({ command: 'setContent', content: content, folderPath, contentPath: this.currentPath });
+
+            } else if(this.currentNote){
                 const decoder = new TextDecoder();
                 const content = decoder.decode(await vscode.workspace.fs.readFile(vscode.Uri.file(this.currentPath)));
+                if(content == this.lastContent && !force)
+                    return;
                 const folderPath = this.panel.webview.asWebviewUri(vscode.Uri.file(path.join(Config.rootPath, this.currentNote.folderPath))).path;
+                this.lastContent = content
                 this.panel.webview.postMessage({ command: 'setContent', content, folderPath, contentPath: this.currentPath });
             }
         }
@@ -366,10 +356,20 @@ class UNotesPanel {
     }
 
     dispose() {
-        _currentPanel = undefined;
+        if(_currentPanel == this) {
+
+            _currentPanel = undefined;
+        }
+        
+        delete Utils.panels[this.id];
 
         // Clean up our resources
-        this.panel.dispose();
+        try {
+            this.panel.dispose();
+
+        } catch {
+            console.log("Failed to dispose panel.")
+        }
 
         while (this.disposables.length) {
             const x = this.disposables.pop();

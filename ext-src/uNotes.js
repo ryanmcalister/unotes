@@ -10,6 +10,7 @@ const { UNotesPanel } = require("./uNotesPanel");
 const { UNoteProvider } = require("./uNoteProvider");
 const { UNote } = require("./uNote");
 const { Config, Utils, ExtId, GlobalState } = require("./uNotesCommon");
+const { UNotesMarkdownEditorProvider } = require("./uNotesMarkdownEditor");
 
 
 
@@ -152,8 +153,139 @@ class UNotes {
             vscode.commands.registerCommand('unotes.openWith', this.onOpenWithUnotes.bind(this))
         );
 
+        // Add panel hotkeys
+        // Register commands
+        this.disposables.push(vscode.commands.registerCommand("unotes.heading.1", () => {
+            const panel = Utils.getActivePanel();
+            if(panel){
+                panel.hotkeyExec(['Heading', 1]);
+            }
+        }));
+        this.disposables.push(vscode.commands.registerCommand("unotes.heading.2", () => {
+            const panel = Utils.getActivePanel();
+            if(panel){
+                panel.hotkeyExec(['Heading', 2]);
+            }
+        }));
+        this.disposables.push(vscode.commands.registerCommand("unotes.heading.3", () => {
+            const panel = Utils.getActivePanel();
+            if(panel){
+                panel.hotkeyExec(['Heading', 3]);
+            }
+        }));
+        this.disposables.push(vscode.commands.registerCommand("unotes.heading.4", () => {
+            const panel = Utils.getActivePanel();
+            if(panel){
+                panel.hotkeyExec(['Heading', 4]);
+            }
+        }));
+        this.disposables.push(vscode.commands.registerCommand("unotes.heading.5", () => {
+            const panel = Utils.getActivePanel();
+            if(panel){
+                panel.hotkeyExec(['Heading', 5]);
+            }
+        }));
+        this.disposables.push(vscode.commands.registerCommand("unotes.heading.6", () => {
+            const panel = Utils.getActivePanel();
+            if(panel){
+                panel.hotkeyExec(['Heading', 6]);
+            }
+        }));
+        this.disposables.push(vscode.commands.registerCommand("unotes.normal", () => {
+            const panel = Utils.getActivePanel();
+            if(panel){
+                panel.hotkeyExec(['Paragraph']);
+            }
+        }));
+        this.disposables.push(vscode.commands.registerCommand("unotes.bold", () => {
+            const panel = Utils.getActivePanel();
+            if(panel){
+                panel.hotkeyExec(['Bold']);
+            }
+        }));
+        this.disposables.push(vscode.commands.registerCommand("unotes.italic", () => {
+            const panel = Utils.getActivePanel();
+            if(panel){
+                panel.hotkeyExec(['Italic']);
+            }
+        }));
+        this.disposables.push(vscode.commands.registerCommand("unotes.strike", () => {
+            const panel = Utils.getActivePanel();
+            if(panel){
+                panel.hotkeyExec(['Strike']);
+            }
+        }));
+        this.disposables.push(vscode.commands.registerCommand("unotes.task", () => {
+            const panel = Utils.getActivePanel();
+            if(panel){
+                panel.hotkeyExec(['Task']);
+            }
+        }));
+        this.disposables.push(vscode.commands.registerCommand("unotes.ul", () => {
+            const panel = Utils.getActivePanel();
+            if(panel){
+                panel.hotkeyExec(['UL']);
+            }
+        }));
+        this.disposables.push(vscode.commands.registerCommand("unotes.ol", () => {
+            const panel = Utils.getActivePanel();
+            if(panel){
+                panel.hotkeyExec(['OL']);
+            }
+        }));
+        this.disposables.push(vscode.commands.registerCommand("unotes.blockquote", () => {
+            const panel = Utils.getActivePanel();
+            if(panel){
+                panel.hotkeyExec(['Blockquote']);
+            }
+        }));
+        this.disposables.push(vscode.commands.registerCommand("unotes.code", () => {
+            const panel = Utils.getActivePanel();
+            if(panel){
+                panel.hotkeyExec(['Code']);
+            }
+        }));
+        this.disposables.push(vscode.commands.registerCommand("unotes.codeblock", () => {
+            const panel = Utils.getActivePanel();
+            if(panel){
+                panel.hotkeyExec(['CodeBlock']);
+            }
+        }));
+        this.disposables.push(vscode.commands.registerCommand("unotes.indent", () => {
+            const panel = Utils.getActivePanel();
+            if(panel){
+                panel.hotkeyExec(['Indent']);
+            }
+        }));
+        this.disposables.push(vscode.commands.registerCommand("unotes.outdent", () => {
+            const panel = Utils.getActivePanel();
+            if(panel){
+                panel.hotkeyExec(['Outdent']);
+            }
+        }));
+        this.disposables.push(vscode.commands.registerCommand("unotes.hr", () => {
+            const panel = Utils.getActivePanel();
+            if(panel){
+                panel.hotkeyExec(['HR']);
+            }
+        }));
+        this.disposables.push(vscode.commands.registerCommand("unotes.toggleMode", () => {
+            const panel = Utils.getActivePanel();
+            if(panel){
+                panel.toggleEditorMode();
+            }
+        }));
+        this.disposables.push(vscode.commands.registerCommand("unotes.insertTemplate", () => {
+            const panel = Utils.getActivePanel();
+            if(panel){
+                panel.insertTemplate();
+            }
+        }));
 
         checkWhatsNew(context);
+
+        // Register editor type
+        context.subscriptions.push(UNotesMarkdownEditorProvider.register(context));
 
     }
 

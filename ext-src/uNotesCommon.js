@@ -140,6 +140,25 @@ exports.Utils = {
 
     context: null,
 
+    panels: {},
+
+    counter: 0,
+
+    getUniqueId(str) {
+        this.counter += 1;
+        return `${str}_${this.counter}`;
+    },
+
+    getActivePanel() {
+        for (var key in this.panels) {
+            const panel = this.panels[key];
+            if(panel.panel.active){
+                return panel;
+            }
+        }
+        return null;
+    },
+
     stripExt(str) {
         const pos = str.toUpperCase().lastIndexOf(Config.noteFileExtension.toUpperCase());
         if (pos < 0) {
