@@ -24,7 +24,8 @@ class UNotesMarkdownEditorProvider {
         // Setup the webview
         this.webviewPanel = webviewPanel;
         this.unotesPanel = new UNotesPanel(Utils.context.extensionPath, null);
-        this.unotesPanel.initializeWebPanel(webviewPanel, document);
+        this.unotesPanel.initializeWebPanel(webviewPanel);
+        this.unotesPanel.attachDocument(document);
         await this.unotesPanel.initialize();
         
     }

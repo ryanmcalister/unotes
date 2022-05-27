@@ -38,21 +38,23 @@ class UNotesPanel {
         return _currentPanel;
     }
 
-
     constructor(extensionPath, column) {
         this.extensionPath = extensionPath;
         this.disposables = [];
+        this.document_disposables = [];
         this.reloadContentNeeded = false;
         this.updateSettingsNeeded = false;
         this.currentPath = '';
         this.currentNote = null;
         this.imageToConvert = null;
         this.lastContent = '';
+        this.isUnotes = false;
         this.id = Utils.getUniqueId("panel");
+        this.document = null;
     }
 
-    createNewWebviewPanel() {
-        const panel = vscode.window.createWebviewPanel('unotes', "UNotes", { viewColumn: vscode.ViewColumn.column, preserveFocus: false }, {
+    getOptions() {
+        return {
             enableScripts: true,
             retainContextWhenHidden: true,
             enableFindWidget: true,
@@ -60,47 +62,26 @@ class UNotesPanel {
                 vscode.Uri.file(path.join(Config.rootPath)),
                 vscode.Uri.file(path.join(this.extensionPath, 'build'))
             ]
-        });
-
-        // listen for environment events on documents
-        
-
-        this.initializeWebPanel(panel, null);
+        };
     }
 
-    initializeWebPanel(panel, document) {
+    createNewWebviewPanel() {
+        const panel = vscode.window.createWebviewPanel('unotes', "UNotes", 
+            { viewColumn: vscode.ViewColumn.column, preserveFocus: false }, 
+            this.getOptions());
+
+        this.isUnotes = true;   // this is the singleton panel
+        this.initializeWebPanel(panel);
+    }
+
+    initializeWebPanel(panel) {
         try {
             Utils.panels[this.id] = this;
             this.panel = panel;             // the panel might be from a custom editor
-            this.document = document;       // only custom editors have documents
-
-            this.panel.webview.options = {
-                enableScripts: true,
-                retainContextWhenHidden: true,
-                enableFindWidget: true,
-                localResourceRoots: [
-                    vscode.Uri.file(path.join(Config.rootPath)),
-                    vscode.Uri.file(path.join(this.extensionPath, 'build'))
-                ]
-            };
+            this.panel.webview.options = this.getOptions();
 
             // Set the webview's initial html content
             this.panel.webview.html = this.getWebviewContent();
-
-            if(this.document){
-                // Hook up event handlers so that we can synchronize the webview with the text document.
-        
-                // The text document acts as our model, so we have to sync change in the document to our
-                // editor and sync changes in the editor back to the document.
-                this.currentNote = UNote.noteFromPath(this.document.uri.fsPath);
-                this.currentPath = this.document.uri.fsPath;
-
-                this.disposables.push(vscode.workspace.onDidChangeTextDocument(e => {
-                    if (e.document.uri.toString() === this.document.uri.toString()) {
-                        this.updateContents();
-                    }
-                }));
-            }
 
             // Listen for when the panel is disposed
             // This happens when the user closes the panel or when the panel is closed programatically
@@ -158,7 +139,28 @@ class UNotesPanel {
             console.log(`Failed to initialize Webview: ${e}`);
         }
 
+    }
 
+    attachDocument(document){
+
+        this.dispose_document_disposables();
+        this.document = document;
+
+        if(this.document){
+            // Hook up event handlers so that we can synchronize the webview with the text document.
+    
+            // The text document acts as our model, so we have to sync change in the document to our
+            // editor and sync changes in the editor back to the document.
+            this.currentNote = UNote.noteFromPath(this.document.uri.fsPath);
+            this.currentPath = this.document.uri.fsPath;
+
+            vscode.workspace.onDidChangeTextDocument(e => {
+                if (e.document.uri.toString() === this.document.uri.toString()) {
+                    this.updateContents();
+                }
+                
+            }, null, this.document_disposables);
+        }
     }
 
     async initialize() {
@@ -217,8 +219,6 @@ class UNotesPanel {
 
         if (this.document) {
             const edit = new vscode.WorkspaceEdit();
-            // Just replace the entire document every time for this example extension.
-            // A more complete extension should compute minimal edits instead.
             this.writingFile = this.currentPath;
             edit.replace(this.document.uri, new vscode.Range(0, 0, this.document.lineCount, 0), content);
             this.lastContent = content;
@@ -227,16 +227,25 @@ class UNotesPanel {
 
         } else if (this.currentPath) {
             
-            this.writingFile = this.currentPath;
-            const encoder = new TextEncoder();
-            this.lastContent = content;
-            await vscode.workspace.fs.writeFile(vscode.Uri.file(this.currentPath), encoder.encode(content));
-            this.writingFile = "";
+            // this.writingFile = this.currentPath;
+            // const encoder = new TextEncoder();
+            // this.lastContent = content;
+            // await vscode.workspace.fs.writeFile(vscode.Uri.file(this.currentPath), encoder.encode(content));
+            // this.writingFile = "";
         }
     }
 
     async showUNote(unote) {
         try {
+            const document = await vscode.workspace.openTextDocument(unote.fullPath());
+            if(!document){
+                console.log("Failed to open document!");
+                return;
+            }
+
+            
+            this.attachDocument(document);
+
             const filePath = unote.fullPath();
             this.currentNote = unote;
             this.currentPath = filePath;
@@ -373,6 +382,17 @@ class UNotesPanel {
 
         while (this.disposables.length) {
             const x = this.disposables.pop();
+            if (x) {
+                x.dispose();
+            }
+        }
+
+        this.dispose_document_disposables();
+    }
+
+    dispose_document_disposables() {
+        while (this.document_disposables.length) {
+            const x = this.document_disposables.pop();
             if (x) {
                 x.dispose();
             }
