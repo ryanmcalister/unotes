@@ -1,7 +1,7 @@
 {
     "name": "unotes",
     "displayName": "UNOTES - Markdown Notes WYSIWYG",
-    "version": "1.4.2",
+    "version": "1.4.3",
     "author": {
         "name": "Ryan McAlister",
         "email": "rymc26@gmail.com"
@@ -817,7 +817,7 @@
     },
     "devDependencies": {
         "@types/node": "^10.14.22",
-        "@types/vscode": "^1.47.0",
+        "@types/vscode": "^1.67.0",
         "run-script-os": "^1.0.7",
         "ts-loader": "^5.4.5",
         "typescript": "^3.6.4",

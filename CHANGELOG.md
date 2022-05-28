@@ -1,5 +1,11 @@
 # Updates
 
+## [1.4.3] - 2022-05-27
+
+### Added
+
+- Use Unotes as markdown editor
+
 ## [1.4.2] - 2022-04-28
 
 ### Added

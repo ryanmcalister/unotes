@@ -38,6 +38,7 @@ class UNotesPanel {
         return _currentPanel;
     }
 
+
     constructor(extensionPath, column) {
         this.extensionPath = extensionPath;
         this.disposables = [];
@@ -72,6 +73,14 @@ class UNotesPanel {
 
         this.isUnotes = true;   // this is the singleton panel
         this.initializeWebPanel(panel);
+
+        // add document updates from other editor detection
+        vscode.workspace.onDidChangeTextDocument(e => {
+            if (e.document.uri.fsPath === this.currentPath) {
+                this.updateContents(false, true);
+            }
+            
+        }, null, this.disposables);
     }
 
     initializeWebPanel(panel) {
@@ -101,11 +110,11 @@ class UNotesPanel {
                         await this.saveChanges(message.content);
                         if (this.imageToConvert){
                             this.imageToConvert = null;  
-                            await this.updateContents(true);
+                            await this.updateContents(true, false);
                         }
                         break;
                     case 'editorOpened':
-                        await this.updateContents();
+                        await this.updateContents(true, true);
                         this.updateEditorSettings();
                         await this.updateRemarkSettings();
                         break;
@@ -121,7 +130,7 @@ class UNotesPanel {
             this.panel.onDidChangeViewState(async e => {
                 if (e.webviewPanel.active) {
                     if (this.reloadContentNeeded || this.document) {
-                        await this.updateContents(true);
+                        await this.updateContents(true, false);
                         this.reloadContentNeeded = false;
                     }
                     if (this.updateSettingsNeeded) {
@@ -156,7 +165,7 @@ class UNotesPanel {
 
             vscode.workspace.onDidChangeTextDocument(e => {
                 if (e.document.uri.toString() === this.document.uri.toString()) {
-                    this.updateContents();
+                    this.updateContents(false, true);
                 }
                 
             }, null, this.document_disposables);
@@ -219,6 +228,8 @@ class UNotesPanel {
 
         if (this.document) {
             const edit = new vscode.WorkspaceEdit();
+            // Just replace the entire document every time for this example extension.
+            // A more complete extension should compute minimal edits instead.
             this.writingFile = this.currentPath;
             edit.replace(this.document.uri, new vscode.Range(0, 0, this.document.lineCount, 0), content);
             this.lastContent = content;
@@ -227,29 +238,20 @@ class UNotesPanel {
 
         } else if (this.currentPath) {
             
-            // this.writingFile = this.currentPath;
-            // const encoder = new TextEncoder();
-            // this.lastContent = content;
-            // await vscode.workspace.fs.writeFile(vscode.Uri.file(this.currentPath), encoder.encode(content));
-            // this.writingFile = "";
+            this.writingFile = this.currentPath;
+            const encoder = new TextEncoder();
+            this.lastContent = content;
+            await vscode.workspace.fs.writeFile(vscode.Uri.file(this.currentPath), encoder.encode(content));
+            this.writingFile = "";
         }
     }
 
     async showUNote(unote) {
         try {
-            const document = await vscode.workspace.openTextDocument(unote.fullPath());
-            if(!document){
-                console.log("Failed to open document!");
-                return;
-            }
-
-            
-            this.attachDocument(document);
-
             const filePath = unote.fullPath();
             this.currentNote = unote;
             this.currentPath = filePath;
-            await this.updateContents();
+            await this.updateContents(false, true);
             const title = unote.label;
             this.panel.title = 'Unotes - ' + title;
         }
@@ -258,7 +260,7 @@ class UNotesPanel {
         }
     }
 
-    async updateContents(force) {
+    async updateContents(force, tryFromDoc) {
         try {
             if(this.document){
                 const content = this.document.getText();
@@ -269,8 +271,27 @@ class UNotesPanel {
                 this.panel.webview.postMessage({ command: 'setContent', content: content, folderPath, contentPath: this.currentPath });
 
             } else if(this.currentNote){
-                const decoder = new TextDecoder();
-                const content = decoder.decode(await vscode.workspace.fs.readFile(vscode.Uri.file(this.currentPath)));
+                // try to find the document
+                let foundDoc = null;
+                let content = "";
+                if(tryFromDoc){
+                    for(let doc of vscode.workspace.textDocuments) {
+                        if(this.currentPath === doc.uri.fsPath){
+                            foundDoc = doc;
+                            break;
+                        }
+                    }
+                    if (foundDoc){
+                        content = foundDoc.getText();
+                    }
+
+                }
+                if(!foundDoc){
+                    // read from the file
+                    const decoder = new TextDecoder();
+                    content = decoder.decode(await vscode.workspace.fs.readFile(vscode.Uri.file(this.currentPath)));
+                }
+               
                 if(content == this.lastContent && !force)
                     return;
                 const folderPath = this.panel.webview.asWebviewUri(vscode.Uri.file(path.join(Config.rootPath, this.currentNote.folderPath))).path;
@@ -386,7 +407,7 @@ class UNotesPanel {
                 x.dispose();
             }
         }
-
+        
         this.dispose_document_disposables();
     }
 

@@ -7,10 +7,10 @@
   "resolved" "https://registry.npmjs.org/@types/node/-/node-10.17.60.tgz"
   "version" "10.17.60"
 
-"@types/vscode@^1.47.0":
-  "integrity" "sha512-iGlQJ1w5e3qPUryroO6v4lxg3ql1ztdTCwQW3xEwFawdyPLoeUSv48SYfMwc7kQA7h6ThUqflZIjgKAykeF9oA=="
-  "resolved" "https://registry.npmjs.org/@types/vscode/-/vscode-1.62.0.tgz"
-  "version" "1.62.0"
+"@types/vscode@^1.67.0":
+  "integrity" "sha512-GH8BDf8cw9AC9080uneJfulhSa7KHSMI2s/CyKePXoGNos9J486w2V4YKoeNUqIEkW4hKoEAWp6/cXTwyGj47g=="
+  "resolved" "https://registry.npmjs.org/@types/vscode/-/vscode-1.67.0.tgz"
+  "version" "1.67.0"
 
 "@webassemblyjs/ast@1.9.0":
   "integrity" "sha512-C6wW5L+b7ogSDVqymbkkvuW9kruN//YisMED04xzeBBqjHa2FYnmvOlS6Xj68xWQRgWvI9cIglsjFowH/RJyEA=="

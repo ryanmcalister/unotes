@@ -25,12 +25,13 @@ or
 - [Template Notes!](#template-notes)
 - Better support for remote file connections. (WSL/SSH)
 - '`Open In Unotes`' right-click menu option added
+- Use Unotes as stand-alone markdown editor
 
 # ᑌᑎotes
 
 Unotes is an [open-source](https://github.com/ryanmcalister/unotes "Open Unotes on GitHub") extension for [Visual Studio Code](https://code.visualstudio.com) created by [Ryan McAlister](https://github.com/ryanmcalister "Learn more about Ryan").
 
-Unotes helps you visualize and manage your markdown notes. Organize your notes in nested folders and edit them with a rich WYSIWYG editor.
+Unotes helps you visualize and manage your markdown notes. Organize your notes in nested folders and edit them with a rich WYSIWYG editor. Unotes also provides stand-alone markdown editor windows.
 
 Use Visual Studio Code's built-in search and version control features for all your notes.
 
@@ -38,7 +39,7 @@ Use Visual Studio Code's built-in search and version control features for all yo
 
 - Unotes **will reformat** your markdown without warning.
 - It will not preserve special formatting.
-- It auto-saves all edits.
+- It auto-saves all edits (while in the Unotes view).
 
 It is **highly recommended** to use unotes with **source control** to revert any unwanted changes.
 
