@@ -54,11 +54,9 @@ class UNotesPanel {
         this.document = null;
     }
 
-    getOptions() {
+    getWebviewOptions() {
         return {
             enableScripts: true,
-            retainContextWhenHidden: true,
-            enableFindWidget: true,
             localResourceRoots: [
                 vscode.Uri.file(path.join(Config.rootPath)),
                 vscode.Uri.file(path.join(this.extensionPath, 'build'))
@@ -66,10 +64,17 @@ class UNotesPanel {
         };
     }
 
+    getPanelOptions() {
+        return {
+            retainContextWhenHidden: true,
+            enableFindWidget: true
+        }
+    }
+
     createNewWebviewPanel() {
         const panel = vscode.window.createWebviewPanel('unotes', "UNotes", 
             { viewColumn: vscode.ViewColumn.column, preserveFocus: false }, 
-            this.getOptions());
+            { ...this.getPanelOptions(), ...this.getWebviewOptions() });
 
         this.isUnotes = true;   // this is the singleton panel
         this.initializeWebPanel(panel);
@@ -87,7 +92,7 @@ class UNotesPanel {
         try {
             Utils.panels[this.id] = this;
             this.panel = panel;             // the panel might be from a custom editor
-            this.panel.webview.options = this.getOptions();
+            this.panel.webview.options = this.getWebviewOptions();
 
             // Set the webview's initial html content
             this.panel.webview.html = this.getWebviewContent();
@@ -226,15 +231,31 @@ class UNotesPanel {
         if (this.writingFile) return;
         if(content == this.lastContent) return;
 
-        if (this.document) {
+        // start with the custom editor doc
+        let foundDoc = this.document;
+        if(!foundDoc){
+            for(let doc of vscode.workspace.textDocuments) {
+                if(this.currentPath === doc.uri.fsPath){
+                    foundDoc = doc;
+                    break;
+                }
+            }
+        }
+        // we have a document to work with
+        if (foundDoc){
             const edit = new vscode.WorkspaceEdit();
             // Just replace the entire document every time for this example extension.
-            // A more complete extension should compute minimal edits instead.
+            // Someday compute minimal edits instead.
             this.writingFile = this.currentPath;
-            edit.replace(this.document.uri, new vscode.Range(0, 0, this.document.lineCount, 0), content);
+            edit.replace(foundDoc.uri, new vscode.Range(0, 0, foundDoc.lineCount, 0), content);
             this.lastContent = content;
             await vscode.workspace.applyEdit(edit);
             this.writingFile = "";
+
+            if (this.isUnotes) {
+                // save the update
+                await foundDoc.save();
+            }
 
         } else if (this.currentPath) {
             

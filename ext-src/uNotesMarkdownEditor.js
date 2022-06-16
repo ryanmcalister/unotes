@@ -14,7 +14,12 @@ class UNotesMarkdownEditorProvider {
 
     static register(context) {
         const provider = new UNotesMarkdownEditorProvider(context);
-        const providerRegistration = vscode.window.registerCustomEditorProvider(UNotesMarkdownEditorProvider.viewType, provider);
+        const providerRegistration = vscode.window.registerCustomEditorProvider(UNotesMarkdownEditorProvider.viewType, provider, {
+            webviewOptions: {
+                retainContextWhenHidden: true,
+                enableFindWidget: true
+            }
+        });
         return providerRegistration;
     }
      /**
