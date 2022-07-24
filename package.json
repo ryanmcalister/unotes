@@ -71,7 +71,7 @@
                 "unotes.mediaFolder": {
                     "type": "string",
                     "default": ".media",
-                    "markdownDescription": "The folder where images are saved relative to the note"
+                    "markdownDescription": "The folder where images are saved relative to the note(e.g. `../media`). Or, an absolute path can be specified(e.g. `/media`)."
                 },
                 "unotes.newNoteTemplate": {
                     "type": "string",
