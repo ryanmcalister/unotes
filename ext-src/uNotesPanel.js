@@ -55,12 +55,16 @@ class UNotesPanel {
     }
 
     getWebviewOptions() {
+        let localResourceRoots = [
+            vscode.Uri.file(path.join(Config.rootPath)),
+            vscode.Uri.file(path.join(this.extensionPath, 'build'))
+        ]
+        if (Config.mediaFolder.startsWith('/')) {
+            localResourceRoots.push(vscode.Uri.file(Config.mediaFolder))
+        }
         return {
             enableScripts: true,
-            localResourceRoots: [
-                vscode.Uri.file(path.join(Config.rootPath)),
-                vscode.Uri.file(path.join(this.extensionPath, 'build'))
-            ]
+            localResourceRoots: localResourceRoots
         };
     }
 
@@ -208,7 +212,7 @@ class UNotesPanel {
                 await vscode.window.showWarningMessage("Failed to load remark_settings.json file. \nNo Unotes remark formatting will be done.");
             }
         }
-        this.panel.webview.postMessage({ command: remarkSettingsCommand, settings: null });
+            this.panel.webview.postMessage({ command: remarkSettingsCommand, settings: null });
     }
 
     hotkeyExec(args) {
