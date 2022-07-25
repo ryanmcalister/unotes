@@ -128,7 +128,11 @@ class TuiEditor extends Component {
                         return result;
                     }
                     if (entering) {
-                        result.attributes.src = img_root + node.destination;
+                        if (node.destination.startsWith('/')) {
+                            result.attributes.src = node.destination;
+                        } else {
+                            result.attributes.src = img_root + node.destination;
+                        }
                     }
                     return result;
                 }
@@ -157,7 +161,11 @@ class TuiEditor extends Component {
     }
 
     onHtmlBefore(e) {
-        return replaceAll(e, img_root, '');
+        let str = replaceAll(e, img_root, '');
+        if (str) {
+         str = replaceAll(str, 'file://', '');
+        }
+        return str;
     }
 
     onAfterMarkdown(e) {

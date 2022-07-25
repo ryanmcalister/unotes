@@ -161,7 +161,10 @@ exports.Utils = {
      */
     async getNextImageIndex(folderPath) {
         let index = 0;
-        const mediaPath = path.join(folderPath, Config.mediaFolder);
+        let mediaPath = path.join(folderPath, Config.mediaFolder);
+        if (path.isAbsolute(Config.mediaFolder)) {
+            mediaPath = Config.mediaFolder;
+        }
         if(!await this.fileExists(mediaPath)){
             return 0;
         }
@@ -191,7 +194,10 @@ exports.Utils = {
      */
     async saveMediaImage(folderPath, imgBuffer, index, imgType) {
         let newIndex = index;
-        const mediaPath = path.join(folderPath, Config.mediaFolder);
+        let mediaPath = path.join(folderPath, Config.mediaFolder);
+        if (path.isAbsolute(Config.mediaFolder)) {
+            mediaPath = Config.mediaFolder;
+        }
 
         // create the folder if needed
         if(!await this.fileExists(mediaPath)){
