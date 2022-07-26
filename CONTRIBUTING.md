@@ -33,6 +33,8 @@ In the `root` folder (not editor) run...
 npm run build-editor
 ```
 
+*Note: Only `npm` <= `v16.0` supported*
+
 ### The Unotes Extension Project
 
 This is the root folder project. The extension code is in the `ext-src` folder. The extension provides the unotes tree view (UNotesProvider), several commands and settings, and a WebView (UNotesPanel).
@@ -57,6 +59,14 @@ npm run build
 
 # to build in release mode
 npm run pack
+```
+
+#### Building All
+
+For convenience during development there is a build-all script that runs `build-editor` + `build`
+
+```bash
+npm run build-all
 ```
 
 ## Pull Requests

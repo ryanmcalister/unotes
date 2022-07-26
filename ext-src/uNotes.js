@@ -148,6 +148,10 @@ class UNotes {
             vscode.commands.registerCommand('unotes.convertImages', this.onConvertImages.bind(this))
         );
 
+        this.disposables.push(
+            vscode.commands.registerCommand('unotes.openWith', this.onOpenWithUnotes.bind(this))
+        );
+
 
         checkWhatsNew(context);
 
@@ -232,6 +236,43 @@ class UNotes {
             }
         }
         return paths;
+    }
+
+    async onOpenWithUnotes(file) {
+
+        if (file === undefined){
+            // so triggered by a keybinding
+
+            // get the browser selection
+            // this is a hack (https://github.com/Microsoft/vscode/issues/3553)
+            const originalClipboard = await vscode.env.clipboard.readText();
+            await vscode.commands.executeCommand('copyFilePath');
+            const filepath = await vscode.env.clipboard.readText();  // returns a string
+            // preserve the clipboard state
+            await vscode.env.clipboard.writeText(originalClipboard);
+
+            if(!await Utils.fileExists(filepath)) return;
+            
+            // make it a Uri 
+            file = await vscode.Uri.file(filepath);
+            
+        }
+
+        const note = UNote.noteFromPath(file.fsPath);
+        await UNotesPanel.createOrShow(Utils.context.extensionPath);
+        const panel = UNotesPanel.instance();
+        await panel.showUNote(note);
+
+        // open the panel
+        // setTimeout(async () => {
+        //     try {
+        //         await this.view.reveal(note, { expand: 3 });
+        //         this.selectAfterRefresh = null;
+        //     } catch (e) {
+        //         console.log(e.message)
+        //     }
+        // }, 500);
+
     }
 
     async onConvertImages(note) {

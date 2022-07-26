@@ -1,5 +1,12 @@
 # Updates
 
+## [1.4.2] - 2022-07-25
+
+### Added
+
+- Open markdown file in Unotes menu item [(issue: #123)](https://github.com/ryanmcalister/unotes/issues/123)
+- Absolute path support for media folder [(issue: #119)](https://github.com/ryanmcalister/unotes/issues/119) (contributed by kiyoka)
+
 ## [1.4.1] - 2022-01-31
 
 ### Fixed

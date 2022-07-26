@@ -1,7 +1,7 @@
 {
     "name": "unotes",
     "displayName": "UNOTES - Markdown Notes WYSIWYG",
-    "version": "1.4.1",
+    "version": "1.4.2",
     "author": {
         "name": "Ryan McAlister",
         "email": "rymc26@gmail.com"
@@ -38,7 +38,8 @@
         "wysiwyg"
     ],
     "activationEvents": [
-        "onView:unoteFiles"
+        "onView:unoteFiles",
+        "onCommand:unotes.openWith"
     ],
     "main": "./dist/extension.js",
     "icon": "resources/unotes-icon.png",
@@ -71,7 +72,7 @@
                 "unotes.mediaFolder": {
                     "type": "string",
                     "default": ".media",
-                    "markdownDescription": "The folder where images are saved relative to the note(e.g. `../media`). Or, an absolute path can be specified(e.g. `/media`)."
+                    "markdownDescription": "The folder where images are saved relative to the note(e.g. `../media`). Or, an absolute path can be specified(e.g. `/f:/media` or `/home/my/folder`)."
                 },
                 "unotes.newNoteTemplate": {
                     "type": "string",
@@ -566,6 +567,14 @@
                 }
             },
             {
+                "command": "unotes.openWith",
+                "title": "Open with Unotes",
+                "icon": {
+                    "light": "resources/light/refresh.svg",
+                    "dark": "resources/dark/refresh.svg"
+                }
+            },
+            {
                 "command": "unotes.toggleMode",
                 "title": "Toggle Editor Mode"
             }
@@ -648,6 +657,13 @@
                     "command": "unotes.orderingOn",
                     "when": "viewItem =~ /(uNoteFolder:uord)/",
                     "group": "unotesFolder@2"
+                }
+            ],
+            "explorer/context": [
+                {
+                    "command": "unotes.openWith",
+                    "when": "resourceExtname == .md",
+                    "group": "navigation"
                 }
             ]
         },
@@ -756,6 +772,11 @@
                 "command": "unotes.insertTemplate",
                 "key": "ctrl+alt+n",
                 "mac": "cmd+alt+n"
+            },
+            {
+                "command": "unotes.openWith",
+                "key": "ctrl+alt+y",
+                "mac": "cmd+alt+y"
             }
         ],
         "viewsContainers": {
