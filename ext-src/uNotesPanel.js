@@ -85,11 +85,14 @@ class UNotesPanel {
 
         // add document updates from other editor detection
         vscode.workspace.onDidChangeTextDocument(e => {
-            if (e.document.uri.fsPath === this.currentPath) {
+            if (e.document.uri.fsPath === this.currentPath && !this.panel.active) {
                 this.updateContents(false, true);
             }
             
         }, null, this.disposables);
+
+        // handle file saving when needed
+        
     }
 
     initializeWebPanel(panel) {
@@ -172,9 +175,9 @@ class UNotesPanel {
             this.currentNote = UNote.noteFromPath(this.document.uri.fsPath);
             this.currentPath = this.document.uri.fsPath;
 
-            vscode.workspace.onDidChangeTextDocument(e => {
-                if (e.document.uri.toString() === this.document.uri.toString()) {
-                    this.updateContents(false, true);
+            vscode.workspace.onDidChangeTextDocument(async e => {
+                if (e.document.uri.toString() === this.document.uri.toString() && !this.panel.active) {
+                    await this.updateContents(false, true);
                 }
                 
             }, null, this.document_disposables);
@@ -233,7 +236,8 @@ class UNotesPanel {
 
     async saveChanges(content) {
         if (this.writingFile) return;
-        if(content == this.lastContent) return;
+        if(!this.panel.active || content == this.lastContent) return;
+        console.log(`SaveToDoc: ${content} != ${this.lastContent}`)
 
         // start with the custom editor doc
         let foundDoc = this.document;
@@ -262,10 +266,10 @@ class UNotesPanel {
             }
 
         } else if (this.currentPath) {
-            
+
+            this.lastContent = content;
             this.writingFile = this.currentPath;
             const encoder = new TextEncoder();
-            this.lastContent = content;
             await vscode.workspace.fs.writeFile(vscode.Uri.file(this.currentPath), encoder.encode(content));
             this.writingFile = "";
         }
@@ -291,6 +295,7 @@ class UNotesPanel {
                 const content = this.document.getText();
                 if(content == this.lastContent && !force)
                     return;
+                console.log(`UpdateEditor: ${content} != ${this.lastContent}`)
                 const folderPath = this.panel.webview.asWebviewUri(vscode.Uri.file(path.join(Config.rootPath, this.currentNote.folderPath))).path;
                 this.lastContent = content
                 this.panel.webview.postMessage({ command: 'setContent', content: content, folderPath, contentPath: this.currentPath });

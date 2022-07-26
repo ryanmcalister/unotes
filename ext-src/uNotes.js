@@ -153,6 +153,10 @@ class UNotes {
             vscode.commands.registerCommand('unotes.openWith', this.onOpenWithUnotes.bind(this))
         );
 
+        // this.disposables.push(
+        //     vscode.commands.registerCommand('workbench.action.files.save', this.onFileSave.bind(this))
+        // );
+
         // Add panel hotkeys
         // Register commands
         this.disposables.push(vscode.commands.registerCommand("unotes.heading.1", () => {
@@ -368,6 +372,10 @@ class UNotes {
             }
         }
         return paths;
+    }
+
+    async onFileSave() {
+        
     }
 
     async onOpenWithUnotes(file) {
