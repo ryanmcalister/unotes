@@ -78,6 +78,17 @@ class UNotes {
 
         context.subscriptions.push(vscode.workspace.onDidChangeConfiguration(Config.onChange.bind(Config)));
 
+        // status Bar
+        const statusBarCommandId = 'unotes.showImageZoomPercent';
+        this.lastImageZoomPercent = Config.imageZoomOutLimitPercent;
+        this.disposables.push(
+            vscode.commands.registerCommand(statusBarCommandId, this.onShowStatusBar.bind(this))
+        );
+        this.statusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right, 100);
+        this.statusBarItem.command = statusBarCommandId;
+        context.subscriptions.push(this.statusBarItem);
+        this.onShowStatusBar();
+
         // Create view and Provider
         const uNoteProvider = new UNoteProvider(Config.rootPath);
         this.uNoteProvider = uNoteProvider;
@@ -152,6 +163,25 @@ class UNotes {
             vscode.commands.registerCommand('unotes.openWith', this.onOpenWithUnotes.bind(this))
         );
 
+        this.disposables.push(
+            vscode.commands.registerCommand('unotes.imageZoomOut_10', this.onImageZoomOut.bind(this,10))
+        );
+
+        this.disposables.push(
+            vscode.commands.registerCommand('unotes.imageZoomOut_25', this.onImageZoomOut.bind(this,25))
+        );
+
+        this.disposables.push(
+            vscode.commands.registerCommand('unotes.imageZoomOut_50', this.onImageZoomOut.bind(this,50))
+        );
+
+        this.disposables.push(
+            vscode.commands.registerCommand('unotes.imageZoomOut_75', this.onImageZoomOut.bind(this,75))
+        );
+        
+        this.disposables.push(
+            vscode.commands.registerCommand('unotes.imageZoomOut_100', this.onImageZoomOut.bind(this,100))
+        );
 
         checkWhatsNew(context);
 
@@ -413,7 +443,22 @@ class UNotes {
         }
 
     }
-    
+
+    async onImageZoomOut(percent) {
+        this.lastImageZoomPercent = percent;
+        const panel = UNotesPanel.instance();
+        if (panel) {
+            await panel.imageZoomOut(percent);
+        }
+        await this.onShowStatusBar();
+    }
+
+    async onShowStatusBar()
+    {
+        this.statusBarItem.text = `Unotes image zoom: ${this.lastImageZoomPercent}%`;
+        this.statusBarItem.show();
+    }
+
     async onRenameFolder(folder) {
         if(!folder){
             return;

@@ -26,6 +26,10 @@ import './override-katex.css'
 // root for local images
 var img_root = '';
 
+// zoom out limit percent
+var Config__img_zoom_out_limit_percent = null;
+var Temp__img_zoom_out_limit_percent = null;
+
 function escapeRegExp(str) {
     return str.replace(/([.*+?^=!:${}()|[]\/\\])/g, "\\$1");
 }
@@ -123,6 +127,23 @@ class TuiEditor extends Component {
                 image(node, context) {
                     const { origin, entering } = context;
                     const result = origin();
+                    // console.log("Config__img_zoom_out_limit_percent" + Config__img_zoom_out_limit_percent);
+                    // console.log("Temp__img_zoom_out_limit_percent" + Temp__img_zoom_out_limit_percent);
+                    let percent = Config__img_zoom_out_limit_percent;
+                    if (Temp__img_zoom_out_limit_percent) {
+                        percent = Temp__img_zoom_out_limit_percent;
+                    }
+                    switch (percent) {
+                        case 10:
+                        case 25:
+                        case 50:
+                        case 75:
+                            result.attributes.class = "zoom" + percent;
+                            break;
+                        default:
+                            result.attributes.class = "zoom100";
+                            break;
+                    }
                     const httpRE = /^https?:\/\/|^data:/;
                     if (httpRE.test(node.destination)){
                         return result;
@@ -236,6 +257,7 @@ class TuiEditor extends Component {
 
     setContent(data){
         img_root = data.folderPath + '/';
+        Config__img_zoom_out_limit_percent = data.percent;
         this.state.editor.setMarkdown(data.content, false);
         this.contentSet = true;
         
@@ -261,6 +283,7 @@ class TuiEditor extends Component {
                 break;
             case 'settings':
                 this.setState({ settings: e.data.settings });
+                Config__img_zoom_out_limit_percent = e.data.settings.imageZoomOutLimitPercent;
                 break;
             case 'remarkSettings':
                 this.remarkSettings = e.data.settings;
@@ -272,6 +295,9 @@ class TuiEditor extends Component {
                 } else {
                     this.state.editor.getUI().getModeSwitch()._changeMarkdown();
                 }
+                break;
+            case 'imageZoomOut':
+                Temp__img_zoom_out_limit_percent = e.data.percent;
                 break;
             default:
         }

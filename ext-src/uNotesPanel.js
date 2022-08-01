@@ -246,6 +246,13 @@ class UNotesPanel {
         }
     }
 
+    async imageZoomOut(percent) {
+        if (this.panel.active) {
+            this.panel.webview.postMessage({ command: 'imageZoomOut', percent});
+        }
+        await this.updateContents();
+    }
+
     insertTemplate() {
         // todo
     }
@@ -279,7 +286,7 @@ class UNotesPanel {
                 const decoder = new TextDecoder();
                 const content = decoder.decode(await vscode.workspace.fs.readFile(vscode.Uri.file(this.currentPath)));
                 const folderPath = this.panel.webview.asWebviewUri(vscode.Uri.file(path.join(Config.rootPath, this.currentNote.folderPath))).path;
-                this.panel.webview.postMessage({ command: 'setContent', content, folderPath, contentPath: this.currentPath });
+                this.panel.webview.postMessage({ command: 'setContent', content, folderPath, contentPath: this.currentPath, percent: Config.imageZoomOutLimitPercent })
             }
         }
         catch (e) {
