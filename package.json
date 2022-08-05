@@ -1,7 +1,7 @@
 {
     "name": "unotes",
     "displayName": "UNOTES - Markdown Notes WYSIWYG",
-    "version": "1.4.2",
+    "version": "1.4.3",
     "author": {
         "name": "Ryan McAlister",
         "email": "rymc26@gmail.com"
@@ -585,7 +585,7 @@
             },
             {
                 "command": "unotes.imageMaxWidth_10",
-                "title": "Image max width with 10%",
+                "title": "Image max width 10%",
                 "icon": {
                     "light": "resources/light/refresh.svg",
                     "dark": "resources/dark/refresh.svg"
@@ -593,7 +593,7 @@
             },
             {
                 "command": "unotes.imageMaxWidth_25",
-                "title": "Image max width with 25%",
+                "title": "Image max width 25%",
                 "icon": {
                     "light": "resources/light/refresh.svg",
                     "dark": "resources/dark/refresh.svg"
@@ -601,7 +601,7 @@
             },
             {
                 "command": "unotes.imageMaxWidth_50",
-                "title": "Image max width with 50%",
+                "title": "Image max width 50%",
                 "icon": {
                     "light": "resources/light/refresh.svg",
                     "dark": "resources/dark/refresh.svg"
@@ -609,7 +609,7 @@
             },
             {
                 "command": "unotes.imageMaxWidth_75",
-                "title": "Image max width with 75%",
+                "title": "Image max width 75%",
                 "icon": {
                     "light": "resources/light/refresh.svg",
                     "dark": "resources/dark/refresh.svg"
@@ -617,7 +617,7 @@
             },
             {
                 "command": "unotes.imageMaxWidth_100",
-                "title": "Image max width with 100%",
+                "title": "Image max width 100%",
                 "icon": {
                     "light": "resources/light/refresh.svg",
                     "dark": "resources/dark/refresh.svg"
