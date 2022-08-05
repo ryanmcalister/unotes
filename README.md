@@ -26,6 +26,7 @@ or
 - Better support for remote file connections. (WSL/SSH)
 - '`Open In Unotes`' right-click menu option added
 - Absolute path support for media folder
+- Global image max width setting support
 
 # ᑌᑎotes
 
@@ -204,6 +205,7 @@ title: title
 | --------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | unotes.editor.display2X           | Display the button toolbar at twice the size                                                                                                                                            |
 | unotes.editor.convertPastedImages | Automatically convert pasted images to local image files in a .media folder                                                                                                             |
+| unotes.editor.imageMaxWidthPercent | Set the default global image max width percent (10, 25, 50, 75, 100)                                                                                                             |
 | unotes.mediaFolder                | The folder where pasted or converted images will be saved. Relative to the note. Absolute paths also supported (e.g. `/f:/my/folder`)                                                                                                       |
 | unotes.newNoteTemplate               | The template used for new notes. Set to empty for no note template.               |
 | unotes.noteFileExtension          | The file extension used to filter and save note files. Default = '.md'                                                                                                                  |

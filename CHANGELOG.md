@@ -1,5 +1,11 @@
 # Updates
 
+## [1.4.3] - 2022-08-05
+
+### Added
+
+- Global image max width support added [(issue: #130)](https://github.com/ryanmcalister/unotes/issues/130) [(issue: #110)](https://github.com/ryanmcalister/unotes/issues/110) (contributed by kiyoka)
+
 ## [1.4.2] - 2022-07-25
 
 ### Added
