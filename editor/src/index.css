@@ -26,22 +26,22 @@ code {
     min-width: 100%;
 }
 
-img.zoom10 {
+img.maxwidth10 {
   max-width: 10% !important;
 }
 
-img.zoom25 {
+img.maxwidth25 {
   max-width: 25% !important;
 }
 
-img.zoom50 {
+img.maxwidth50 {
   max-width: 50% !important;
 }
 
-img.zoom75 {
+img.maxwidth75 {
   max-width: 75% !important;
 }
 
-img.zoom100 {
+img.maxwidth100 {
   max-width: 100% !important;
 }

@@ -60,8 +60,8 @@ class UnotesConfig {
         this._onDidChange_editor_settings = new vscode.EventEmitter();
         this.onDidChange_editor_settings = this._onDidChange_editor_settings.event;
 
-        // image zoom limit
-        this.imageZoomOutLimitPercent = this.settings.editor.imageZoomOutLimitPercent;
+        // image max width
+        this.imageMaxWidthPercent = this.settings.editor.imageMaxWidthPercent;
 
         // handlebars helpers
         Handlebars.registerHelper('formatDate', function (dt, dtFormat) {

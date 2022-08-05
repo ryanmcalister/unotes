@@ -79,8 +79,8 @@ class UNotes {
         context.subscriptions.push(vscode.workspace.onDidChangeConfiguration(Config.onChange.bind(Config)));
 
         // status Bar
-        const statusBarCommandId = 'unotes.showImageZoomPercent';
-        this.lastImageZoomPercent = Config.imageZoomOutLimitPercent;
+        const statusBarCommandId = 'unotes.showImageMaxWidthPercent';
+        this.lastImageMaxWidthPercent = Config.imageMaxWidthPercent;
         this.disposables.push(
             vscode.commands.registerCommand(statusBarCommandId, this.onShowStatusBar.bind(this))
         );
@@ -164,23 +164,23 @@ class UNotes {
         );
 
         this.disposables.push(
-            vscode.commands.registerCommand('unotes.imageZoomOut_10', this.onImageZoomOut.bind(this,10))
+            vscode.commands.registerCommand('unotes.imageMaxWidth_10', this.onImageMaxWidth.bind(this,10))
         );
 
         this.disposables.push(
-            vscode.commands.registerCommand('unotes.imageZoomOut_25', this.onImageZoomOut.bind(this,25))
+            vscode.commands.registerCommand('unotes.imageMaxWidth_25', this.onImageMaxWidth.bind(this,25))
         );
 
         this.disposables.push(
-            vscode.commands.registerCommand('unotes.imageZoomOut_50', this.onImageZoomOut.bind(this,50))
+            vscode.commands.registerCommand('unotes.imageMaxWidth_50', this.onImageMaxWidth.bind(this,50))
         );
 
         this.disposables.push(
-            vscode.commands.registerCommand('unotes.imageZoomOut_75', this.onImageZoomOut.bind(this,75))
+            vscode.commands.registerCommand('unotes.imageMaxWidth_75', this.onImageMaxWidth.bind(this,75))
         );
         
         this.disposables.push(
-            vscode.commands.registerCommand('unotes.imageZoomOut_100', this.onImageZoomOut.bind(this,100))
+            vscode.commands.registerCommand('unotes.imageMaxWidth_100', this.onImageMaxWidth.bind(this,100))
         );
 
         checkWhatsNew(context);
@@ -444,18 +444,18 @@ class UNotes {
 
     }
 
-    async onImageZoomOut(percent) {
-        this.lastImageZoomPercent = percent;
+    async onImageMaxWidth(percent) {
+        this.lastImageMaxWidthPercent = percent;
         const panel = UNotesPanel.instance();
         if (panel) {
-            await panel.imageZoomOut(percent);
+            await panel.imageMaxWidth(percent);
         }
         await this.onShowStatusBar();
     }
 
     async onShowStatusBar()
     {
-        this.statusBarItem.text = `Unotes image zoom: ${this.lastImageZoomPercent}%`;
+        this.statusBarItem.text = `Unotes image max width: ${this.lastImageMaxWidthPercent}%`;
         this.statusBarItem.show();
     }
 
