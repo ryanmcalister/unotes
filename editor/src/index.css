@@ -25,3 +25,23 @@ code {
     min-height: 100vh;
     min-width: 100%;
 }
+
+img.maxwidth10 {
+  max-width: 10% !important;
+}
+
+img.maxwidth25 {
+  max-width: 25% !important;
+}
+
+img.maxwidth50 {
+  max-width: 50% !important;
+}
+
+img.maxwidth75 {
+  max-width: 75% !important;
+}
+
+img.maxwidth100 {
+  max-width: 100% !important;
+}

@@ -78,6 +78,17 @@ class UNotes {
 
         context.subscriptions.push(vscode.workspace.onDidChangeConfiguration(Config.onChange.bind(Config)));
 
+        // status Bar
+        const statusBarCommandId = 'unotes.showImageMaxWidthPercent';
+        this.lastImageMaxWidthPercent = Config.imageMaxWidthPercent;
+        this.disposables.push(
+            vscode.commands.registerCommand(statusBarCommandId, this.onShowStatusBar.bind(this))
+        );
+        this.statusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right, 100);
+        this.statusBarItem.command = statusBarCommandId;
+        context.subscriptions.push(this.statusBarItem);
+        this.onShowStatusBar();
+
         // Create view and Provider
         const uNoteProvider = new UNoteProvider(Config.rootPath);
         this.uNoteProvider = uNoteProvider;
@@ -152,6 +163,25 @@ class UNotes {
             vscode.commands.registerCommand('unotes.openWith', this.onOpenWithUnotes.bind(this))
         );
 
+        this.disposables.push(
+            vscode.commands.registerCommand('unotes.imageMaxWidth_10', this.onImageMaxWidth.bind(this,10))
+        );
+
+        this.disposables.push(
+            vscode.commands.registerCommand('unotes.imageMaxWidth_25', this.onImageMaxWidth.bind(this,25))
+        );
+
+        this.disposables.push(
+            vscode.commands.registerCommand('unotes.imageMaxWidth_50', this.onImageMaxWidth.bind(this,50))
+        );
+
+        this.disposables.push(
+            vscode.commands.registerCommand('unotes.imageMaxWidth_75', this.onImageMaxWidth.bind(this,75))
+        );
+        
+        this.disposables.push(
+            vscode.commands.registerCommand('unotes.imageMaxWidth_100', this.onImageMaxWidth.bind(this,100))
+        );
 
         checkWhatsNew(context);
 
@@ -413,7 +443,22 @@ class UNotes {
         }
 
     }
-    
+
+    async onImageMaxWidth(percent) {
+        this.lastImageMaxWidthPercent = percent;
+        const panel = UNotesPanel.instance();
+        if (panel) {
+            await panel.imageMaxWidth(percent);
+        }
+        await this.onShowStatusBar();
+    }
+
+    async onShowStatusBar()
+    {
+        this.statusBarItem.text = `Unotes image max width: ${this.lastImageMaxWidthPercent}%`;
+        this.statusBarItem.show();
+    }
+
     async onRenameFolder(folder) {
         if(!folder){
             return;

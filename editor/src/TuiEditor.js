@@ -26,6 +26,10 @@ import './override-katex.css'
 // root for local images
 var img_root = '';
 
+// image max width percent
+var Config__img_max_width_percent = null;
+var Temp__img_max_width_percent = null;
+
 function escapeRegExp(str) {
     return str.replace(/([.*+?^=!:${}()|[]\/\\])/g, "\\$1");
 }
@@ -123,6 +127,23 @@ class TuiEditor extends Component {
                 image(node, context) {
                     const { origin, entering } = context;
                     const result = origin();
+                    // console.log("Config__img_max_width_percent" + Config__img_max_width_percent);
+                    // console.log("Temp__img_max_width_percent" + Temp__img_max_width_percent);
+                    let percent = Config__img_max_width_percent;
+                    if (Temp__img_max_width_percent) {
+                        percent = Temp__img_max_width_percent;
+                    }
+                    switch (percent) {
+                        case 10:
+                        case 25:
+                        case 50:
+                        case 75:
+                            result.attributes.class = "maxwidth" + percent;
+                            break;
+                        default:
+                            result.attributes.class = "maxwidth100";
+                            break;
+                    }
                     const httpRE = /^https?:\/\/|^data:/;
                     if (httpRE.test(node.destination)){
                         return result;
@@ -236,6 +257,7 @@ class TuiEditor extends Component {
 
     setContent(data){
         img_root = data.folderPath + '/';
+        Config__img_max_width_percent = data.percent;
         this.state.editor.setMarkdown(data.content, false);
         this.contentSet = true;
         
@@ -261,6 +283,7 @@ class TuiEditor extends Component {
                 break;
             case 'settings':
                 this.setState({ settings: e.data.settings });
+                Config__img_max_width_percent = e.data.settings.imageMaxWidthPercent;
                 break;
             case 'remarkSettings':
                 this.remarkSettings = e.data.settings;
@@ -272,6 +295,9 @@ class TuiEditor extends Component {
                 } else {
                     this.state.editor.getUI().getModeSwitch()._changeMarkdown();
                 }
+                break;
+            case 'imageMaxWidth':
+                Temp__img_max_width_percent = e.data.percent;
                 break;
             default:
         }

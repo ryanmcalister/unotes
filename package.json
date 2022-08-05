@@ -78,6 +78,11 @@
                     "type": "string",
                     "default": "title_date",
                     "markdownDescription": "The template used for new notes"
+                },
+                "unotes.editor.imageMaxWidthPercent": {
+                    "type": "integer",
+                    "default": "100",
+                    "markdownDescription": "image max width in percent. (e.g. 10 or 25 or 50 or 75 or 100)"
                 }
             }
         },
@@ -577,6 +582,46 @@
             {
                 "command": "unotes.toggleMode",
                 "title": "Toggle Editor Mode"
+            },
+            {
+                "command": "unotes.imageMaxWidth_10",
+                "title": "Image max width with 10%",
+                "icon": {
+                    "light": "resources/light/refresh.svg",
+                    "dark": "resources/dark/refresh.svg"
+                }
+            },
+            {
+                "command": "unotes.imageMaxWidth_25",
+                "title": "Image max width with 25%",
+                "icon": {
+                    "light": "resources/light/refresh.svg",
+                    "dark": "resources/dark/refresh.svg"
+                }
+            },
+            {
+                "command": "unotes.imageMaxWidth_50",
+                "title": "Image max width with 50%",
+                "icon": {
+                    "light": "resources/light/refresh.svg",
+                    "dark": "resources/dark/refresh.svg"
+                }
+            },
+            {
+                "command": "unotes.imageMaxWidth_75",
+                "title": "Image max width with 75%",
+                "icon": {
+                    "light": "resources/light/refresh.svg",
+                    "dark": "resources/dark/refresh.svg"
+                }
+            },
+            {
+                "command": "unotes.imageMaxWidth_100",
+                "title": "Image max width with 100%",
+                "icon": {
+                    "light": "resources/light/refresh.svg",
+                    "dark": "resources/dark/refresh.svg"
+                }
             }
         ],
         "menus": {
@@ -627,6 +672,31 @@
                     "command": "unotes.convertImages",
                     "when": "viewItem =~ /(uNoteFile)/",
                     "group": "unotesProcess@1"
+                },
+                {
+                    "command": "unotes.imageMaxWidth_10",
+                    "when": "viewItem =~ /(uNoteFile)/",
+                    "group": "unotesImageMaxWidth@1"
+                },
+                {
+                    "command": "unotes.imageMaxWidth_25",
+                    "when": "viewItem =~ /(uNoteFile)/",
+                    "group": "unotesImageMaxWidth@2"
+                },
+                {
+                    "command": "unotes.imageMaxWidth_50",
+                    "when": "viewItem =~ /(uNoteFile)/",
+                    "group": "unotesImageMaxWidth@3"
+                },
+                {
+                    "command": "unotes.imageMaxWidth_75",
+                    "when": "viewItem =~ /(uNoteFile)/",
+                    "group": "unotesImageMaxWidth@4"
+                },
+                {
+                    "command": "unotes.imageMaxWidth_100",
+                    "when": "viewItem =~ /(uNoteFile)/",
+                    "group": "unotesImageMaxWidth@5"
                 },
                 {
                     "command": "unotes.renameFolder",
