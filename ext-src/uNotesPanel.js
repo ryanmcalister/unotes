@@ -57,6 +57,7 @@ class UNotesPanel {
             this.currentPath = '';
             this.currentNote = null;
             this.imageToConvert = null;
+            this.imageToReplace = null;
             let localResourceRoots = [
                 vscode.Uri.file(path.join(Config.rootPath)),
                 vscode.Uri.file(path.join(this.extensionPath, 'build'))
@@ -83,14 +84,24 @@ class UNotesPanel {
                 switch (message.command) {
                     case 'applyChanges':
                         // kind of a hack to replace pasted images with actual files
-                        if (this.imageToConvert){
+                        if (this.imageToReplace){
+                            const newContent = await this.replaceImage(message.content, this.imageToReplace);
+                            if(newContent){     // will be empty on error
+                                message.content = newContent;
+                            }
+                        }
+                        else if (this.imageToConvert){
                             const newContent = await this.convertImage(message.content, this.imageToConvert);
                             if(newContent){     // will be empty on error
                                 message.content = newContent;
                             }
                         }
                         await this.saveChanges(message.content);
-                        if (this.imageToConvert){
+                        if (this.imageToReplace){
+                            this.imageToReplace = null;
+                            await this.updateContents();
+                        }
+                        else if (this.imageToConvert){
                             this.imageToConvert = null;  
                             await this.updateContents();
                         }
@@ -104,7 +115,25 @@ class UNotesPanel {
                         await UNotesPanel.recreate(this.extensionPath, this.currentNote)
                         break;
                     case 'convertImage':
-                        this.imageToConvert = message.data;
+                        const imageFilePath = Utils.toLowerCaseDriveLetter(path.normalize(message.path));
+                        const imageDirPath = path.dirname(imageFilePath)
+                        let mediaFolderFullPath = Utils.toLowerCaseDriveLetter(path.normalize(this.getMediaFolderFullPath()));
+                        if (!mediaFolderFullPath.startsWith(':',1)) { // for Windows Platform
+                            mediaFolderFullPath = "c:" + mediaFolderFullPath;
+                        }
+                        //console.log('imageFilePath', imageFilePath);
+                        //console.log('imageDirPath', imageDirPath);
+                        //console.log('mediaFolderFullPath', mediaFolderFullPath);
+                        if (imageDirPath.startsWith(mediaFolderFullPath)) {
+                            let pathInMediaFolder = imageFilePath.substring(mediaFolderFullPath.length);
+                            this.imageToReplace = {
+                                base64: message.data,
+                                imagePath: Utils.getImageTagUrl(pathInMediaFolder)
+                            }
+                        }
+                        else {
+                            this.imageToConvert = message.data;
+                        }
                         break;
                     default:
                         console.log("Unknown webview message received:")
@@ -292,17 +321,30 @@ class UNotesPanel {
         catch (e) {
             console.log(e);
         }
-    }   
+    }
+
+    getNoteFolderFullPath() {
+        const noteFolderFullPath = path.join(Config.rootPath, this.currentNote.folderPath);
+        return noteFolderFullPath
+    }
+
+    getMediaFolderFullPath() {
+        if (Config.mediaFolder.startsWith('/')) {
+            return Config.mediaFolder;
+        }
+        const noteFolderFullPath = this.getNoteFolderFullPath();
+        return path.join(noteFolderFullPath, Config.mediaFolder);
+    }
 
     /**
      * Removes the given image data from the content, 
      * saves an image, puts a relative image path in its place
      * @returns the new content, or blank if a failure happends
      */
-    async convertImage(content, image) {
+     async convertImage(content, image) {
         try {
             if(this.currentNote){
-                const noteFolder = path.join(Config.rootPath, this.currentNote.folderPath);
+                const noteFolder = this.getNoteFolderFullPath();
                 let found = 0;
 
                 // get a unique image index
@@ -340,7 +382,25 @@ class UNotesPanel {
             console.log(e);
         }
         return content;
-    }    
+    }
+    
+    /**
+     * Replace the given image data with image path.
+     * @returns the new content text
+     */
+    async replaceImage(content, imageObj) {
+        try {
+            if (this.currentNote) {
+                // replace the embedded image with a imagePath
+                const newContent = content.replace(imageObj.base64, imageObj.imagePath);
+                return newContent;
+            }
+        }
+        catch (e) {
+            console.log(e);
+        }
+        return content;
+    }
 
     async updateFileIfOpen(filePath) {
         // update our view if an external change happens
