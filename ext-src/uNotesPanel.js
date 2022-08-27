@@ -6,7 +6,6 @@ Object.defineProperty(exports, "__esModule", {
 
 const vscode = require('vscode');
 const path = require('path');
-const os = require("os");
 const { Config, Utils } = require("./uNotesCommon");
 
 let _currentPanel = null;
@@ -119,7 +118,7 @@ class UNotesPanel {
                         const imageFilePath = Utils.toLowerCaseDriveLetter(path.normalize(message.path));
                         const imageDirPath = path.dirname(imageFilePath)
                         let mediaFolderFullPath = Utils.toLowerCaseDriveLetter(path.normalize(this.getMediaFolderFullPath()));
-                        if ((os.platform() === 'win32') && !mediaFolderFullPath.startsWith(':',1)) { // for Windows Platform
+                        if (!mediaFolderFullPath.startsWith(':',1)) { // for Windows Platform
                             mediaFolderFullPath = "c:" + mediaFolderFullPath;
                         }
                         //console.log('imageFilePath', imageFilePath);
