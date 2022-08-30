@@ -245,6 +245,7 @@ class TuiEditor extends Component {
         .then(result => {
             window.vscode.postMessage({
                 command: 'convertImage',
+                path: e.path,
                 data: result
             });
             return null;

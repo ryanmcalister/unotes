@@ -240,6 +240,10 @@ exports.Utils = {
     },    
     
     getImageTagUrl(imgName){
+        imgName = imgName.replaceAll('\\','/'); // for Windows platform
+        if (imgName.startsWith('/')) {
+            imgName = imgName.substring(1);
+        }
         return `${Config.mediaFolder}/${imgName}`;
     },
 
@@ -302,6 +306,13 @@ exports.Utils = {
             }
         }
         return false;
+    },
+
+    toLowerCaseDriveLetter(path){
+        if (/^[A-Z]:/.test(path)) {
+            return path[0].toLowerCase() + path.slice(1);
+        }
+        return path;
     }
 
 
