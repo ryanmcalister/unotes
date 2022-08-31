@@ -27,6 +27,7 @@ or
 - '`Open In Unotes`' right-click menu option added
 - Absolute path support for media folder
 - Global image max width setting support
+- Image drag and drop / adding fixes
 
 # ᑌᑎotes
 
