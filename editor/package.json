@@ -2,7 +2,7 @@
   "name": "UNotesEditor",
   "version": "0.1.0",
   "dependencies": {
-    "@toast-ui/editor": "3.0.0",
+    "@toast-ui/editor": "^3.2.1",
     "@toast-ui/editor-plugin-chart": "3.0.x",
     "@toast-ui/editor-plugin-code-syntax-highlight": "3.1.0",
     "@toast-ui/editor-plugin-uml": "3.0.x",
