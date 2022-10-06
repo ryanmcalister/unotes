@@ -58,31 +58,12 @@ function replaceAll(str, find, replace) {
 
 function getHTMLRenderers() {
     return {
-        codeBlock(node) {
-            const { fenceLength, info } = node;
-            const infoWords = info ? info.split(/\s+/) : [];
-            let content = node.literal;
-            console.log('info',info);
-            if (infoWords.length && infoWords[0].length) {
-                const lang = infoWords[0];
-                if (lang === 'katex') {
-                    content = katexReplacer(node.literal);
-                }
-            }
-            return [
-                { type: 'openTag', tagName: 'pre'},
-                { type: 'openTag', tagName: 'code' },
-                { type: 'html', content },
-                { type: 'closeTag', tagName: 'code' },
-                { type: 'closeTag', tagName: 'pre' }
-            ];
-        },
         katex(node) {
             const content = katexReplacer(node.literal);
             return [
-                { type: 'openTag', tagName: 'code' },
+                { type: 'openTag', tagName: 'div' },
                 { type: 'html', content },
-                { type: 'closeTag', tagName: 'code' }
+                { type: 'closeTag', tagName: 'div' }
             ]
         }
     }
