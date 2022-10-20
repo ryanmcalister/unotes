@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 
 const vscode = require('vscode');
 const path = require('path');
+const crypto = require('crypto');
 const os = require("os");
 const { Config, Utils } = require("./uNotesCommon");
 
@@ -56,6 +57,7 @@ class UNotesPanel {
             this.reloadContentNeeded = false;
             this.updateSettingsNeeded = false;
             this.currentPath = '';
+            this.savedContent = {};
             this.currentNote = null;
             this.imageToConvert = null;
             this.imageToReplace = null;
@@ -100,15 +102,15 @@ class UNotesPanel {
                         await this.saveChanges(message.content);
                         if (this.imageToReplace){
                             this.imageToReplace = null;
-                            await this.updateContents();
+                            await this.updateContents(true);
                         }
                         else if (this.imageToConvert){
                             this.imageToConvert = null;  
-                            await this.updateContents();
+                            await this.updateContents(true);
                         }
                         break;
                     case 'editorOpened':
-                        await this.updateContents();
+                        await this.updateContents(true);
                         this.updateEditorSettings();
                         await this.updateRemarkSettings();
                         break;
@@ -145,7 +147,7 @@ class UNotesPanel {
             this.panel.onDidChangeViewState(async e => {
                 if (e.webviewPanel.active) {
                     if (this.reloadContentNeeded) {
-                        await this.updateContents();
+                        await this.updateContents(true);
                         this.reloadContentNeeded = false;
                     }
                     if (this.updateSettingsNeeded) {
@@ -157,61 +159,61 @@ class UNotesPanel {
 
             // Register commands
             this.disposables.push(vscode.commands.registerCommand("unotes.heading.1", () => {
-                this.hotkeyExec(['Heading', 1]);
+                this.hotkeyExec(['heading', {level: 1}]);
             }));
             this.disposables.push(vscode.commands.registerCommand("unotes.heading.2", () => {
-                this.hotkeyExec(['Heading', 2]);
+                this.hotkeyExec(['heading', {level: 2}]);
             }));
             this.disposables.push(vscode.commands.registerCommand("unotes.heading.3", () => {
-                this.hotkeyExec(['Heading', 3]);
+                this.hotkeyExec(['heading', {level: 3}]);
             }));
             this.disposables.push(vscode.commands.registerCommand("unotes.heading.4", () => {
-                this.hotkeyExec(['Heading', 4]);
+                this.hotkeyExec(['heading', {level: 4}]);
             }));
             this.disposables.push(vscode.commands.registerCommand("unotes.heading.5", () => {
-                this.hotkeyExec(['Heading', 5]);
+                this.hotkeyExec(['heading', {level: 5}]);
             }));
             this.disposables.push(vscode.commands.registerCommand("unotes.heading.6", () => {
-                this.hotkeyExec(['Heading', 6]);
+                this.hotkeyExec(['heading', {level: 6}]);
             }));
             this.disposables.push(vscode.commands.registerCommand("unotes.normal", () => {
-                this.hotkeyExec(['Paragraph']);
+                this.hotkeyExec(['heading', {level: 0}]);
             }));
             this.disposables.push(vscode.commands.registerCommand("unotes.bold", () => {
-                this.hotkeyExec(['Bold']);
+                this.hotkeyExec(['bold', {}]);
             }));
             this.disposables.push(vscode.commands.registerCommand("unotes.italic", () => {
-                this.hotkeyExec(['Italic']);
+                this.hotkeyExec(['italic', {}]);
             }));
             this.disposables.push(vscode.commands.registerCommand("unotes.strike", () => {
-                this.hotkeyExec(['Strike']);
+                this.hotkeyExec(['strike', {}]);
             }));
             this.disposables.push(vscode.commands.registerCommand("unotes.task", () => {
-                this.hotkeyExec(['Task']);
+                this.hotkeyExec(['taskList', {}]);
             }));
             this.disposables.push(vscode.commands.registerCommand("unotes.ul", () => {
-                this.hotkeyExec(['UL']);
+                this.hotkeyExec(['bulletList', {}]);
             }));
             this.disposables.push(vscode.commands.registerCommand("unotes.ol", () => {
-                this.hotkeyExec(['OL']);
+                this.hotkeyExec(['orderedList', {}]);
             }));
             this.disposables.push(vscode.commands.registerCommand("unotes.blockquote", () => {
-                this.hotkeyExec(['Blockquote']);
+                this.hotkeyExec(['blockQuote', {}]);
             }));
             this.disposables.push(vscode.commands.registerCommand("unotes.code", () => {
-                this.hotkeyExec(['Code']);
+                this.hotkeyExec(['code', {}]);
             }));
             this.disposables.push(vscode.commands.registerCommand("unotes.codeblock", () => {
-                this.hotkeyExec(['CodeBlock']);
+                this.hotkeyExec(['codeBlock', {}]);
             }));
             this.disposables.push(vscode.commands.registerCommand("unotes.indent", () => {
-                this.hotkeyExec(['Indent']);
+                this.hotkeyExec(['indent', {}]);
             }));
             this.disposables.push(vscode.commands.registerCommand("unotes.outdent", () => {
-                this.hotkeyExec(['Outdent']);
+                this.hotkeyExec(['outdent', {}]);
             }));
             this.disposables.push(vscode.commands.registerCommand("unotes.hr", () => {
-                this.hotkeyExec(['HR']);
+                this.hotkeyExec(['hr', {}]);
             }));
             this.disposables.push(vscode.commands.registerCommand("unotes.toggleMode", () => {
                 this.toggleEditorMode();
@@ -280,7 +282,7 @@ class UNotesPanel {
         if (this.panel.active) {
             this.panel.webview.postMessage({ command: 'imageMaxWidth', percent});
         }
-        await this.updateContents();
+        await this.updateContents(true);
     }
 
     insertTemplate() {
@@ -291,6 +293,7 @@ class UNotesPanel {
         
         if (this.currentPath) {
             this.writingFile = this.currentPath;
+            this.savedContent[ this.currentPath ] = content;
             const encoder = new TextEncoder();
             await vscode.workspace.fs.writeFile(vscode.Uri.file(this.currentPath), encoder.encode(content));
         }
@@ -301,7 +304,7 @@ class UNotesPanel {
             const filePath = unote.fullPath();
             this.currentNote = unote;
             this.currentPath = filePath;
-            await this.updateContents();
+            await this.updateContents(true);
             const title = unote.label;
             this.panel.title = 'Unotes - ' + title;
         }
@@ -310,13 +313,31 @@ class UNotesPanel {
         }
     }
 
-    async updateContents() {
+    calcHash(content) {
+        const shasum = crypto.createHash('sha1');
+        shasum.update(content);
+        let hash = shasum.digest('hex');
+        return hash;
+    }
+
+    async updateContents(force) {
         try {
             if(this.currentNote){
                 const decoder = new TextDecoder();
                 const content = decoder.decode(await vscode.workspace.fs.readFile(vscode.Uri.file(this.currentPath)));
+                let fileHash = this.calcHash(content);
+                let savedHash = '';
+                if(this.savedContent[ this.currentPath ]) {
+                    savedHash = this.calcHash(this.savedContent[ this.currentPath ]);
+                }
+                //console.log('fileHash', fileHash);
+                //console.log('saveHash', savedHash);
+                //console.log('force',force);
+                if(force) {
+                    savedHash = '';
+                }
                 const folderPath = this.panel.webview.asWebviewUri(vscode.Uri.file(path.join(Config.rootPath, this.currentNote.folderPath))).path;
-                this.panel.webview.postMessage({ command: 'setContent', content, folderPath, contentPath: this.currentPath, percent: Config.imageMaxWidthPercent })
+                this.panel.webview.postMessage({ command: 'setContent', content, fileHash, savedHash, folderPath, contentPath: this.currentPath, percent: Config.imageMaxWidthPercent })
             }
         }
         catch (e) {
@@ -408,7 +429,7 @@ class UNotesPanel {
         if ((this.currentPath == filePath) && (filePath != this.writingFile)) {
             // if the view is active then load now else flag to reload on showing
             if (this.panel.active) {
-                await this.updateContents();
+                await this.updateContents(false);
             } else {
                 this.reloadContentNeeded = true;
             }

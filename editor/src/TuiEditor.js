@@ -1,18 +1,17 @@
 import React, { Component } from 'react';
-import Editor from '@toast-ui/editor/dist/toastui-editor';
-import chart from '@toast-ui/editor-plugin-code-syntax-highlight';
+import Editor from '@toast-ui/editor';
+import chart from '@toast-ui/editor-plugin-chart';
 import uml from '@toast-ui/editor-plugin-uml';
-import codeSyntaxHighlight from '@toast-ui/editor-plugin-code-syntax-highlight';
-import hljs from 'highlight.js/lib/highlight'
+import 'prismjs/themes/prism.css';
+import '@toast-ui/editor-plugin-code-syntax-highlight/dist/toastui-editor-plugin-code-syntax-highlight.css';
+import codeSyntaxHighlight from '@toast-ui/editor-plugin-code-syntax-highlight/dist/toastui-editor-plugin-code-syntax-highlight-all.js';
 import '@toast-ui/editor/dist/toastui-editor.css';
-import 'codemirror/lib/codemirror.css';
+import '@toast-ui/editor/dist/theme/toastui-editor-dark.css';
 import 'highlight.js/styles/github.css';
 import './override-light.css';
 import './override-contents-light.css';
 import './override.css';
 import './override-contents.css';
-import './override-codemirror.css';
-import './override-codemirror-light.css';
 import './override-hljs.css';
 import remark from 'remark';
 import gfm from 'remark-gfm';
@@ -38,10 +37,10 @@ function replaceAll(str, find, replace) {
     return str.replace(new RegExp(escapeRegExp(find), 'g'), replace);
 }
 
-/**
+ /**
  * KATEX code block replacer
  */
-function katexReplacer(code) {
+ function katexReplacer(code) {
     let newHTML;
 
     try {
@@ -57,20 +56,31 @@ function katexReplacer(code) {
     return newHTML;
 }
 
-function katexPlugin() {
-    Editor.codeBlockManager.setReplacer('katex', katexReplacer);
+function getHTMLRenderers() {
+    return {
+        katex(node) {
+            const content = katexReplacer(node.literal);
+            return [
+                { type: 'openTag', tagName: 'div' },
+                { type: 'html', content },
+                { type: 'closeTag', tagName: 'div' }
+            ]
+        }
+    }
 }
 
-
+function katexPlugin(context, options) {
+    return {
+        toHTMLRenderers: getHTMLRenderers(context)
+    }
+}
 
 class TuiEditor extends Component {
 
     constructor(props) {
         super(props);
         this.el = React.createRef();
-        this.onHtmlBefore = this.onHtmlBefore.bind(this);
-        this.onAfterMarkdown = this.onAfterMarkdown.bind(this);
-        this.onPreviewBeforeHook = this.onPreviewBeforeHook.bind(this);
+        this.onBeforeConvertWysiwygToMarkdown = this.onBeforeConvertWysiwygToMarkdown.bind(this);
         this.handleMessage = this.handleMessage.bind(this);
         this.remarkSettings = null;
         this.contentSet = false;
@@ -86,7 +96,10 @@ class TuiEditor extends Component {
     }
 
     componentDidMount() {
-
+        let theme = 'light';
+        if (0 < document.documentElement.getElementsByClassName("vscode-dark").length) {
+            theme = 'dark';
+        }
         let editor = new Editor({
             el: this.el.current,
             initialEditType: 'wysiwyg',
@@ -94,39 +107,27 @@ class TuiEditor extends Component {
             frontMatter: true,
             minHeight: '100vh',
             height: '100vh',
+            theme: theme,
             events: {
                 change: debounce(this.onChange.bind(this), 400)
             },
             usageStatistics: false,
             useCommandShortcut: false,
-            plugins: [chart, uml, [codeSyntaxHighlight, { hljs }], katexPlugin],
+            plugins: [chart, uml, katexPlugin, codeSyntaxHighlight],
             toolbarItems: [
-                'heading',
-                'bold',
-                'italic',
-                'strike',
-                'divider',
-                'hr',
-                'quote',
-                'divider',
-                'ul',
-                'ol',
-                'task',
-                'indent',
-                'outdent',
-                'divider',
-                'table',
-                'image',
-                'link',
-                'divider',
-                'code',
-                'codeblock'
+                ['heading', 'bold', 'italic', 'strike'],
+                ['hr', 'quote'],
+                ['ul', 'ol', 'task', 'indent', 'outdent'],
+                ['table', 'image', 'link'],
+                ['code', 'codeblock'],
+                ['scrollSync']
             ],
             customHTMLRenderer: {
                 // For local images to work
                 image(node, context) {
-                    const { origin, entering } = context;
+                    const { origin, entering, skipChildren } = context;
                     const result = origin();
+                    skipChildren();
                     // console.log("Config__img_max_width_percent" + Config__img_max_width_percent);
                     // console.log("Temp__img_max_width_percent" + Temp__img_max_width_percent);
                     let percent = Config__img_max_width_percent;
@@ -138,10 +139,10 @@ class TuiEditor extends Component {
                         case 25:
                         case 50:
                         case 75:
-                            result.attributes.class = "maxwidth" + percent;
+                            result.classNames = ["maxwidth" + percent];
                             break;
                         default:
-                            result.attributes.class = "maxwidth100";
+                            result.classNames = ["maxwidth100"];
                             break;
                     }
                     const httpRE = /^https?:\/\/|^data:/;
@@ -159,17 +160,13 @@ class TuiEditor extends Component {
                 }
             }
             
-        });
+          });
 
-        editor.on("convertorBeforeHtmlToMarkdownConverted", this.onHtmlBefore);
-
-        editor.on("convertorAfterHtmlToMarkdownConverted", this.onAfterMarkdown)
-
-        editor.on("previewBeforeHook", this.onPreviewBeforeHook);
-
+        editor.on("beforeConvertWysiwygToMarkdown", this.onBeforeConvertWysiwygToMarkdown);
+  
         editor.on("addImageBlobHook", this.onPaste.bind(this));
 
-        editor.addHook("scroll", this.onScroll.bind(this));
+        editor.on("caretChange", this.onCaretChange.bind(this));
 
         window.addEventListener('message', this.handleMessage);
 
@@ -181,15 +178,8 @@ class TuiEditor extends Component {
         });
     }
 
-    onHtmlBefore(e) {
-        let str = replaceAll(e, img_root, '');
-        if (str) {
-         str = replaceAll(str, 'file://', '');
-        }
-        return str;
-    }
 
-    onAfterMarkdown(e) {
+    onBeforeConvertWysiwygToMarkdown(e) {
         if(this.remarkSettings){
             // Reformat markdown
             // console.log("from...")
@@ -211,21 +201,18 @@ class TuiEditor extends Component {
         return e;
     }
 
-    onPreviewBeforeHook(e) {
-        //console.log(e);
-        return e;
-    }
-
-    onScroll(e) {
+    onCaretChange(e) {
+        //console.log('onCaretChange', e);
         if(!this.contentPath)
             return;
 
         // save the scroll positions
-        if(this.state.editor.isWysiwygMode() && e.data){
-            this.wysiwygScroll[this.contentPath] = this.state.editor.getCurrentModeEditor().scrollTop(); 
-        
+        if(this.state.editor.isWysiwygMode() && e){
+            this.wysiwygScroll[this.contentPath] = this.state.editor.getCurrentModeEditor().getScrollTop();
+            //console.log('onCaretChange:wysiwyg.scroll',this.contentPath,this.wysiwygScroll[this.contentPath]);
         } else {
-            this.markdownScroll[this.contentPath] = this.state.editor.getCurrentModeEditor().scrollTop(); 
+            this.markdownScroll[this.contentPath] = this.state.editor.getCurrentModeEditor().getScrollTop(); 
+            //console.log('onCaretChange:markdown.scroll',this.contentPath,this.markdownScroll[this.contentPath]);
         }
     }
 
@@ -256,13 +243,20 @@ class TuiEditor extends Component {
         window.removeEventListener('message', this.handleMessage.bind(this));
     }
 
-    setContent(data){
+    setContent(data, fileHash, savedHash){
+        //console.log('this.contentPath', this.contentPath);
+        //console.log('data.contentPath', data.contentPath);
+        //console.log('fileHash', fileHash);
+        //console.log('savedHash', savedHash);
         img_root = data.folderPath + '/';
         Config__img_max_width_percent = data.percent;
-        this.state.editor.setMarkdown(data.content, false);
-        this.contentSet = true;
-        
         const isSamePath = (this.contentPath === data.contentPath);
+        //console.log('isSamePath', isSamePath);
+        if ((!isSamePath) ||
+            (fileHash !== savedHash)) {
+            this.state.editor.setMarkdown(data.content, false);
+            this.contentSet = true;
+        }
         this.contentPath = data.contentPath;
         if (!isSamePath){
             const scrolls = this.state.editor.isWysiwygMode() ? this.wysiwygScroll : this.markdownScroll;
@@ -270,14 +264,15 @@ class TuiEditor extends Component {
             if(!sTop){
                 sTop = 0;    
             } 
-            this.state.editor.scrollTop(sTop);
-        } 
+            //console.log('sTop', this.contentPath, sTop);
+            this.state.editor.setScrollTop(sTop);
+        }
     }
 
     handleMessage(e) {
         switch (e.data.command) {
             case 'setContent':
-                this.setContent(e.data);
+                this.setContent(e.data, e.data.fileHash, e.data.savedHash);
                 break;
             case 'exec':
                 this.state.editor.exec(...e.data.args);
@@ -292,9 +287,9 @@ class TuiEditor extends Component {
                 break;
             case 'toggleMode':
                 if(!this.state.editor.isWysiwygMode()){
-                    this.state.editor.getUI().getModeSwitch()._changeWysiwyg();
+                    this.state.editor.changeMode('wysiwyg');
                 } else {
-                    this.state.editor.getUI().getModeSwitch()._changeMarkdown();
+                    this.state.editor.changeMode('markdown');
                 }
                 break;
             case 'imageMaxWidth':

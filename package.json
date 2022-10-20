@@ -870,6 +870,7 @@
     "dependencies": {
         "debounce": "^1.2.0",
         "handlebars": "^4.7.7",
+        "highlight.js": "^11.6.0",
         "moment": "^2.29.1"
     },
     "devDependencies": {
