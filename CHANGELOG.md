@@ -1,5 +1,32 @@
 # Updates
 
+## [1.5.0] - 2022-11-03
+
+### Changed
+
+- tui-editor version to 3.2 (contributed by kiyoka)
+
+### Fixed
+
+- Indent resetting [(issue: #81)](https://github.com/ryanmcalister/unotes/issues/81)
+- Action bar color theme [(issue: #91)](https://github.com/ryanmcalister/unotes/issues/91)
+- Writing <br> Creates text and new paragraph [(issue: #121)](https://github.com/ryanmcalister/unotes/issues/121)
+- Auto scroll function broken [(issue: #138)](https://github.com/ryanmcalister/unotes/issues/138)
+
+- Cursor jumping to beginning of file [(issue: #113)](https://github.com/ryanmcalister/unotes/issues/113) (contributed by kiyoka)
+- [(issue: #118)](https://github.com/ryanmcalister/unotes/issues/118) (contributed by kiyoka)
+- [(issue: #127)](https://github.com/ryanmcalister/unotes/issues/127) (contributed by kiyoka)
+
+### Added
+- inline Katex support
+
+### Removed
+- code block Katex support
+- 2x toolbar display setting
+
+### Known Issues
+- custom theme colors are not completely working
+
 ## [1.4.4] - 2022-08-30
 
 ### Fixed

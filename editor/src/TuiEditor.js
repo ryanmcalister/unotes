@@ -8,11 +8,8 @@ import codeSyntaxHighlight from '@toast-ui/editor-plugin-code-syntax-highlight/d
 import '@toast-ui/editor/dist/toastui-editor.css';
 import '@toast-ui/editor/dist/theme/toastui-editor-dark.css';
 import 'highlight.js/styles/github.css';
-import './override-light.css';
-import './override-contents-light.css';
-import './override.css';
-import './override-contents.css';
-import './override-hljs.css';
+import './override-editor-dark.css';
+import './override-editor.css';
 import remark from 'remark';
 import gfm from 'remark-gfm';
 import frontmatter from 'remark-frontmatter';

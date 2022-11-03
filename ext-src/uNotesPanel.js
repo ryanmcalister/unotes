@@ -502,7 +502,7 @@ class UNotesPanel {
 				<meta name="theme-color" content="#000000">
 				<title>UNotes</title>
 				<link rel="stylesheet" type="text/css" href="${styleUri}">
-				<meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src vscode-resource: vscode-webview-resource: ${this.panel.webview.cspSoure} http: https: data:; script-src 'unsafe-inline' 'unsafe-eval' vscode-resource: data:; font-src 'self' data:; style-src vscode-resource: 'unsafe-inline' http: https: data:;">
+				<meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src vscode-resource: vscode-webview-resource: ${this.panel.webview.cspSoure} http: https: data:; script-src 'unsafe-inline' 'unsafe-eval' vscode-resource: data:; font-src 'unsafe-inline' 'unsafe-eval' vscode-resource: data:; style-src vscode-resource: 'unsafe-inline' http: https: data:;">
 				<base href="${baseUri}/">
 			</head>
 

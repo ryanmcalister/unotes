@@ -1,7 +1,7 @@
 {
     "name": "unotes",
     "displayName": "UNOTES - Markdown Notes WYSIWYG",
-    "version": "1.4.4",
+    "version": "1.5.0",
     "author": {
         "name": "Ryan McAlister",
         "email": "rymc26@gmail.com"
@@ -17,7 +17,7 @@
         "url": "https://github.com/ryanmcalister/unotes.git"
     },
     "engines": {
-        "vscode": "^1.52.0"
+        "vscode": "^1.64.0"
     },
     "capabilities": {
         "virtualWorkspaces": true,
