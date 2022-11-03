@@ -26,14 +26,6 @@ var img_root = '';
 var Config__img_max_width_percent = null;
 var Temp__img_max_width_percent = null;
 
-function escapeRegExp(str) {
-    return str.replace(/([.*+?^=!:${}()|[]\/\\])/g, "\\$1");
-}
-
-function replaceAll(str, find, replace) {
-    return str.replace(new RegExp(escapeRegExp(find), 'g'), replace);
-}
-
  /**
  * KATEX code block replacer
  */
