@@ -42,7 +42,6 @@ or
 
 ### Known Issues
 - custom theme colors are not completely working currently.
-- custom font size / family is not working currently.
 - inline Katex escapes underscores
 
 # ᑌᑎotes

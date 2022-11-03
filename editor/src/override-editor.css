@@ -1,3 +1,28 @@
 .toastui-editor-ww-container {
     background-color: inherit;
   }
+
+  .toastui-editor-defaultUI {
+    border: 1px solid #dadde6;
+    font-family: var(--vscode-editor-font-family);
+    font-weight: var(--vscode-editor-font-weight);
+  }
+
+  .toastui-editor-tooltip {
+    background-color: #444;
+    font-size: 1em;
+    color: #fff;
+    font-family: var(--vscode-editor-font-family);
+  }
+
+  .ProseMirror {
+    font-family: var(--vscode-editor-font-family);
+    color: #222;
+    font-size: 1em;
+  }
+
+  .toastui-editor-contents {
+    font-size: 1em;
+    font-family: var(--vscode-editor-font-family);
+    font-weight: var(--vscode-editor-font-weight);
+  }
