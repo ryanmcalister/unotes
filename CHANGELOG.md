@@ -19,6 +19,7 @@
 
 ### Added
 - inline Katex support
+- support for `${workspaceFolder}` var in `unotes.rootPath` [(issue: #101)](https://github.com/ryanmcalister/unotes/issues/101) 
 
 ### Removed
 - code block Katex support

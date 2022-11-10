@@ -28,6 +28,7 @@ or
 - Action bar color theme [(issue: #91)](https://github.com/ryanmcalister/unotes/issues/91)
 - Writing <br> Creates text and new paragraph [(issue: #121)](https://github.com/ryanmcalister/unotes/issues/121)
 - Auto scroll function broken [(issue: #138)](https://github.com/ryanmcalister/unotes/issues/138)
+- `${workspaceFolder}` supported in `unotes.rootPath` [(issue: #101)](https://github.com/ryanmcalister/unotes/issues/101) 
 
 - Cursor jumping to beginning of file [(issue: #113)](https://github.com/ryanmcalister/unotes/issues/113) (contributed by kiyoka)
 - [(issue: #118)](https://github.com/ryanmcalister/unotes/issues/118) (contributed by kiyoka)
@@ -225,7 +226,7 @@ title: title
 | unotes.mediaFolder                | The folder where pasted or converted images will be saved. Relative to the note. Absolute paths also supported (e.g. `/f:/my/folder`)                                                                                                       |
 | unotes.newNoteTemplate               | The template used for new notes. Set to empty for no note template.               |
 | unotes.noteFileExtension          | The file extension used to filter and save note files. Default = '.md'                                                                                                                  |
-| unotes.rootPath                   | The root folder path for the note files.<br>Setting this value will turn off auto-tracking of external file changes.<br>If needed you can click the 'Refresh' button on the notes tree. |
+| unotes.rootPath                   | The root folder path for the note files.<br>Setting this value will turn off auto-tracking of external file changes.<br>If needed you can click the 'Refresh' button on the notes tree.<br>You can also use the `${workspaceFolder}` variable if needed in the path. (e.g. `${workspaceFolder}/notes`) |
 
 ## Font Customization
 
