@@ -181,7 +181,7 @@
                 "id": "unotes.wysTableTdBorder",
                 "description": "Unotes wysiwyg table cell border",
                 "defaults": {
-                    "dark": "#313131",
+                    "dark": "#555454",
                     "light": "#313131",
                     "highContrast": "#313131"
                 }

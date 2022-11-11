@@ -221,19 +221,26 @@
 }
 
 .toastui-editor-dark .ProseMirror,
-.toastui-editor-dark .toastui-editor-contents p,
-.toastui-editor-dark .toastui-editor-contents h1,
-.toastui-editor-dark .toastui-editor-contents h2,
-.toastui-editor-dark .toastui-editor-contents h3,
-.toastui-editor-dark .toastui-editor-contents h4,
-.toastui-editor-dark .toastui-editor-contents h5,
-.toastui-editor-dark .toastui-editor-contents h6 {
-  color: #fff;
+.toastui-editor-dark .toastui-editor-contents p {
+  color: var(--vscode-unotes-wysText);
 }
 
-.toastui-editor-dark .toastui-editor-contents h1,
+.toastui-editor-dark .toastui-editor-contents h1 {
+  color: var(--vscode-unotes-wysH1);
+}
+
 .toastui-editor-dark .toastui-editor-contents h2 {
-  border-color: #fff;
+  color: var(--vscode-unotes-wysH2);
+}
+
+.toastui-editor-dark .toastui-editor-contents h3,
+.toastui-editor-dark .toastui-editor-contents h4 {
+  color: var(--vscode-unotes-wysH3H4);
+}
+
+.toastui-editor-dark .toastui-editor-contents h5,
+.toastui-editor-dark .toastui-editor-contents h6 {
+  color: var(--vscode-unotes-wysH5H6);
 }
 
 .toastui-editor-dark .toastui-editor-contents del {
@@ -266,6 +273,10 @@
 
 .toastui-editor-dark .toastui-editor-contents div {
   color: #fff;
+}
+
+.toastui-editor-contents code {
+  text-shadow: none;
 }
 
 .toastui-editor-dark .toastui-editor-ww-code-block-language {
@@ -311,21 +322,31 @@
 }
 
 .toastui-editor-dark .toastui-editor-contents table {
-  border-color: #303238;
+  border-color: var(--vscode-unotes-wysTableTdBorder);
+}
+
+.toastui-editor-dark .toastui-editor-contents table th {
+  border-color: var(--vscode-unotes-wysTableThBorder);
+}
+
+.toastui-editor-dark .toastui-editor-contents table td {
+  border-color: var(--vscode-unotes-wysTableTdBorder);
 }
 
 .toastui-editor-dark .toastui-editor-contents table th,
 .toastui-editor-dark .toastui-editor-contents table td {
-  border-color: #303238;
+  border: 1px solid var(--vscode-unotes-wysTableTdBorder);
+  height: 26px;
 }
 
 .toastui-editor-dark .toastui-editor-contents table th {
-  background-color: #3a3c42;
+  background-color: var(--vscode-unotes-wysTableThBackground);
 }
 
 .toastui-editor-dark .toastui-editor-contents table td,
 .toastui-editor-dark .toastui-editor-contents table td p {
-  color: #fff;
+  color: var(--vscode-unotes-wysTableText);
+
 }
 
 .toastui-editor-dark .toastui-editor-contents td.toastui-editor-cell-selected {
