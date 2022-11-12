@@ -258,12 +258,12 @@
 }
 
 .toastui-editor-dark .toastui-editor-contents pre {
-  background-color: #232428;
+  background-color: var(--vscode-unotes-wysCodeBlockBackground);
 }
 
 .toastui-editor-dark .toastui-editor-contents pre code {
   background-color: transparent;
-  color: #fff;
+  color: var(--vscode-unotes-wysCodeBlockText);
 }
 
 .toastui-editor-dark .toastui-editor-contents code {
@@ -492,4 +492,54 @@
 
 .toastui-editor-dark .toastui-editor-contents .toastui-editor-md-preview-highlight::after {
   background-color: rgba(255, 250, 193, 0.25);
+}
+
+.toastui-editor-dark .toastui-editor-contents .token.operator {
+  color: #6dadca;
+}
+
+.toastui-editor-dark .toastui-editor-contents .token.keyword {
+  color: #CBA3C7;
+}
+
+.toastui-editor-dark .toastui-editor-contents .token.class-name {
+  color: #E16F74;
+}
+
+.toastui-editor-dark .toastui-editor-contents .token.punctuation {
+  color: #39B5B4;
+}
+
+.toastui-editor-dark .toastui-editor-contents .token.function {
+  color: #5A9BC9;
+}
+
+.toastui-editor-dark .toastui-editor-contents .token.parameter {
+  color: #AE7355;
+}
+
+.toastui-editor-dark .toastui-editor-contents .token .method .function .property-access {
+  color: #CDD3DE;
+}
+
+.toastui-editor-dark .toastui-editor-contents .token .property-access {
+  color: #439CCF;
+}
+
+.toastui-editor-dark .toastui-editor-contents .token.boolean {
+  color: #E65A4E;
+}
+
+.toastui-editor-dark .toastui-editor-contents .token.number {
+  color: #F89663;
+}
+
+.toastui-editor-dark .toastui-editor-contents .token.string {
+  color: #8CC98F;
+}
+
+.toastui-editor-dark .toastui-editor-contents code[class*=language-]::selection, code[class*=language-] ::selection, pre[class*=language-]::selection, pre[class*=language-] ::selection {
+
+  background: #5f7186b2;
+  background-color: rgba(105, 126, 151, 0.644);
 }

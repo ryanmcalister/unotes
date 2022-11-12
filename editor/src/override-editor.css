@@ -46,10 +46,22 @@
   font-weight: var(--vscode-editor-font-weight);
 }
 
+.toastui-editor-contents pre {
+  background-color: var(--vscode-unotes-wysCodeBlockBackground);
+}
+
+.toastui-editor-contents pre code {
+  color: var(--vscode-unotes-wysCodeBlockText);
+}
+
 /* ************************* */
 
 .toastui-editor-contents code {
   text-shadow: none;
+}
+
+.toastui-editor-contents .token.operator {
+  background-color: transparent;
 }
 
 .toastui-editor-main .toastui-editor-md-splitter {
