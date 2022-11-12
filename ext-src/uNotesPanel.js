@@ -115,7 +115,7 @@ class UNotesPanel {
                         await this.updateRemarkSettings();
                         break;
                     case 'resized':
-                        await UNotesPanel.recreate(this.extensionPath, this.currentNote)
+                        await UNotesPanel.recreate(this.extensionPath, this.currentNote);
                         break;
                     case 'convertImage':
                         const imageFilePath = Utils.toLowerCaseDriveLetter(path.normalize(message.path));
@@ -221,6 +221,7 @@ class UNotesPanel {
             this.disposables.push(vscode.commands.registerCommand("unotes.insertTemplate", () => {
                 this.insertTemplate();
             }));
+            this.disposables.push(vscode.window.onDidChangeActiveColorTheme(this.updateColorTheme.bind(this)));
 
             Utils.context.subscriptions.push(Config.onDidChange_editor_settings(this.updateEditorSettings.bind(this)));
             this.updateEditorSettings();
@@ -234,6 +235,10 @@ class UNotesPanel {
 
     async initialize() {
         await this.updateRemarkSettings();
+    }
+
+    updateColorTheme(e) {
+        UNotesPanel.recreate(this.extensionPath, this.currentNote);
     }
 
     updateEditorSettings() {
