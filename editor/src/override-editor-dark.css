@@ -538,6 +538,18 @@
   color: #8CC98F;
 }
 
+.toastui-editor-dark .toastui-editor-contents .token.constant {
+  color: #F064B6;
+}
+
+.toastui-editor-dark .toastui-editor-contents .token.selector {
+  color: #95E000;
+}
+
+.toastui-editor-dark .toastui-editor-contents .token.attr-value {
+  color: #1DB9FB;
+}
+
 .toastui-editor-dark .toastui-editor-contents code[class*=language-]::selection, code[class*=language-] ::selection, pre[class*=language-]::selection, pre[class*=language-] ::selection {
 
   background: #5f7186b2;
