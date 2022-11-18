@@ -8,11 +8,8 @@ import codeSyntaxHighlight from '@toast-ui/editor-plugin-code-syntax-highlight/d
 import '@toast-ui/editor/dist/toastui-editor.css';
 import '@toast-ui/editor/dist/theme/toastui-editor-dark.css';
 import 'highlight.js/styles/github.css';
-import './override-light.css';
-import './override-contents-light.css';
-import './override.css';
-import './override-contents.css';
-import './override-hljs.css';
+import './override-editor.css';
+import './override-editor-dark.css';
 import remark from 'remark';
 import gfm from 'remark-gfm';
 import frontmatter from 'remark-frontmatter';
@@ -28,14 +25,6 @@ var img_root = '';
 // image max width percent
 var Config__img_max_width_percent = null;
 var Temp__img_max_width_percent = null;
-
-function escapeRegExp(str) {
-    return str.replace(/([.*+?^=!:${}()|[]\/\\])/g, "\\$1");
-}
-
-function replaceAll(str, find, replace) {
-    return str.replace(new RegExp(escapeRegExp(find), 'g'), replace);
-}
 
  /**
  * KATEX code block replacer
@@ -90,7 +79,8 @@ class TuiEditor extends Component {
 
         this.state = {
             settings: {
-                display2X: false
+                display2X: false,
+                extraFocus: false
             }
         }
     }
@@ -170,6 +160,8 @@ class TuiEditor extends Component {
 
         window.addEventListener('message', this.handleMessage);
 
+        window.addEventListener('focus', this.onFocus.bind(this));
+        window.addEventListener('blur', this.onBlur.bind(this));
 
         this.setState({ editor });
 
@@ -199,6 +191,17 @@ class TuiEditor extends Component {
             return md;
         }
         return e;
+    }
+
+    onFocus(e) {
+        // call focus again. This is a hacky fix for issues#144.
+        if (this.state.settings.extraFocus) {
+            this.state.editor.getCurrentModeEditor().focus();
+        }
+    }
+
+    onBlur(e) {
+        //this.setState({ message: "Window lost focus"});    
     }
 
     onCaretChange(e) {
@@ -295,6 +298,10 @@ class TuiEditor extends Component {
             case 'imageMaxWidth':
                 Temp__img_max_width_percent = e.data.percent;
                 break;
+            case 'focus':
+                this.state.editor.getCurrentModeEditor().focus();
+                break;
+                
             default:
         }
 

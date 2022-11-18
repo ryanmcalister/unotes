@@ -20,14 +20,32 @@ or
 [Donate](https://www.buymeacoffee.com/ryanmcalister)
 
 
-# What's new in Unotes 1.4
+# What's new in Unotes 1.5
 
-- [Template Notes!](#template-notes)
-- Better support for remote file connections. (WSL/SSH)
-- '`Open In Unotes`' right-click menu option added
-- Absolute path support for media folder
-- Global image max width setting support
-- Image drag and drop / adding fixes
+### Fixed
+
+- Indent resetting [(issue: #81)](https://github.com/ryanmcalister/unotes/issues/81)
+- Action bar color theme [(issue: #91)](https://github.com/ryanmcalister/unotes/issues/91)
+- Writing <br> Creates text and new paragraph [(issue: #121)](https://github.com/ryanmcalister/unotes/issues/121)
+- Auto scroll function broken [(issue: #138)](https://github.com/ryanmcalister/unotes/issues/138)
+- `${workspaceFolder}` supported in `unotes.rootPath` [(issue: #101)](https://github.com/ryanmcalister/unotes/issues/101) 
+
+- Cursor jumping to beginning of file [(issue: #113)](https://github.com/ryanmcalister/unotes/issues/113) (contributed by kiyoka)
+- [(issue: #118)](https://github.com/ryanmcalister/unotes/issues/118) (contributed by kiyoka)
+- [(issue: #127)](https://github.com/ryanmcalister/unotes/issues/127) (contributed by kiyoka)
+
+### Added
+- inline Katex support
+- set focus hotkey [(issue: #144)](https://github.com/ryanmcalister/unotes/issues/144) (contributed by kiyoka)
+- `unotes.editor.extraFocus` setting
+
+### Removed
+- code block Katex support
+- 2x toolbar display setting
+
+### Known Issues
+- custom theme colors are not all working.
+- inline Katex escapes underscores
 
 # ᑌᑎotes
 
@@ -112,17 +130,17 @@ Template Example
 ### Math Typesetting
 
 - Only [KaTeX](https://katex.org) currently supported
+- Codeblock KaTeX no longer supported. Use inline blocks as shown below.
 
 #### KaTeX Example
 
-```katex
-\begin{aligned}
-\int_0^12\frac{x^3(1-x)^3}{10+x^2}\,dx &=\frac{22}{17}-\pi\\ \\
-\int_{-\infty}^\infty e^{-x^2}\,dx &=\sqrt{\pi}
-\end{aligned}
+```
+$$katex
+\sqrt{x^2+1}
+$$
 ```
 
-![KaTeX](https://raw.githubusercontent.com/ryanmcalister/unotes/master/resources/screenshots/katex.png)
+![KaTeX](https://raw.githubusercontent.com/ryanmcalister/unotes/master/resources/screenshots/katex_inline.png)
 
 
 ### Customizable Hotkeys
@@ -147,6 +165,8 @@ Template Example
 | Code Block              | Ctrl + Alt + c |
 | Horizontal Line         | Ctrl + Alt + l |
 | Toggle Mode             | Ctrl + Alt + m |
+| Focus                   | Ctrl + Alt + f |
+
 
 ### Formatting Options (Experimental)
 
@@ -204,19 +224,22 @@ title: title
 
 | Setting                           | Description                                                                                                                                                                             |
 | --------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| unotes.editor.display2X           | Display the button toolbar at twice the size                                                                                                                                            |
+| unotes.editor.display2X           | Display the button toolbar at twice the size (currently not supported)                                                                                                                                  |
 | unotes.editor.convertPastedImages | Automatically convert pasted images to local image files in a .media folder                                                                                                             |
+| unotes.editor.extraFocus | Call focus on the editor when window is focused                                                                                                              |
 | unotes.editor.imageMaxWidthPercent | Set the default global image max width percent (10, 25, 50, 75, 100)                                                                                                             |
 | unotes.mediaFolder                | The folder where pasted or converted images will be saved. Relative to the note. Absolute paths also supported (e.g. `/f:/my/folder`)                                                                                                       |
 | unotes.newNoteTemplate               | The template used for new notes. Set to empty for no note template.               |
 | unotes.noteFileExtension          | The file extension used to filter and save note files. Default = '.md'                                                                                                                  |
-| unotes.rootPath                   | The root folder path for the note files.<br>Setting this value will turn off auto-tracking of external file changes.<br>If needed you can click the 'Refresh' button on the notes tree. |
+| unotes.rootPath                   | The root folder path for the note files.<br>Setting this value will turn off auto-tracking of external file changes.<br>If needed you can click the 'Refresh' button on the notes tree.<br>You can also use the `${workspaceFolder}` variable if needed in the path. (e.g. `${workspaceFolder}/notes`) |
 
 ## Font Customization
 
 Unotes now uses the VSCode `editor.font-size`, `editor.font-family` and `editor.font-weight` settings.
 
 ## Custom Colors
+
+*** NOTE: Custom colors are not working with version 1.5.0. ***
 
 Custom colors can be set to override many of the themed or default color values. Note there are separate values for the wysywig, markdown editor and markdown preview panes.
 

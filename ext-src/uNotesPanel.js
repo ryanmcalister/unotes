@@ -115,7 +115,7 @@ class UNotesPanel {
                         await this.updateRemarkSettings();
                         break;
                     case 'resized':
-                        await UNotesPanel.recreate(this.extensionPath, this.currentNote)
+                        await UNotesPanel.recreate(this.extensionPath, this.currentNote);
                         break;
                     case 'convertImage':
                         const imageFilePath = Utils.toLowerCaseDriveLetter(path.normalize(message.path));
@@ -221,6 +221,10 @@ class UNotesPanel {
             this.disposables.push(vscode.commands.registerCommand("unotes.insertTemplate", () => {
                 this.insertTemplate();
             }));
+            this.disposables.push(vscode.commands.registerCommand("unotes.focus", () => {
+                this.focus();
+            }));
+            this.disposables.push(vscode.window.onDidChangeActiveColorTheme(this.updateColorTheme.bind(this)));
 
             Utils.context.subscriptions.push(Config.onDidChange_editor_settings(this.updateEditorSettings.bind(this)));
             this.updateEditorSettings();
@@ -234,6 +238,16 @@ class UNotesPanel {
 
     async initialize() {
         await this.updateRemarkSettings();
+    }
+
+    updateColorTheme(e) {
+        UNotesPanel.recreate(this.extensionPath, this.currentNote);
+    }
+
+    focus() {
+        if (this.panel.active) {
+            this.panel.webview.postMessage({ command: 'focus' });
+        }
     }
 
     updateEditorSettings() {
@@ -502,7 +516,7 @@ class UNotesPanel {
 				<meta name="theme-color" content="#000000">
 				<title>UNotes</title>
 				<link rel="stylesheet" type="text/css" href="${styleUri}">
-				<meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src vscode-resource: vscode-webview-resource: ${this.panel.webview.cspSoure} http: https: data:; script-src 'unsafe-inline' 'unsafe-eval' vscode-resource: data:; font-src 'self' data:; style-src vscode-resource: 'unsafe-inline' http: https: data:;">
+				<meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src vscode-resource: vscode-webview-resource: ${this.panel.webview.cspSoure} http: https: data:; script-src 'unsafe-inline' 'unsafe-eval' vscode-resource: data:; font-src 'unsafe-inline' 'unsafe-eval' vscode-resource: data:; style-src vscode-resource: 'unsafe-inline' http: https: data:;">
 				<base href="${baseUri}/">
 			</head>
 
