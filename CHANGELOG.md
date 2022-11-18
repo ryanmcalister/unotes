@@ -20,6 +20,8 @@
 ### Added
 - inline Katex support
 - support for `${workspaceFolder}` var in `unotes.rootPath` [(issue: #101)](https://github.com/ryanmcalister/unotes/issues/101) 
+- set focus keyboard shortcut [(issue: #144)](https://github.com/ryanmcalister/unotes/issues/144)
+- `unotes.editor.extraFocus` setting
 
 ### Removed
 - code block Katex support

@@ -79,7 +79,8 @@ class TuiEditor extends Component {
 
         this.state = {
             settings: {
-                display2X: false
+                display2X: false,
+                extraFocus: false
             }
         }
     }
@@ -159,6 +160,8 @@ class TuiEditor extends Component {
 
         window.addEventListener('message', this.handleMessage);
 
+        window.addEventListener('focus', this.onFocus.bind(this));
+        window.addEventListener('blur', this.onBlur.bind(this));
 
         this.setState({ editor });
 
@@ -188,6 +191,17 @@ class TuiEditor extends Component {
             return md;
         }
         return e;
+    }
+
+    onFocus(e) {
+        // call focus again. This is a hacky fix for issues#144.
+        if (this.state.settings.extraFocus) {
+            this.state.editor.getCurrentModeEditor().focus();
+        }
+    }
+
+    onBlur(e) {
+        //this.setState({ message: "Window lost focus"});    
     }
 
     onCaretChange(e) {
@@ -284,6 +298,9 @@ class TuiEditor extends Component {
             case 'imageMaxWidth':
                 Temp__img_max_width_percent = e.data.percent;
                 break;
+            case 'focus':
+                this.state.editor.getCurrentModeEditor().focus();
+                
             default:
         }
 

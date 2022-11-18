@@ -221,6 +221,9 @@ class UNotesPanel {
             this.disposables.push(vscode.commands.registerCommand("unotes.insertTemplate", () => {
                 this.insertTemplate();
             }));
+            this.disposables.push(vscode.commands.registerCommand("unotes.focus", () => {
+                this.focus();
+            }));
             this.disposables.push(vscode.window.onDidChangeActiveColorTheme(this.updateColorTheme.bind(this)));
 
             Utils.context.subscriptions.push(Config.onDidChange_editor_settings(this.updateEditorSettings.bind(this)));
@@ -239,6 +242,12 @@ class UNotesPanel {
 
     updateColorTheme(e) {
         UNotesPanel.recreate(this.extensionPath, this.currentNote);
+    }
+
+    focus() {
+        if (this.panel.active) {
+            this.panel.webview.postMessage({ command: 'focus' });
+        }
     }
 
     updateEditorSettings() {

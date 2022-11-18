@@ -59,6 +59,11 @@
                     "default": false,
                     "markdownDescription": "Convert pasted images to local files"
                 },
+                "unotes.editor.extraFocus": {
+                    "type": "boolean",
+                    "default": false,
+                    "markdownDescription": "Call focus on editor when window focused"
+                },
                 "unotes.rootPath": {
                     "type": "string",
                     "default": null,
@@ -580,6 +585,14 @@
                 }
             },
             {
+                "command": "unotes.focus",
+                "title": "Focus",
+                "icon": {
+                    "light": "resources/light/refresh.svg",
+                    "dark": "resources/dark/refresh.svg"
+                }
+            },
+            {
                 "command": "unotes.toggleMode",
                 "title": "Toggle Editor Mode"
             },
@@ -847,6 +860,11 @@
                 "command": "unotes.openWith",
                 "key": "ctrl+alt+y",
                 "mac": "cmd+alt+y"
+            },
+            {
+                "command": "unotes.focus",
+                "key": "ctrl+alt+f",
+                "mac": "cmd+alt+f"
             }
         ],
         "viewsContainers": {

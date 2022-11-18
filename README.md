@@ -36,13 +36,15 @@ or
 
 ### Added
 - inline Katex support
+- set focus hotkey [(issue: #144)](https://github.com/ryanmcalister/unotes/issues/144) (contributed by kiyoka)
+- `unotes.editor.extraFocus` setting
 
 ### Removed
 - code block Katex support
 - 2x toolbar display setting
 
 ### Known Issues
-- custom theme colors are not completely working currently.
+- custom theme colors are not all working.
 - inline Katex escapes underscores
 
 # ᑌᑎotes
@@ -163,6 +165,8 @@ $$
 | Code Block              | Ctrl + Alt + c |
 | Horizontal Line         | Ctrl + Alt + l |
 | Toggle Mode             | Ctrl + Alt + m |
+| Focus                   | Ctrl + Alt + f |
+
 
 ### Formatting Options (Experimental)
 
@@ -222,6 +226,7 @@ title: title
 | --------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | unotes.editor.display2X           | Display the button toolbar at twice the size (currently not supported)                                                                                                                                  |
 | unotes.editor.convertPastedImages | Automatically convert pasted images to local image files in a .media folder                                                                                                             |
+| unotes.editor.extraFocus | Call focus on the editor when window is focused                                                                                                              |
 | unotes.editor.imageMaxWidthPercent | Set the default global image max width percent (10, 25, 50, 75, 100)                                                                                                             |
 | unotes.mediaFolder                | The folder where pasted or converted images will be saved. Relative to the note. Absolute paths also supported (e.g. `/f:/my/folder`)                                                                                                       |
 | unotes.newNoteTemplate               | The template used for new notes. Set to empty for no note template.               |
