@@ -300,6 +300,7 @@ class TuiEditor extends Component {
                 break;
             case 'focus':
                 this.state.editor.getCurrentModeEditor().focus();
+                break;
                 
             default:
         }
