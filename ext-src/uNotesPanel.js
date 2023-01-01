@@ -86,6 +86,8 @@ class UNotesPanel {
             this.panel.webview.onDidReceiveMessage(async message => {
                 switch (message.command) {
                     case 'applyChanges':
+                        if (message.contentPath != this.currentPath) break;
+
                         // kind of a hack to replace pasted images with actual files
                         if (this.imageToReplace){
                             const newContent = await this.replaceImage(message.content, this.imageToReplace);
@@ -137,6 +139,15 @@ class UNotesPanel {
                         else {
                             this.imageToConvert = message.data;
                         }
+                        break;
+                    case 'console':
+                        console.log(`>> ${message.content}`)
+                        break;
+                    case 'reopen':
+                        if (message.error){
+                            vscode.window.showWarningMessage(message.error);
+                        }
+                        UNotesPanel.recreate(this.extensionPath, this.currentNote);
                         break;
                     default:
                         console.log("Unknown webview message received:")

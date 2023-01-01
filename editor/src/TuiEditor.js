@@ -255,21 +255,54 @@ class TuiEditor extends Component {
         Config__img_max_width_percent = data.percent;
         const isSamePath = (this.contentPath === data.contentPath);
         //console.log('isSamePath', isSamePath);
+        
+        // clear the selection to avoid an exception with sizes column sizes
+        if (!isSamePath) {
+            this.state.editor.setSelection(0,0);
+        }
+
         if ((!isSamePath) ||
             (fileHash !== savedHash)) {
-            this.state.editor.setMarkdown(data.content, false);
-            this.contentSet = true;
+            try {
+                this.state.editor.setMarkdown(data.content, false);
+                this.contentSet = true;
+
+            } catch(error) {
+                this.contentSet = false;    // turn off saving ability for safety
+                console.log(error);
+                this.consoleMessage(`Error: ${error}`);
+                this.reopenWindow("The Unotes panel has encountered an internal error.");
+            }
         }
         this.contentPath = data.contentPath;
         if (!isSamePath){
-            const scrolls = this.state.editor.isWysiwygMode() ? this.wysiwygScroll : this.markdownScroll;
-            let sTop = scrolls[this.contentPath];
-            if(!sTop){
-                sTop = 0;    
-            } 
-            //console.log('sTop', this.contentPath, sTop);
-            this.state.editor.setScrollTop(sTop);
+            try {
+                const scrolls = this.state.editor.isWysiwygMode() ? this.wysiwygScroll : this.markdownScroll;
+                let sTop = scrolls[this.contentPath];
+                if(!sTop){
+                    sTop = 0;    
+                } 
+                //console.log('sTop', this.contentPath, sTop);
+                this.state.editor.setScrollTop(sTop);
+            } catch(error) {
+                console.log(error);
+                this.consoleMessage(`Error: ${error}`);
+            }
         }
+    }
+
+    consoleMessage(msg) {
+        window.vscode.postMessage({
+            command: 'console',
+            content: msg
+        });
+    }
+
+    reopenWindow(error) {
+        window.vscode.postMessage({
+            command: 'reopen',
+            error
+        });
     }
 
     handleMessage(e) {
@@ -315,7 +348,8 @@ class TuiEditor extends Component {
         }
         window.vscode.postMessage({
             command: 'applyChanges',
-            content: this.state.editor.getMarkdown()
+            content: this.state.editor.getMarkdown(),
+            contentPath: this.contentPath
         });
     }
 
