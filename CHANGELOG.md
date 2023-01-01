@@ -1,5 +1,16 @@
 # Updates
 
+## [1.5.1] - 2023-01-01
+
+### Fixed
+
+- Editor crashes when tables have selections
+
+### Added
+
+- Error reporting on markdown setting
+- Safeguards to prevent wrong file writes
+
 ## [1.5.0] - 2022-11-03
 
 ### Changed
