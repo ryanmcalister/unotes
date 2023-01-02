@@ -112,7 +112,7 @@ class UNoteProvider {
     }
 
     async saveNoteTree() {
-        console.log("Saving note tree...");
+        //console.log("Saving note tree...");
         await this.noteTree.save();
     }
 
