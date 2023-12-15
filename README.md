@@ -8,6 +8,10 @@
 
 ![Intro](https://raw.githubusercontent.com/ryanmcalister/unotes/master/resources/screenshots/intro.gif)
 
+# Important Warning and Notice for Unotes 1.5 users
+
+Because of potentially data loss with `Unotes v1.5` and issues with `undo`, we've un-published the extension from the VSCode Marketplace. Users can still manually download and install any release from GitHub. A `1.4` version is highly recommended until issues with `tui-editor` can be resolved. Apologies for any inconvenience.  
+
 # ♥
 
 If you find Unotes useful, please [write a review](https://marketplace.visualstudio.com/items?itemName=ryanmcalister.Unotes&ssr=false#review-details).
@@ -40,9 +44,12 @@ or
 - code block Katex support
 - 2x toolbar display setting
 
-### Known Issues
+### Known Issues with Unotes 1.5
 - custom theme colors are not all working.
 - inline Katex escapes underscores
+- `undo` does not work reliably
+- `paste` into code block can cause data loss
+- switching notes in markdown view can cause the view to not update
 
 # ᑌᑎotes
 
