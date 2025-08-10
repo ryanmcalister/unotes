@@ -894,6 +894,7 @@
     "devDependencies": {
         "@types/node": "^18.19.0",
         "@types/vscode": "^1.68.1",
+        "@vscode/vsce": "^3.6.0",
         "cross-env": "^7.0.3",
         "run-script-os": "^1.1.6",
         "ts-loader": "^9.5.1",
