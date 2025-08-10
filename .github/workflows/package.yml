@@ -21,9 +21,10 @@ jobs:
       run: echo -e '[url "https://github.com/"]\n  insteadOf = "git://github.com/"' >> ~/.gitconfig
     - name: npm install, build
       run: |
-        npm ci
+        # Try npm ci first, fall back to npm install if lock file is out of sync
+        npm ci || npm install
         cd editor
-        npm ci
+        npm ci || npm install
         cd ..
         npm install -g vsce
         npm run pack
