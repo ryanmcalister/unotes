@@ -905,7 +905,7 @@
     "scripts": {
         "vscode:prepublish": "npm run build-editor && npm run bundle",
         "build-all": "npm run build-editor && npm run build",
-        "build": "cross-env NODE_OPTIONS=--openssl-legacy-provider webpack --mode development",
+        "build": "webpack --mode development",
         "remove-build": "run-script-os",
         "remove-build:win32": "IF EXIST ./build\\NUL (rmdir /s /q build)",
         "remove-build:nix": "if [ -d \"build\" ]; then rm -r build; fi;",
@@ -914,11 +914,11 @@
         "move-build": "run-script-os",
         "move-build:win32": "if exist editor\\build (move editor\\build build)",
         "move-build:nix": "if [ -d \"editor/build\" ]; then mv editor/build build; fi;",
-        "bundle": "cross-env NODE_OPTIONS=--openssl-legacy-provider webpack --mode production",
+        "bundle": "webpack --mode production",
         "pack": "vsce package",
         "pub": "vsce publish",
-        "compile": "cross-env NODE_OPTIONS=--openssl-legacy-provider webpack --mode none",
-        "watch": "cross-env NODE_OPTIONS=--openssl-legacy-provider webpack --watch --development --info-verbosity verbose"
+        "compile": "webpack --mode none",
+        "watch": "webpack --watch --development --info-verbosity verbose"
     },
     "eslintConfig": {
         "extends": "react-app"
