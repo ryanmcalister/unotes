@@ -8,3 +8,5 @@ ext-src/
 tsconfig.json
 webpack.config.js
 *.vsix
+.env
+**/.env

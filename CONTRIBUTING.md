@@ -33,7 +33,7 @@ In the `root` folder (not editor) run...
 npm run build-editor
 ```
 
-*Note: Only `npm` <= `v16.0` supported*
+*Note: Both editor and extension components now use modern build systems compatible with Node.js 18+. No version restrictions.*
 
 ### The Unotes Extension Project
 

@@ -1,5 +1,11 @@
 # Updates
 
+## [1.5.3] - 2025-08-10
+
+### Changed
+
+- Updated backend dependencies from legacy versions to modern, Node.js 20+ compatible versions.
+
 ## [1.5.2] - 2023-01-01
 
 ### Fixed
